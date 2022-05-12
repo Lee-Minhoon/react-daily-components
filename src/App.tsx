@@ -9,11 +9,23 @@ function App() {
   return (
     <div style={{ padding: "20px" }}>
       <SelectList
-        itemList={["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]}
+        itemList={[
+          "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+        ]}
         value={value}
         placeholder={"Do Select!!!"}
-        activeColor={"gray"}
-        inactiveColor={"silver"}
+        outlineWidth={1}
+        outlineColor={"gray"}
         maxItemCount={8}
         handler={setValue}
       />

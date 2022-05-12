@@ -13,8 +13,7 @@ interface SelectListProps {
   textColor?: string;
   borderRadius?: number;
   outlineWidth?: number;
-  activeColor?: string;
-  inactiveColor?: string;
+  outlineColor?: string;
   selectListActiveStyle?: React.CSSProperties;
   selectListInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
@@ -37,8 +36,7 @@ const SelectList = ({
   textColor = "gray",
   borderRadius = 5,
   outlineWidth = 1,
-  activeColor = "gray",
-  inactiveColor = "silver",
+  outlineColor = "gray",
   selectListActiveStyle,
   selectListInactiveStyle,
   selectWrapperActiveStyle,
@@ -76,13 +74,14 @@ const SelectList = ({
     <Style.SelectList
       ref={ref}
       isOpen={isOpen}
-      maxItemCount={maxItemCount}
+      maxItemCount={
+        itemList.length > maxItemCount ? maxItemCount : itemList.length
+      }
       width={width}
       height={height}
       borderRadius={borderRadius}
       outlineWidth={outlineWidth}
-      activeColor={activeColor}
-      inactiveColor={inactiveColor}
+      outlineColor={outlineColor}
       style={isOpen ? selectListActiveStyle : selectListInactiveStyle}
     >
       <Style.SelectWrapper
@@ -90,8 +89,7 @@ const SelectList = ({
         height={height}
         borderRadius={borderRadius}
         outlineWidth={outlineWidth}
-        activeColor={activeColor}
-        inactiveColor={inactiveColor}
+        outlineColor={outlineColor}
         style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
       >
         <Style.Input
@@ -102,24 +100,26 @@ const SelectList = ({
           textColor={textColor}
         />
         <Style.Button onClick={handleOpenClick}>
-          <svg style={{ display: "block" }} viewBox="0 0 20 20">
-            <polyline
-              stroke={isOpen ? activeColor : inactiveColor}
-              strokeWidth={1}
-              points="2 6 10 14 18 6 10 14"
-            />
-          </svg>
+          <Style.Svg
+            viewBox="0 0 20 20"
+            isOpen={isOpen}
+            outlineColor={outlineColor}
+            outlineWidth={outlineWidth}
+          >
+            <polyline points="2 6 10 14 18 6 10 14" />
+          </Style.Svg>
         </Style.Button>
       </Style.SelectWrapper>
       {isOpen && (
         <Style.List
-          maxItemCount={maxItemCount}
+          maxItemCount={
+            itemList.length > maxItemCount ? maxItemCount : itemList.length
+          }
           height={height}
           fontSize={fontSize}
           textColor={textColor}
           borderRadius={borderRadius}
-          activeColor={activeColor}
-          inactiveColor={inactiveColor}
+          outlineColor={outlineColor}
           style={isOpen ? listActiveStyle : listInactiveStyle}
         >
           {itemList.map((item, index) => (
@@ -127,6 +127,7 @@ const SelectList = ({
               key={index}
               onClick={() => handleSelectClick(item)}
               height={height}
+              borderRadius={borderRadius}
               style={isOpen ? itemActiveStyle : itemInactiveStyle}
             >
               {item}

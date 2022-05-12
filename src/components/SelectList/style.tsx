@@ -10,16 +10,7 @@ export interface SelectListStyleProps {
   textColor?: string;
   borderRadius?: number;
   outlineWidth?: number;
-  activeColor?: string;
-  inactiveColor?: string;
-  selectListActiveStyle?: React.CSSProperties;
-  selectListInactiveStyle?: React.CSSProperties;
-  selectWrapperActiveStyle?: React.CSSProperties;
-  selectWrapperInactiveStyle?: React.CSSProperties;
-  listActiveStyle?: React.CSSProperties;
-  listInactiveStyle?: React.CSSProperties;
-  itemActiveStyle?: React.CSSProperties;
-  itemInactiveStyle?: React.CSSProperties;
+  outlineColor?: string;
 }
 
 export const SelectList = styled.div<SelectListStyleProps>`
@@ -33,13 +24,12 @@ export const SelectList = styled.div<SelectListStyleProps>`
       isOpen ? `${(maxItemCount + 1) * height}px` : "100%"};
     top: 0;
     left: 0;
-    outline: ${({
-      isOpen,
-      outlineWidth,
-      inactiveColor: inactiveOutlineColor,
-    }) =>
-      isOpen ? `${outlineWidth}px solid ${inactiveOutlineColor}` : "initial"};
+    outline: ${({ isOpen, outlineWidth, outlineColor }) =>
+      isOpen ? `${outlineWidth}px solid ${outlineColor}` : "initial"};
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    opacity: 0.5;
+    box-shadow: ${({ isOpen }) =>
+      isOpen ? "0 0 6px rgba(0, 0, 0, 0.1)" : "initial"};
   }
 `;
 
@@ -49,21 +39,15 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
   align-items: center;
   height: ${({ height }) => `${height}px`};
   &::after {
+    opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    outline: ${({
-      isOpen,
-      outlineWidth,
-      activeColor: activeOutlineColor,
-      inactiveColor: inactiveOutlineColor,
-    }) =>
-      isOpen
-        ? `${outlineWidth}px solid ${activeOutlineColor}`
-        : `${outlineWidth}px solid ${inactiveOutlineColor}`};
+    outline: ${({ outlineWidth, outlineColor }) =>
+      `${outlineWidth}px solid ${outlineColor}`};
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     border-bottom-left-radius: ${({ isOpen, borderRadius }) =>
       isOpen ? "initial" : `${borderRadius}px`};
@@ -97,6 +81,13 @@ export const Button = styled.button<SelectListStyleProps>`
   background-color: initial;
 `;
 
+export const Svg = styled.svg<SelectListStyleProps>`
+  display: block;
+  stroke: ${({ outlineColor }) => outlineColor};
+  opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
+  stroke-width: ${({ outlineWidth }) => outlineWidth};
+`;
+
 export const List = styled.ul<SelectListStyleProps>`
   list-style-type: none;
   color: ${({ textColor }) => textColor};
@@ -104,23 +95,23 @@ export const List = styled.ul<SelectListStyleProps>`
   margin: 0;
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
-  overflow-y: scroll;
+  overflow-y: auto;
   position: absolute;
   background-color: white;
   width: 100%;
   font-size: ${({ fontSize }) => `${fontSize}px`};
   z-index: 2;
-  border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  border-bottom-left-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
   ::-webkit-scrollbar {
     width: 12px;
   }
   ::-webkit-scrollbar-track {
-    background: #efefef;
+    background-color: whitesmoke;
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
@@ -130,8 +121,11 @@ export const Item = styled.li<SelectListStyleProps>`
   height: ${({ height }) => `${height}px`};
   padding: 0 10px;
   line-height: 30px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
   :hover {
     cursor: pointer;
-    background-color: gainsboro;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
 `;
