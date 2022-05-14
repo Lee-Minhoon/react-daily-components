@@ -1,10 +1,12 @@
 import * as Style from "./style";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import useInput from "../../hooks/useInput";
 
 interface SelectListProps {
   itemList: Array<any>;
   value: any;
-  handler: (value: any) => void;
+  handleSelect: (value: any) => void;
+  searchable?: boolean;
   placeholder?: string;
   maxItemCount?: number;
   width?: number;
@@ -27,7 +29,8 @@ interface SelectListProps {
 const SelectList = ({
   itemList,
   value,
-  handler,
+  handleSelect,
+  searchable = false,
   placeholder,
   maxItemCount = 8,
   width = 200,
@@ -47,6 +50,8 @@ const SelectList = ({
   itemInactiveStyle,
 }: SelectListProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [resultList, setResultList] = useState<Array<any>>(itemList);
+  const searchInput = useInput("");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,15 +72,37 @@ const SelectList = ({
 
   const handleSelectClick = useCallback((item: any) => {
     setIsOpen(false);
-    handler(item);
+    handleSelect(item);
+    searchInput.setValue(item);
   }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.nativeEvent.key === "Enter") {
+        itemList.map((item) => {
+          if (item.content === searchInput.value) handleSelect(item);
+        });
+        setIsOpen(false);
+      } else if (e.nativeEvent.key === "Escape") {
+        setIsOpen(false);
+      } else {
+        setResultList(
+          itemList.filter((item) => {
+            if (item.indexOf(searchInput.value) !== -1) return item;
+          })
+        );
+        setIsOpen(true);
+      }
+    },
+    [searchInput.value]
+  );
 
   return (
     <Style.SelectList
       ref={ref}
       isOpen={isOpen}
       maxItemCount={
-        itemList.length > maxItemCount ? maxItemCount : itemList.length
+        resultList.length > maxItemCount ? maxItemCount : resultList.length
       }
       width={width}
       height={height}
@@ -92,13 +119,23 @@ const SelectList = ({
         outlineColor={outlineColor}
         style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
       >
-        <Style.Input
-          value={value}
-          placeholder={placeholder}
-          readOnly
-          fontSize={fontSize}
-          textColor={textColor}
-        />
+        {searchable ? (
+          <Style.Input
+            {...searchInput}
+            placeholder={placeholder}
+            fontSize={fontSize}
+            textColor={textColor}
+            onKeyUp={(e) => handleKeyDown(e)}
+          />
+        ) : (
+          <Style.Input
+            value={value}
+            placeholder={placeholder}
+            readOnly
+            fontSize={fontSize}
+            textColor={textColor}
+          />
+        )}
         <Style.Button onClick={handleOpenClick}>
           <Style.Svg
             viewBox="0 0 20 20"
@@ -113,7 +150,7 @@ const SelectList = ({
       {isOpen && (
         <Style.List
           maxItemCount={
-            itemList.length > maxItemCount ? maxItemCount : itemList.length
+            resultList.length > maxItemCount ? maxItemCount : resultList.length
           }
           height={height}
           fontSize={fontSize}
@@ -122,7 +159,7 @@ const SelectList = ({
           outlineColor={outlineColor}
           style={isOpen ? listActiveStyle : listInactiveStyle}
         >
-          {itemList.map((item, index) => (
+          {resultList.map((item, index) => (
             <Style.Item
               key={index}
               onClick={() => handleSelectClick(item)}

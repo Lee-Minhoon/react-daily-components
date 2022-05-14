@@ -2,9 +2,14 @@ import { useState } from "react";
 
 import "./App.css";
 import { SelectList } from "./components";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [value, setValue] = useState<string>("");
+
+  const handler = (page: number) => {
+    console.log(page);
+  };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -23,13 +28,23 @@ function App() {
           "K",
         ]}
         value={value}
-        placeholder={"Do Select!!!"}
         outlineWidth={1}
+        searchable={true}
         outlineColor={"gray"}
-        maxItemCount={8}
-        handler={setValue}
+        maxItemCount={10}
+        handleSelect={setValue}
       />
-      <div>testetsetset</div>
+      <br />
+      <br />
+      <br />
+      <Pagination
+        totalPages={15}
+        currentPage={5}
+        block={10}
+        width={500}
+        handleClick={handler}
+        color={"gray"}
+      />
     </div>
   );
 }

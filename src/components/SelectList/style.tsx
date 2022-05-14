@@ -67,6 +67,8 @@ export const Input = styled.input<SelectListStyleProps>`
   outline: none;
   color: ${({ textColor }) => textColor};
   font-size: ${({ fontSize }) => `${fontSize}px`};
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Button = styled.button<SelectListStyleProps>`
