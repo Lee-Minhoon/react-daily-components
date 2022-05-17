@@ -6,7 +6,7 @@ interface SelectListProps {
   itemList: Array<any>;
   value: any;
   handleSelect: (value: any) => void;
-  searchable?: boolean;
+  isSearchable?: boolean;
   placeholder?: string;
   maxItemCount?: number;
   width?: number;
@@ -30,7 +30,7 @@ const SelectList = ({
   itemList,
   value,
   handleSelect,
-  searchable = false,
+  isSearchable: searchable = false,
   placeholder,
   maxItemCount = 8,
   width = 200,

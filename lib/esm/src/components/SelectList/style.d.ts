@@ -9,16 +9,7 @@ export interface SelectListStyleProps {
     textColor?: string;
     borderRadius?: number;
     outlineWidth?: number;
-    activeColor?: string;
-    inactiveColor?: string;
-    selectListActiveStyle?: React.CSSProperties;
-    selectListInactiveStyle?: React.CSSProperties;
-    selectWrapperActiveStyle?: React.CSSProperties;
-    selectWrapperInactiveStyle?: React.CSSProperties;
-    listActiveStyle?: React.CSSProperties;
-    listInactiveStyle?: React.CSSProperties;
-    itemActiveStyle?: React.CSSProperties;
-    itemInactiveStyle?: React.CSSProperties;
+    outlineColor?: string;
 }
 export declare const SelectList: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
@@ -36,6 +27,10 @@ export declare const Button: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & SelectListStyleProps, import("react").DetailedHTMLProps<import("react").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, {}>;
+export declare const Svg: import("@emotion/styled").StyledComponent<{
+    theme?: import("@emotion/react").Theme | undefined;
+    as?: import("react").ElementType<any> | undefined;
+} & SelectListStyleProps, import("react").SVGProps<SVGSVGElement>, {}>;
 export declare const List: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
