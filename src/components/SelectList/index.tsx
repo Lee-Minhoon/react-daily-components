@@ -20,17 +20,15 @@ interface SelectListProps {
   selectListInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
   selectWrapperInactiveStyle?: React.CSSProperties;
-  listActiveStyle?: React.CSSProperties;
-  listInactiveStyle?: React.CSSProperties;
-  itemActiveStyle?: React.CSSProperties;
-  itemInactiveStyle?: React.CSSProperties;
+  listStyle?: React.CSSProperties;
+  itemStyle?: React.CSSProperties;
 }
 
 const SelectList = ({
   itemList,
   value,
   handleSelect,
-  isSearchable: searchable = false,
+  isSearchable = false,
   placeholder,
   maxItemCount = 8,
   width = 200,
@@ -44,10 +42,8 @@ const SelectList = ({
   selectListInactiveStyle,
   selectWrapperActiveStyle,
   selectWrapperInactiveStyle,
-  listActiveStyle,
-  listInactiveStyle,
-  itemActiveStyle,
-  itemInactiveStyle,
+  listStyle,
+  itemStyle,
 }: SelectListProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resultList, setResultList] = useState<Array<any>>(itemList);
@@ -119,7 +115,7 @@ const SelectList = ({
         outlineColor={outlineColor}
         style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
       >
-        {searchable ? (
+        {isSearchable ? (
           <Style.Input
             {...searchInput}
             placeholder={placeholder}
@@ -157,7 +153,7 @@ const SelectList = ({
           textColor={textColor}
           borderRadius={borderRadius}
           outlineColor={outlineColor}
-          style={isOpen ? listActiveStyle : listInactiveStyle}
+          style={listStyle}
         >
           {resultList.map((item, index) => (
             <Style.Item
@@ -165,7 +161,7 @@ const SelectList = ({
               onClick={() => handleSelectClick(item)}
               height={height}
               borderRadius={borderRadius}
-              style={isOpen ? itemActiveStyle : itemInactiveStyle}
+              style={itemStyle}
             >
               {item}
             </Style.Item>

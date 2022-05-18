@@ -4,13 +4,23 @@ import "./App.css";
 import { SelectList } from "./components";
 import LoadingBar from "./components/LoadingBar";
 import Pagination from "./components/Pagination";
+import TimePicker from "./components/TimePicker";
 import Word from "./components/Word";
+import { Time } from "./types/time";
 
 function App() {
   const [value, setValue] = useState<string>("");
 
   const handler = (page: number) => {
     console.log(page);
+  };
+
+  console.log(Time.hourPassed(23));
+  console.log(Time.minPassed(1379));
+  console.log(Time.secondsPassed(86400));
+
+  const handle = (item: any) => {
+    console.log(item);
   };
 
   return (
@@ -53,14 +63,19 @@ function App() {
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
-      <LoadingBar
-        backgroundColor="pink"
-        spinnerBodyColor="gray"
-        spinnerBarColor="blue"
-        spinnerSize={60}
-        spinnerBorderWidth={10}
-        isBlockedBackground={false}
+      <TimePicker
+        value={value}
+        outlineWidth={1}
+        outlineColor={"gray"}
+        handleSelect={handle}
+        is24Hour={true}
       />
+      <br />
+      <br />
+      <br />
+      <Word>{`Hello World!!!`}</Word>
+      <Word>{`Hello World!!!`}</Word>
+      <Word>{`Hello World!!!`}</Word>
     </div>
   );
 }

@@ -34,10 +34,8 @@ The official distribution is from version 1.0.0.
 | selectListInactiveStyle?   | React.CSSProperties | preparing... | -        |
 | selectWrapperActiveStyle?  | React.CSSProperties | preparing... | -        |
 | selectWrapperIactiveStyle? | React.CSSProperties | preparing... | -        |
-| listActiveStyle?           | React.CSSProperties | preparing... | -        |
-| listInactiveStyle?         | React.CSSProperties | preparing... | -        |
-| itemActiveStyle?           | React.CSSProperties | preparing... | -        |
-| itemInativeStyle?          | React.CSSProperties | preparing... | -        |
+| listStyle?                 | React.CSSProperties | preparing... | -        |
+| itemStyle?                 | React.CSSProperties | preparing... | -        |
 
 ## Pagination
 

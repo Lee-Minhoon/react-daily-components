@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export interface SelectListStyleProps {
   isOpen?: boolean;
-  placeholder?: string;
   maxItemCount?: number;
   width?: number;
   height?: number;
@@ -90,32 +89,28 @@ export const Svg = styled.svg<SelectListStyleProps>`
   stroke-width: ${({ outlineWidth }) => outlineWidth};
 `;
 
-export const List = styled.ul<SelectListStyleProps>`
-  list-style-type: none;
+export const ListContainer = styled.div<SelectListStyleProps>`
   color: ${({ textColor }) => textColor};
-  padding: 0;
-  margin: 0;
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
-  overflow-y: auto;
   position: absolute;
+  display: flex;
   background-color: white;
   width: 100%;
   font-size: ${({ fontSize }) => `${fontSize}px`};
   z-index: 2;
   border-bottom-left-radius: ${({ borderRadius }) => `${borderRadius}px`};
   border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
+`;
+
+export const List = styled.ul<SelectListStyleProps>`
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  list-style-type: none;
   ::-webkit-scrollbar {
-    width: 12px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: whitesmoke;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+    display: none;
   }
 `;
 
@@ -123,8 +118,6 @@ export const Item = styled.li<SelectListStyleProps>`
   height: ${({ height }) => `${height}px`};
   padding: 0 10px;
   line-height: ${({ height }) => `${height}px`};
-  overflow-x: hidden;
-  text-overflow: ellipsis;
   :hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.1);
