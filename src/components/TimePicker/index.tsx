@@ -6,9 +6,9 @@ import { HOURS, Time, TIME_TYPE } from "../../types/time";
 interface SelectListProps {
   handleSelect: (value: any) => void;
   is24Hour?: boolean;
-  isHourSelect?: boolean;
-  isMinSelect?: boolean;
-  isSecondsSelect?: boolean;
+  isSelectHour?: boolean;
+  isSelectMin?: boolean;
+  isSelectSeconds?: boolean;
   maxItemCount?: number;
   width?: number;
   height?: number;
@@ -29,9 +29,9 @@ interface SelectListProps {
 const TimePicker = ({
   handleSelect,
   is24Hour = false,
-  isHourSelect = true,
-  isMinSelect = true,
-  isSecondsSelect = false,
+  isSelectHour = true,
+  isSelectMin = true,
+  isSelectSeconds = false,
   maxItemCount = 6,
   width = 200,
   height = 30,
@@ -49,13 +49,21 @@ const TimePicker = ({
   itemStyle,
 }: SelectListProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [time, setTime] = useState<Time>(
+    new Time({ hour: 0, min: 0, seconds: 0 })
+  );
   const [timeType, setTimeType] = useState<TIME_TYPE>(TIME_TYPE.AM);
   const [hour, setHour] = useState<number>(0);
   const [min, setMin] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
+  const [cursor, setCursor] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleOpenClick = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
 
   useEffect(() => {
     const checkIfClickedOutside = (e: any) => {
@@ -69,22 +77,84 @@ const TimePicker = ({
     };
   }, [isOpen]);
 
-  const handleOpenClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
+  useEffect(() => {
+    if (!inputRef.current) return;
+    inputRef.current.selectionStart = cursor;
+    inputRef.current.selectionEnd = cursor;
+    // inputRef.current.value = time.getString();
+  }, [time]);
+
+  useEffect(() => {
+    const newTime = new Time({
+      hour:
+        timeType === TIME_TYPE.PM
+          ? hour + 12 === 24
+            ? 12
+            : hour + 12
+          : hour === 12
+          ? 0
+          : hour,
+      min,
+    });
+    setTime(newTime);
+    handleSelect(newTime);
+  }, [timeType, hour, min]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-    handleSelect(e.target.value);
-  }, []);
+    const cursor = inputRef.current?.selectionStart - 1;
+    const data = +e.nativeEvent.data;
+    if (!cursor || !data) return;
 
-  // const handleSecondsSelectClick = useCallback(
-  //   (seconds: number) => {
-  //     setSeconds(seconds);
-  //     handleSelect(new Time({ hour: hour, min: min, seconds: seconds }));
-  //   },
-  //   [hour, min]
-  // );
+    let cursorPosition;
+    if (is24Hour) {
+      cursorPosition = [1];
+    }
+
+    const isCursorInsideTimeType = cursor >= 0 && cursor <= 1;
+    if (isCursorInsideTimeType) {
+      setTimeType(data === 1 ? TIME_TYPE.AM : TIME_TYPE.PM);
+      setCursor(2);
+    }
+
+    const isCursorInsideHourFirstDigit =
+      (cursor >= 2 && cursor <= 3) || cursor === 8;
+    if (isCursorInsideHourFirstDigit) {
+      if (data >= 0 && data <= 1) {
+        setHour(data * 10);
+        setCursor(4);
+      } else {
+        setHour(data);
+        setCursor(6);
+      }
+    }
+
+    const isCursorInsideHourSecondDigit = cursor === 4;
+    if (isCursorInsideHourSecondDigit) {
+      if (data >= 0 && data <= 2) {
+        setHour((prev) => Math.floor(prev / 10) * 10 + data);
+      } else {
+        setHour(data);
+      }
+      setCursor(6);
+    }
+
+    const isCursorInsideMinFirstDigit = cursor >= 5 && cursor <= 6;
+    if (isCursorInsideMinFirstDigit) {
+      if (data >= 0 && data <= 5) {
+        setMin(data * 10);
+        setCursor(7);
+      } else {
+        setMin(data);
+        setCursor(8);
+      }
+    }
+
+    const isCursorInsideMinSecondDigit = cursor === 7;
+    if (isCursorInsideMinSecondDigit) {
+      setMin((prev) => Math.floor(prev / 10) * 10 + data);
+      setCursor(8);
+    }
+  }, []);
 
   return (
     <Style.SelectList
@@ -108,7 +178,20 @@ const TimePicker = ({
       >
         <Style.Input
           ref={inputRef}
-          value={new Time({ hour, min, seconds }).getString()}
+          value={
+            !is24Hour
+              ? time.getString({
+                  isPrintTimeType: true,
+                  isPrintHour: isSelectHour,
+                  isPrintMin: isSelectMin,
+                  isPrintSeconds: isSelectSeconds,
+                })
+              : time.getString24Hour({
+                  isPrintHour: isSelectHour,
+                  isPrintMin: isSelectMin,
+                  isPrintSeconds: isSelectSeconds,
+                })
+          }
           fontSize={fontSize}
           textColor={textColor}
           onChange={(e) => handleChange(e)}
@@ -148,7 +231,7 @@ const TimePicker = ({
               ))}
             </Style.List>
           )}
-          {isHourSelect && (
+          {isSelectHour && (
             <Style.List style={listStyle}>
               {(is24Hour ? Array.from(new Array(24)) : HOURS).map(
                 (item, index) => (
@@ -164,7 +247,7 @@ const TimePicker = ({
               )}
             </Style.List>
           )}
-          {isMinSelect && (
+          {isSelectMin && (
             <Style.List style={listStyle}>
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item
@@ -178,7 +261,7 @@ const TimePicker = ({
               ))}
             </Style.List>
           )}
-          {isSecondsSelect && (
+          {isSelectSeconds && (
             <Style.List style={listStyle}>
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item

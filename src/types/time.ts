@@ -20,11 +20,17 @@ enum SECONDS {
   HOUR = 3600,
   MIN = 60,
 }
-
 export interface TimeParams {
   hour?: number;
   min?: number;
   seconds?: number;
+}
+
+interface getStringParams {
+  isPrintTimeType?: boolean;
+  isPrintHour?: boolean;
+  isPrintMin?: boolean;
+  isPrintSeconds?: boolean;
 }
 
 export class Time {
@@ -76,7 +82,8 @@ export class Time {
   }
 
   getHour12(): number {
-    return Math.floor(this.getHour24() % HOUR.HALF_DAY);
+    const hour = Math.floor(this.getHour24() % HOUR.HALF_DAY);
+    return hour === 0 ? 12 : hour;
   }
 
   getMin(): number {
@@ -138,10 +145,33 @@ export class Time {
     this.setSeconds(newSeconds);
   }
 
-  getString(): string {
-    return `${this.getTimeType()} ${this.getTwoDigit(
-      this.getHour24()
-    )} ${this.getTwoDigit(this.getMin())}`;
+  getString({
+    isPrintTimeType,
+    isPrintHour,
+    isPrintMin,
+    isPrintSeconds,
+  }: getStringParams): string {
+    const timeType = isPrintTimeType ? `${this.getTimeType()}` : "";
+    const hour = isPrintHour ? `${this.getTwoDigit(this.getHour12())}` : "";
+    const min = isPrintMin ? `${this.getTwoDigit(this.getMin())}` : "";
+    const seconds = isPrintSeconds
+      ? `${this.getTwoDigit(this.getSeconds())}`
+      : "";
+
+    return `${timeType} ${hour}:${min}:${seconds}`;
+  }
+
+  getString24Hour({
+    isPrintHour,
+    isPrintMin,
+    isPrintSeconds,
+  }: getStringParams): string {
+    const hour = isPrintHour ? `${this.getTwoDigit(this.getHour24())}` : "";
+    const min = isPrintMin ? `${this.getTwoDigit(this.getMin())}` : "";
+    const seconds = isPrintSeconds
+      ? `${this.getTwoDigit(this.getSeconds())}`
+      : "";
+    return `${hour}:${min}:${seconds}`;
   }
 
   getTwoDigit(input: number): string {
