@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export interface SelectListStyleProps {
   isOpen?: boolean;
+  isSelected?: boolean;
   placeholder?: string;
   maxItemCount?: number;
   width?: number;
@@ -130,4 +131,8 @@ export const Item = styled.li<SelectListStyleProps>`
     background-color: rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
+  background-color: ${({ isSelected }) =>
+    isSelected ? "rgba(0, 0, 0, 0.1)" : "initial"};
+  box-shadow: ${({ isSelected }) =>
+    isSelected ? "inset 0 0 4px rgba(0, 0, 0, 0.1)" : "initial"};
 `;

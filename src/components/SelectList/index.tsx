@@ -158,6 +158,7 @@ const SelectList = ({
           {resultList.map((item, index) => (
             <Style.Item
               key={index}
+              isSelected={value === item}
               onClick={() => handleSelectClick(item)}
               height={height}
               borderRadius={borderRadius}

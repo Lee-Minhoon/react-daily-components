@@ -63,7 +63,7 @@ function App() {
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
-      <TimePicker handleSelect={handle} isSelectSeconds />
+      <TimePicker handleSelect={handle} />
       <br />
       <br />
       <br />

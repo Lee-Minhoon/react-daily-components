@@ -82,79 +82,119 @@ const TimePicker = ({
     inputRef.current.selectionStart = cursor;
     inputRef.current.selectionEnd = cursor;
     // inputRef.current.value = time.getString();
-  }, [time]);
+  }, [time, cursor]);
 
   useEffect(() => {
     const newTime = new Time({
-      hour:
-        timeType === TIME_TYPE.PM
+      hour: !is24Hour
+        ? timeType === TIME_TYPE.PM
           ? hour + 12 === 24
             ? 12
             : hour + 12
           : hour === 12
           ? 0
-          : hour,
+          : hour
+        : hour,
       min,
+      seconds,
     });
     setTime(newTime);
     handleSelect(newTime);
-  }, [timeType, hour, min]);
+  }, [timeType, hour, min, seconds]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const cursor = inputRef.current?.selectionStart - 1;
-    const data = +e.nativeEvent.data;
-    if (!cursor || !data) return;
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const event: any = e.nativeEvent;
+      if (!inputRef.current?.selectionStart || !event.data) return;
+      const data = +event.data;
+      const cursor = inputRef.current?.selectionStart - 1;
 
-    let cursorPosition;
-    if (is24Hour) {
-      cursorPosition = [1];
-    }
-
-    const isCursorInsideTimeType = cursor >= 0 && cursor <= 1;
-    if (isCursorInsideTimeType) {
-      setTimeType(data === 1 ? TIME_TYPE.AM : TIME_TYPE.PM);
-      setCursor(2);
-    }
-
-    const isCursorInsideHourFirstDigit =
-      (cursor >= 2 && cursor <= 3) || cursor === 8;
-    if (isCursorInsideHourFirstDigit) {
-      if (data >= 0 && data <= 1) {
-        setHour(data * 10);
-        setCursor(4);
+      let standardPoint = 0;
+      if (!is24Hour) {
+        const isCursorInsideTimeType =
+          cursor >= standardPoint && cursor <= standardPoint + 1;
+        if (isCursorInsideTimeType) {
+          setTimeType(data === 1 ? TIME_TYPE.AM : TIME_TYPE.PM);
+          setCursor(standardPoint + 2);
+        }
+        standardPoint += 2;
       } else {
-        setHour(data);
-        setCursor(6);
+        standardPoint -= 1;
       }
-    }
 
-    const isCursorInsideHourSecondDigit = cursor === 4;
-    if (isCursorInsideHourSecondDigit) {
-      if (data >= 0 && data <= 2) {
-        setHour((prev) => Math.floor(prev / 10) * 10 + data);
-      } else {
-        setHour(data);
+      if (isSelectHour) {
+        const isCursorInsideHourFirstDigit =
+          cursor >= standardPoint && cursor <= standardPoint + 1;
+        if (isCursorInsideHourFirstDigit) {
+          if (data >= 0 && data <= 1) {
+            setHour(data * 10);
+            setCursor(standardPoint + 2);
+          } else {
+            setHour(data);
+            setCursor(standardPoint + 4);
+          }
+        }
+
+        const isCursorInsideHourSecondDigit = cursor === standardPoint + 2;
+        if (isCursorInsideHourSecondDigit) {
+          if (data >= 0 && data <= 2) {
+            setHour((prev) => Math.floor(prev / 10) * 10 + data);
+          } else {
+            setHour(data);
+          }
+          setCursor(standardPoint + 4);
+        }
+        standardPoint += 3;
       }
-      setCursor(6);
-    }
 
-    const isCursorInsideMinFirstDigit = cursor >= 5 && cursor <= 6;
-    if (isCursorInsideMinFirstDigit) {
-      if (data >= 0 && data <= 5) {
-        setMin(data * 10);
-        setCursor(7);
-      } else {
-        setMin(data);
-        setCursor(8);
+      if (isSelectMin) {
+        const isCursorInsideMinFirstDigit =
+          cursor >= standardPoint && cursor <= standardPoint + 1;
+        if (isCursorInsideMinFirstDigit) {
+          if (data >= 0 && data <= 5) {
+            setMin(data * 10);
+            setCursor(standardPoint + 2);
+          } else {
+            setMin(data);
+            setCursor(standardPoint + 4);
+          }
+        }
+
+        const isCursorInsideMinSecondDigit = cursor === standardPoint + 2;
+        if (isCursorInsideMinSecondDigit) {
+          setMin((prev) => Math.floor(prev / 10) * 10 + data);
+          setCursor(standardPoint + 4);
+        }
+        standardPoint += 3;
       }
-    }
 
-    const isCursorInsideMinSecondDigit = cursor === 7;
-    if (isCursorInsideMinSecondDigit) {
-      setMin((prev) => Math.floor(prev / 10) * 10 + data);
-      setCursor(8);
-    }
-  }, []);
+      if (isSelectSeconds) {
+        const isCursorInsideSecondsFirstDigit =
+          cursor >= standardPoint && cursor <= standardPoint + 1;
+        if (isCursorInsideSecondsFirstDigit) {
+          if (data >= 0 && data <= 5) {
+            setSeconds(data * 10);
+            setCursor(standardPoint + 2);
+          } else {
+            setSeconds(data);
+            setCursor(standardPoint + 4);
+          }
+        }
+
+        const isCursorInsideSecondsSecondDigit = cursor === standardPoint + 2;
+        if (isCursorInsideSecondsSecondDigit) {
+          setSeconds((prev) => Math.floor(prev / 10) * 10 + data);
+          setCursor(standardPoint + 4);
+        }
+        standardPoint += 3;
+      }
+
+      if (cursor === standardPoint) {
+        setCursor(0);
+      }
+    },
+    [is24Hour, isSelectHour, isSelectMin, isSelectSeconds]
+  );
 
   return (
     <Style.SelectList
@@ -222,6 +262,7 @@ const TimePicker = ({
               {Object.values(TIME_TYPE).map((item, index) => (
                 <Style.Item
                   key={index}
+                  isSelected={timeType === item}
                   height={height}
                   onClick={() => setTimeType(item)}
                   style={itemStyle}
@@ -237,6 +278,7 @@ const TimePicker = ({
                 (item, index) => (
                   <Style.Item
                     key={index}
+                    isSelected={hour === item}
                     height={height}
                     onClick={() => setHour(is24Hour ? index : item)}
                     style={itemStyle}
@@ -252,6 +294,7 @@ const TimePicker = ({
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item
                   key={index}
+                  isSelected={min === index}
                   height={height}
                   onClick={() => setMin(index)}
                   style={itemStyle}
@@ -266,6 +309,7 @@ const TimePicker = ({
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item
                   key={index}
+                  isSelected={seconds === index}
                   height={height}
                   onClick={() => setSeconds(index)}
                   style={itemStyle}

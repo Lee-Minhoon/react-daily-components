@@ -152,13 +152,19 @@ export class Time {
     isPrintSeconds,
   }: getStringParams): string {
     const timeType = isPrintTimeType ? `${this.getTimeType()}` : "";
-    const hour = isPrintHour ? `${this.getTwoDigit(this.getHour12())}` : "";
-    const min = isPrintMin ? `${this.getTwoDigit(this.getMin())}` : "";
+    const hour = isPrintHour
+      ? `${isPrintTimeType ? " " : ""}${this.getTwoDigit(this.getHour12())}`
+      : "";
+    const min = isPrintMin
+      ? `${isPrintHour ? ":" : ""}${this.getTwoDigit(this.getMin())}`
+      : "";
     const seconds = isPrintSeconds
-      ? `${this.getTwoDigit(this.getSeconds())}`
+      ? `${isPrintMin ? ":" : isPrintHour ? ":" : ""}${this.getTwoDigit(
+          this.getSeconds()
+        )}`
       : "";
 
-    return `${timeType} ${hour}:${min}:${seconds}`;
+    return `${timeType}${hour}${min}${seconds}`;
   }
 
   getString24Hour({
@@ -167,11 +173,15 @@ export class Time {
     isPrintSeconds,
   }: getStringParams): string {
     const hour = isPrintHour ? `${this.getTwoDigit(this.getHour24())}` : "";
-    const min = isPrintMin ? `${this.getTwoDigit(this.getMin())}` : "";
-    const seconds = isPrintSeconds
-      ? `${this.getTwoDigit(this.getSeconds())}`
+    const min = isPrintMin
+      ? `${isPrintHour ? ":" : ""}${this.getTwoDigit(this.getMin())}`
       : "";
-    return `${hour}:${min}:${seconds}`;
+    const seconds = isPrintSeconds
+      ? `${isPrintMin ? ":" : isPrintHour ? ":" : ""}${this.getTwoDigit(
+          this.getSeconds()
+        )}`
+      : "";
+    return `${hour}${min}${seconds}`;
   }
 
   getTwoDigit(input: number): string {
