@@ -55,16 +55,14 @@ const Pagination = ({
           handleClick={handleClick}
         >
           {firstPageRenderItem ?? (
-            <Style.SvgWrapper>
-              <Style.Svg
-                viewBox="0 0 20 20"
-                activate={isFristPageActivate}
-                color={color}
-              >
-                <polyline points="18 2 10 10 18 18 10 10" />
-                <polyline points="10 2 2 10 10 18 2 10" />
-              </Style.Svg>
-            </Style.SvgWrapper>
+            <Style.Svg
+              viewBox="0 0 20 20"
+              activate={isFristPageActivate}
+              color={color}
+            >
+              <polyline points="18 2 10 10 18 18 10 10" />
+              <polyline points="10 2 2 10 10 18 2 10" />
+            </Style.Svg>
           )}
         </PageItem>
       )
@@ -82,15 +80,13 @@ const Pagination = ({
           handleClick={handleClick}
         >
           {prevPageRenderItem ?? (
-            <Style.SvgWrapper>
-              <Style.Svg
-                viewBox="0 0 20 20"
-                activate={isPrevPageActivate}
-                color={color}
-              >
-                <polyline points="14 2 6 10 14 18 6 10" />
-              </Style.Svg>
-            </Style.SvgWrapper>
+            <Style.Svg
+              viewBox="0 0 20 20"
+              activate={isPrevPageActivate}
+              color={color}
+            >
+              <polyline points="14 2 6 10 14 18 6 10" />
+            </Style.Svg>
           )}
         </PageItem>
       )
@@ -124,15 +120,13 @@ const Pagination = ({
           handleClick={handleClick}
         >
           {nextPageRenderItem ?? (
-            <Style.SvgWrapper>
-              <Style.Svg
-                viewBox="0 0 20 20"
-                activate={isNextPageActivate}
-                color={color}
-              >
-                <polyline points="6 2 14 10 6 18 14 10" />
-              </Style.Svg>
-            </Style.SvgWrapper>
+            <Style.Svg
+              viewBox="0 0 20 20"
+              activate={isNextPageActivate}
+              color={color}
+            >
+              <polyline points="6 2 14 10 6 18 14 10" />
+            </Style.Svg>
           )}
         </PageItem>
       )
@@ -150,16 +144,14 @@ const Pagination = ({
           handleClick={handleClick}
         >
           {lastPageRenderItem ?? (
-            <Style.SvgWrapper>
-              <Style.Svg
-                viewBox="0 0 20 20"
-                activate={isLastPageActivate}
-                color={color}
-              >
-                <polyline points="10 2 18 10 10 18 18 10" />
-                <polyline points="2 2 10 10 2 18 10 10" />
-              </Style.Svg>
-            </Style.SvgWrapper>
+            <Style.Svg
+              viewBox="0 0 20 20"
+              activate={isLastPageActivate}
+              color={color}
+            >
+              <polyline points="10 2 18 10 10 18 18 10" />
+              <polyline points="2 2 10 10 2 18 10 10" />
+            </Style.Svg>
           )}
         </PageItem>
       )

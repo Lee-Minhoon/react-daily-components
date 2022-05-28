@@ -2,7 +2,6 @@
 export interface SelectListStyleProps {
     isOpen?: boolean;
     isSelected?: boolean;
-    placeholder?: string;
     maxItemCount?: number;
     width?: number;
     height?: number;
@@ -32,6 +31,10 @@ export declare const Svg: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & SelectListStyleProps, import("react").SVGProps<SVGSVGElement>, {}>;
+export declare const ListContainer: import("@emotion/styled").StyledComponent<{
+    theme?: import("@emotion/react").Theme | undefined;
+    as?: import("react").ElementType<any> | undefined;
+} & SelectListStyleProps, import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>;
 export declare const List: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;

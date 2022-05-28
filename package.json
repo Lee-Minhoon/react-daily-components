@@ -1,6 +1,6 @@
 {
   "name": "react-daily-components",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "react-daily-components",
   "module": "./lib/esm/index.js",
   "main": "./lib/cjs/index.js",
@@ -23,6 +23,10 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@types/lodash-es": "^4.17.6",
+    "@types/luxon": "^2.3.2",
+    "lodash-es": "^4.17.21",
+    "luxon": "^2.4.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1"

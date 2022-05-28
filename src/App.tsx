@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 import { SelectList } from "./components";
-import LoadingBar from "./components/LoadingBar";
+import DatePicker from "./components/DatePicker";
 import Pagination from "./components/Pagination";
 import TimePicker from "./components/TimePicker";
 import Word from "./components/Word";
@@ -63,13 +63,13 @@ function App() {
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
-      <TimePicker handleSelect={handle} />
-      <br />
+      <TimePicker handleSelect={handle} is24Hour isSelectSeconds />
       <br />
       <br />
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
+      <DatePicker handleSelect={handle} />
     </div>
   );
 }

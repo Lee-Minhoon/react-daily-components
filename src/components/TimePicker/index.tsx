@@ -1,9 +1,8 @@
 import * as Style from "./style";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import useInput from "../../hooks/useInput";
 import { HOURS, Time, TIME_TYPE } from "../../types/time";
 
-interface SelectListProps {
+interface TimePickerProps {
   handleSelect: (value: any) => void;
   is24Hour?: boolean;
   isSelectHour?: boolean;
@@ -47,7 +46,7 @@ const TimePicker = ({
   listContainerStyle,
   listStyle,
   itemStyle,
-}: SelectListProps) => {
+}: TimePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [time, setTime] = useState<Time>(
     new Time({ hour: 0, min: 0, seconds: 0 })
@@ -177,16 +176,16 @@ const TimePicker = ({
             setCursor(standardPoint + 2);
           } else {
             setSeconds(data);
-            setCursor(standardPoint + 4);
+            setCursor(standardPoint + 3);
           }
         }
 
         const isCursorInsideSecondsSecondDigit = cursor === standardPoint + 2;
         if (isCursorInsideSecondsSecondDigit) {
           setSeconds((prev) => Math.floor(prev / 10) * 10 + data);
-          setCursor(standardPoint + 4);
+          setCursor(standardPoint + 3);
         }
-        standardPoint += 3;
+        standardPoint += 2;
       }
 
       if (cursor === standardPoint) {
@@ -254,7 +253,7 @@ const TimePicker = ({
           fontSize={fontSize}
           textColor={textColor}
           borderRadius={borderRadius}
-          outlineColor={outlineColor}
+          outlineWidth={outlineWidth}
           style={listContainerStyle}
         >
           {!is24Hour && (
@@ -278,7 +277,7 @@ const TimePicker = ({
                 (item, index) => (
                   <Style.Item
                     key={index}
-                    isSelected={hour === item}
+                    isSelected={is24Hour ? hour === index : hour === item}
                     height={height}
                     onClick={() => setHour(is24Hour ? index : item)}
                     style={itemStyle}

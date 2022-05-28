@@ -1,6 +1,7 @@
 /// <reference types="react" />
 export interface SelectListStyleProps {
     isOpen?: boolean;
+    isSelected?: boolean;
     placeholder?: string;
     maxItemCount?: number;
     width?: number;

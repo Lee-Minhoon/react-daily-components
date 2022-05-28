@@ -24,12 +24,9 @@ export const List = styled.ul<PaginationStyleProps>`
   padding: 0px;
 `;
 
-export const SvgWrapper = styled.div<PaginationStyleProps>`
+export const Svg = styled.svg<PaginationStyleProps>`
   width: 1em;
   height: 1em;
-`;
-
-export const Svg = styled.svg<PaginationStyleProps>`
   display: block;
   stroke: ${({ color }) => color};
   stroke-width: 1px;

@@ -30,7 +30,7 @@ export const SelectList = styled.div<SelectListStyleProps>`
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     opacity: 0.5;
     box-shadow: ${({ isOpen }) =>
-      isOpen ? "0 0 6px rgba(0, 0, 0, 0.1)" : "initial"};
+      isOpen ? "0 0 6px rgba(0, 0, 0, 0.4)" : "initial"};
   }
 `;
 
@@ -54,7 +54,6 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
       isOpen ? "initial" : `${borderRadius}px`};
     border-bottom-right-radius: ${({ isOpen, borderRadius }) =>
       isOpen ? "initial" : `${borderRadius}px`};
-    z-index: 3;
   }
   padding: 0 10px;
 `;
@@ -62,7 +61,7 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
 export const Input = styled.input<SelectListStyleProps>`
   flex: 1;
   min-width: 0;
-  z-index: 4;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0);
   border: none;
   outline: none;
@@ -73,7 +72,7 @@ export const Input = styled.input<SelectListStyleProps>`
 `;
 
 export const Button = styled.button<SelectListStyleProps>`
-  z-index: 4;
+  z-index: 1;
   width: 20px;
   height: 20px;
   padding: 0;
@@ -96,6 +95,7 @@ export const List = styled.ul<SelectListStyleProps>`
   color: ${({ textColor }) => textColor};
   padding: 0;
   margin: 0;
+  margin-top: ${({ outlineWidth }) => `${outlineWidth}px`};
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
   overflow-y: auto;

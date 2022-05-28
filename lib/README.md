@@ -15,29 +15,52 @@ The official distribution is from version 1.0.0.
 
 ## SelectList
 
-| prop                       | type                | desc         | default  |
-| -------------------------- | ------------------- | ------------ | -------- |
-| itemList                   | Array\<any\>        | preparing... | required |
-| value                      | any                 | preparing... | required |
-| handleSelect               | (value:any) => void | preparing... | required |
-| isSearchable?              | boolean             | preparing... | false    |
-| placholder?                | string              | preparing... | -        |
-| maxItemCount?              | number              | preparing... | 8        |
-| width?                     | number              | preparing... | 200      |
-| height?                    | number              | preparing... | 30       |
-| fontSize?                  | number              | preparing... | 16       |
-| textColor?                 | string              | preparing... | "gray"   |
-| borderRadius?              | number              | preparing... | 5        |
-| outlineWidth?              | number              | preparing... | 1        |
-| outlineColor?              | string              | preparing... | "gray"   |
-| selectListActiveStyle?     | React.CSSProperties | preparing... | -        |
-| selectListInactiveStyle?   | React.CSSProperties | preparing... | -        |
-| selectWrapperActiveStyle?  | React.CSSProperties | preparing... | -        |
-| selectWrapperIactiveStyle? | React.CSSProperties | preparing... | -        |
-| listActiveStyle?           | React.CSSProperties | preparing... | -        |
-| listInactiveStyle?         | React.CSSProperties | preparing... | -        |
-| itemActiveStyle?           | React.CSSProperties | preparing... | -        |
-| itemInativeStyle?          | React.CSSProperties | preparing... | -        |
+| prop                       | type                 | desc         | default  |
+| -------------------------- | -------------------- | ------------ | -------- |
+| itemList                   | Array\<any\>         | preparing... | required |
+| value                      | any                  | preparing... | required |
+| handleSelect               | (value: any) => void | preparing... | required |
+| isSearchable?              | boolean              | preparing... | false    |
+| placholder?                | string               | preparing... | -        |
+| maxItemCount?              | number               | preparing... | 8        |
+| width?                     | number               | preparing... | 200      |
+| height?                    | number               | preparing... | 30       |
+| fontSize?                  | number               | preparing... | 16       |
+| textColor?                 | string               | preparing... | "gray"   |
+| borderRadius?              | number               | preparing... | 5        |
+| outlineWidth?              | number               | preparing... | 1        |
+| outlineColor?              | string               | preparing... | "gray"   |
+| selectListActiveStyle?     | React.CSSProperties  | preparing... | -        |
+| selectListInactiveStyle?   | React.CSSProperties  | preparing... | -        |
+| selectWrapperActiveStyle?  | React.CSSProperties  | preparing... | -        |
+| selectWrapperIactiveStyle? | React.CSSProperties  | preparing... | -        |
+| listStyle?                 | React.CSSProperties  | preparing... | -        |
+| itemStyle?                 | React.CSSProperties  | preparing... | -        |
+
+# TimePicker
+
+| props                       | type                 | desc         | default  |
+| --------------------------- | -------------------- | ------------ | -------- |
+| handleSelect                | (value: any) => void | preparing... | required |
+| is24Hour?                   | boolean              | preparing... | false    |
+| isSelectHour?               | boolean              | preparing... | true     |
+| isSelectMin?                | boolean              | preparing... | true     |
+| isSelectSeconds?            | boolean              | preparing... | false    |
+| maxItemCount?               | number               | preparing... | 6        |
+| width?                      | number               | preparing... | 200      |
+| height?                     | number               | preparing... | 30       |
+| fontSize?                   | number               | preparing... | 16       |
+| textColor?                  | string               | preparing... | "gray"   |
+| borderRadius?               | number               | preparing... | 5        |
+| outlineWidth?               | number               | preparing... | 1        |
+| outlineColor?               | string               | preparing... | "gray"   |
+| selectListActiveStyle?      | React.CSSProperties  | preparing... | -        |
+| selectListInactiveStyle?    | React.CSSProperties  | preparing... | -        |
+| selectWrapperActiveStyle?   | React.CSSProperties  | preparing... | -        |
+| selectWrapperInactiveStyle? | React.CSSProperties  | preparing... | -        |
+| listContainerStyle?         | React.CSSProperties  | preparing... | -        |
+| listStyle?                  | React.CSSProperties  | preparing... | -        |
+| itemStyle?                  | React.CSSProperties  | preparing... | -        |
 
 ## Pagination
 

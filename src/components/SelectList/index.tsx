@@ -50,6 +50,10 @@ const SelectList = ({
   const searchInput = useInput("");
   const ref = useRef<HTMLDivElement>(null);
 
+  const handleOpenClick = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
   useEffect(() => {
     const checkIfClickedOutside = (e: any) => {
       if (isOpen && !ref.current?.contains(e.target)) {
@@ -61,10 +65,6 @@ const SelectList = ({
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [isOpen]);
-
-  const handleOpenClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
 
   const handleSelectClick = useCallback((item: any) => {
     setIsOpen(false);
@@ -136,8 +136,8 @@ const SelectList = ({
           <Style.Svg
             viewBox="0 0 20 20"
             isOpen={isOpen}
-            outlineColor={outlineColor}
             outlineWidth={outlineWidth}
+            outlineColor={outlineColor}
           >
             <polyline points="2 6 10 14 18 6 10 14" />
           </Style.Svg>
@@ -152,6 +152,7 @@ const SelectList = ({
           fontSize={fontSize}
           textColor={textColor}
           borderRadius={borderRadius}
+          outlineWidth={outlineWidth}
           outlineColor={outlineColor}
           style={listStyle}
         >
