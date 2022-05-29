@@ -1,7 +1,12 @@
 import * as Style from "./style";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { HOURS, Time, TIME_TYPE } from "../../types/time";
-import { Date, DATE_FORMAT, getCalendarDate } from "../../types/date";
+import {
+  Date,
+  DATE_FORMAT,
+  getCalendarDate,
+  WEEK_DAY_ABBR,
+} from "../../types/date";
 import { DateTime } from "luxon";
 import _ from "lodash-es";
 import { replaceAt } from "../../utilities/string";
@@ -9,8 +14,12 @@ import { quotient } from "../../utilities/math";
 
 interface DatePickerProps {
   handleSelect: (value: any) => void;
-  width?: number;
-  height?: number;
+  isMondayFirst?: boolean;
+  isWeekendColor?: boolean;
+  containerWidth?: number;
+  containerHeight?: number;
+  itemWidth?: number;
+  itemHeight?: number;
   fontSize?: number;
   textColor?: string;
   borderRadius?: number;
@@ -27,8 +36,12 @@ interface DatePickerProps {
 
 const DatePicker = ({
   handleSelect,
-  width = 200,
-  height = 30,
+  isMondayFirst = true,
+  isWeekendColor = true,
+  containerWidth = 200,
+  containerHeight = 30,
+  itemWidth = 40,
+  itemHeight = 30,
   fontSize = 16,
   textColor = "gray",
   borderRadius = 5,
@@ -145,12 +158,18 @@ const DatePicker = ({
     [date]
   );
 
+  const WEEK_DAYS = _.cloneDeep(WEEK_DAY_ABBR);
+  if (!isMondayFirst) {
+    const LAST = WEEK_DAYS.pop();
+    LAST && WEEK_DAYS.unshift(LAST);
+  }
+
   return (
     <Style.SelectList
       ref={containerRef}
       isOpen={isOpen}
-      width={width}
-      height={height}
+      width={containerWidth}
+      height={containerHeight}
       borderRadius={borderRadius}
       outlineWidth={outlineWidth}
       outlineColor={outlineColor}
@@ -158,7 +177,7 @@ const DatePicker = ({
     >
       <Style.SelectWrapper
         isOpen={isOpen}
-        height={height}
+        height={containerHeight}
         borderRadius={borderRadius}
         outlineWidth={outlineWidth}
         outlineColor={outlineColor}
@@ -185,7 +204,6 @@ const DatePicker = ({
       {isOpen && (
         <Style.ListContainer
           isOpen={isOpen}
-          height={height}
           fontSize={fontSize}
           textColor={textColor}
           borderRadius={borderRadius}
@@ -193,7 +211,7 @@ const DatePicker = ({
           outlineColor={outlineColor}
           style={listContainerStyle}
         >
-          <Style.YearMonth height={height} fontSize={fontSize}>
+          <Style.YearMonth height={itemHeight} fontSize={fontSize}>
             <Style.ArrowButton
               fontSize={fontSize}
               onClick={() =>
@@ -234,13 +252,37 @@ const DatePicker = ({
               </Style.Svg>
             </Style.ArrowButton>
           </Style.YearMonth>
-          <Style.List style={listStyle}>
-            {getCalendarDate(date.getDateTime()).map((item, index) => (
+          <Style.WeekdayList>
+            {WEEK_DAYS.map((item, index) => {
+              const isSaturday = isMondayFirst ? index === 5 : index === 6;
+              const isSunday = isMondayFirst ? index === 6 : index === 0;
+              let weekendColor = textColor;
+              if (isSaturday) weekendColor = "rgba(0, 0, 255, 0.5)";
+              if (isSunday) weekendColor = "rgba(255, 0, 0, 0.5)";
+              return (
+                <Style.WeekdayItem
+                  key={index}
+                  width={itemWidth}
+                  height={itemHeight}
+                  fontSize={fontSize}
+                  style={{ color: isWeekendColor ? weekendColor : textColor }}
+                >
+                  {item}
+                </Style.WeekdayItem>
+              );
+            })}
+          </Style.WeekdayList>
+          <Style.List borderRadius={borderRadius} style={listStyle}>
+            {getCalendarDate({
+              dateTime: date.getDateTime(),
+              isMondayFirst,
+            }).map((item, index) => (
               <Style.Item
                 key={index}
                 isSelected={date.isEqualDate(item)}
                 onClick={() => handleSelectClick(item)}
-                height={height}
+                width={itemWidth}
+                height={itemHeight}
                 fontSize={fontSize}
                 borderRadius={borderRadius}
                 style={itemStyle}

@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const WEEK_DAY_STRING = [
+export const WEEK_DAY = [
   "MONDAY",
   "TUESDAY",
   "WEDNESDAY",
@@ -8,17 +8,11 @@ export const WEEK_DAY_STRING = [
   "FRIDAY",
   "SATURDAY",
   "SUNDAY",
-] as const;
+];
 
-export const WEEK_DAY_KOREAN = [
-  "월",
-  "화",
-  "수",
-  "목",
-  "금",
-  "토",
-  "일",
-] as const;
+export const WEEK_DAY_ABBR = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+export const WEEK_DAY_KOREAN = ["월", "화", "수", "목", "금", "토", "일"];
 
 export enum DATE_FORMAT {
   KOREAN = "KOREAN",
@@ -119,7 +113,7 @@ export class Date {
   }
 
   getWeekdayString(): string {
-    return WEEK_DAY_STRING[this.getWeekday() - 1];
+    return WEEK_DAY[this.getWeekday() - 1];
   }
 
   getWeekdayKorean(): string {
@@ -229,7 +223,13 @@ export class Date {
 
   getYearString(isTwoDigit?: boolean): string {
     return isTwoDigit
-      ? `${this.getYear() < 10 ? `0${this.getYear()}` : `${this.getYear()}`}`
+      ? `${this.getYear()}`
+      : this.getYear() < 10
+      ? `000${this.getYear()}`
+      : this.getYear() < 100
+      ? `00${this.getYear()}`
+      : this.getYear() < 1000
+      ? `0${this.getYear()}`
       : `${this.getYear()}`;
   }
 
@@ -256,9 +256,31 @@ const getNearestNextSunday = (dateTime: DateTime): DateTime => {
   return dateTime.plus({ days: dist });
 };
 
-export const getCalendarDate = (dateTime: DateTime): Array<Date> => {
-  const startDate = getNearestPrevMonday(dateTime.startOf("month"));
-  const endDate = getNearestNextSunday(dateTime.endOf("month"));
+const getNearestPrevSunday = (dateTime: DateTime): DateTime => {
+  const dist = 0 - dateTime.weekday;
+  return dateTime.plus({ days: dist });
+};
+
+const getNearestNextSaturday = (dateTime: DateTime): DateTime => {
+  const dist = 6 - dateTime.weekday;
+  return dateTime.plus({ days: dist });
+};
+
+export interface getCalendarDateParams {
+  dateTime: DateTime;
+  isMondayFirst?: boolean;
+}
+
+export const getCalendarDate = ({
+  dateTime,
+  isMondayFirst = true,
+}: getCalendarDateParams): Array<Date> => {
+  const startDate = isMondayFirst
+    ? getNearestPrevMonday(dateTime.startOf("month"))
+    : getNearestPrevSunday(dateTime.startOf("month"));
+  const endDate = isMondayFirst
+    ? getNearestNextSunday(dateTime.endOf("month"))
+    : getNearestNextSaturday(dateTime.endOf("month"));
 
   const calendarDate: Array<Date> = [];
 

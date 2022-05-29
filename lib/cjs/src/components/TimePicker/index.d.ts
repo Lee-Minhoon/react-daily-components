@@ -1,5 +1,5 @@
 import React from "react";
-interface SelectListProps {
+interface TimePickerProps {
     handleSelect: (value: any) => void;
     is24Hour?: boolean;
     isSelectHour?: boolean;
@@ -21,5 +21,5 @@ interface SelectListProps {
     listStyle?: React.CSSProperties;
     itemStyle?: React.CSSProperties;
 }
-declare const TimePicker: ({ handleSelect, is24Hour, isSelectHour, isSelectMin, isSelectSeconds, maxItemCount, width, height, fontSize, textColor, borderRadius, outlineWidth, outlineColor, selectListActiveStyle, selectListInactiveStyle, selectWrapperActiveStyle, selectWrapperInactiveStyle, listContainerStyle, listStyle, itemStyle, }: SelectListProps) => import("@emotion/react/jsx-runtime").JSX.Element;
+declare const TimePicker: ({ handleSelect, is24Hour, isSelectHour, isSelectMin, isSelectSeconds, maxItemCount, width, height, fontSize, textColor, borderRadius, outlineWidth, outlineColor, selectListActiveStyle, selectListInactiveStyle, selectWrapperActiveStyle, selectWrapperInactiveStyle, listContainerStyle, listStyle, itemStyle, }: TimePickerProps) => import("@emotion/react/jsx-runtime").JSX.Element;
 export default TimePicker;

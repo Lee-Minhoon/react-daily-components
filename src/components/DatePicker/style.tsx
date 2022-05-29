@@ -77,7 +77,6 @@ export const ListContainer = styled.div<SelectListStyleProps>`
   text-align: center;
   font-size: ${({ fontSize }) => `${fontSize}px`};
   position: absolute;
-  background-color: white;
 
   &::after {
     content: "";
@@ -118,7 +117,7 @@ export const ArrowButton = styled.button<SelectListStyleProps>`
   z-index: 1;
 `;
 
-export const List = styled.ul<SelectListStyleProps>`
+export const WeekdayList = styled.ul<SelectListStyleProps>`
   padding: 0;
   margin: 0;
   flex: 1;
@@ -127,11 +126,31 @@ export const List = styled.ul<SelectListStyleProps>`
   list-style-type: none;
 `;
 
+export const WeekdayItem = styled.li<SelectListStyleProps>`
+  z-index: 1;
+  width: ${({ width }) => `${width}px`};
+  height: ${({ height }) => `${height}px`};
+  line-height: ${({ height }) => `${height}px`};
+  font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
+`;
+
+export const List = styled.ul<SelectListStyleProps>`
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  list-style-type: none;
+  overflow: hidden;
+  border-bottom-left-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
+`;
+
 export const Item = styled.li<SelectListStyleProps>`
   z-index: 1;
   font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
   height: ${({ height }) => `${height}px`};
-  padding: 0 10px;
+  width: ${({ width }) => `${width}px`};
   line-height: ${({ height }) => `${height}px`};
   :hover {
     cursor: pointer;

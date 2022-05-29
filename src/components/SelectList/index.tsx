@@ -49,6 +49,13 @@ const SelectList = ({
   const [resultList, setResultList] = useState<Array<any>>(itemList);
   const searchInput = useInput("");
   const ref = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (listRef.current)
+      listRef.current.scrollTop =
+        resultList.findIndex((item) => item === value) * height;
+  }, [isOpen]);
 
   const handleOpenClick = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -145,6 +152,7 @@ const SelectList = ({
       </Style.SelectWrapper>
       {isOpen && (
         <Style.List
+          ref={listRef}
           maxItemCount={
             resultList.length > maxItemCount ? maxItemCount : resultList.length
           }

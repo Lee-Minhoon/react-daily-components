@@ -21,8 +21,8 @@ export const SelectList = styled.div<SelectListStyleProps>`
     content: "";
     position: absolute;
     width: 100%;
-    height: ${({ isOpen, height = 30, maxItemCount = 8 }) =>
-      isOpen ? `${(maxItemCount + 1) * height}px` : "100%"};
+    height: ${({ isOpen, height = 30, maxItemCount = 8, outlineWidth = 1 }) =>
+      isOpen ? `${(maxItemCount + 1) * height + outlineWidth}px` : "100%"};
     top: 0;
     left: 0;
     outline: ${({ isOpen, outlineWidth, outlineColor }) =>

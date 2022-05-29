@@ -59,6 +59,21 @@ const TimePicker = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const timeTypeRef = useRef<HTMLUListElement>(null);
+  const hourRef = useRef<HTMLUListElement>(null);
+  const minRef = useRef<HTMLUListElement>(null);
+  const secondsRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (timeTypeRef.current)
+      timeTypeRef.current.scrollTop = timeType === TIME_TYPE.AM ? 0 : height;
+    if (hourRef.current)
+      hourRef.current.scrollTop = is24Hour
+        ? hour * height
+        : (hour % 12) * height;
+    if (minRef.current) minRef.current.scrollTop = min * height;
+    if (secondsRef.current) secondsRef.current.scrollTop = seconds * height;
+  }, [isOpen]);
 
   const handleOpenClick = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -257,7 +272,7 @@ const TimePicker = ({
           style={listContainerStyle}
         >
           {!is24Hour && (
-            <Style.List style={listStyle}>
+            <Style.List ref={timeTypeRef} style={listStyle}>
               {Object.values(TIME_TYPE).map((item, index) => (
                 <Style.Item
                   key={index}
@@ -272,7 +287,7 @@ const TimePicker = ({
             </Style.List>
           )}
           {isSelectHour && (
-            <Style.List style={listStyle}>
+            <Style.List ref={hourRef} style={listStyle}>
               {(is24Hour ? Array.from(new Array(24)) : HOURS).map(
                 (item, index) => (
                   <Style.Item
@@ -289,7 +304,7 @@ const TimePicker = ({
             </Style.List>
           )}
           {isSelectMin && (
-            <Style.List style={listStyle}>
+            <Style.List ref={minRef} style={listStyle}>
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item
                   key={index}
@@ -304,7 +319,7 @@ const TimePicker = ({
             </Style.List>
           )}
           {isSelectSeconds && (
-            <Style.List style={listStyle}>
+            <Style.List ref={secondsRef} style={listStyle}>
               {Array.from(new Array(60)).map((item, index) => (
                 <Style.Item
                   key={index}

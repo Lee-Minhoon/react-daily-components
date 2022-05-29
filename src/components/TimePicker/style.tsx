@@ -20,8 +20,8 @@ export const SelectList = styled.div<SelectListStyleProps>`
     content: "";
     position: absolute;
     width: 100%;
-    height: ${({ isOpen, height = 30, maxItemCount = 8 }) =>
-      isOpen ? `${(maxItemCount + 1) * height}px` : "100%"};
+    height: ${({ isOpen, height = 30, maxItemCount = 8, outlineWidth = 1 }) =>
+      isOpen ? `${(maxItemCount + 1) * height + outlineWidth}px` : "100%"};
     top: 0;
     left: 0;
     outline: ${({ isOpen, outlineWidth, outlineColor }) =>
@@ -94,6 +94,7 @@ export const ListContainer = styled.div<SelectListStyleProps>`
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
   position: absolute;
+  overflow: hidden;
   display: flex;
   background-color: white;
   width: 100%;
@@ -119,6 +120,7 @@ export const Item = styled.li<SelectListStyleProps>`
   height: ${({ height }) => `${height}px`};
   padding: 0 10px;
   line-height: ${({ height }) => `${height}px`};
+  overflow: hidden;
   :hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.1);

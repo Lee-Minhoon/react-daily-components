@@ -15,12 +15,8 @@ function App() {
     console.log(page);
   };
 
-  console.log(Time.hourPassed(23));
-  console.log(Time.minPassed(1379));
-  console.log(Time.secondsPassed(86400));
-
   const handle = (item: any) => {
-    console.log(item);
+    console.log("hrere", item);
   };
 
   return (
@@ -63,7 +59,7 @@ function App() {
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
-      <TimePicker handleSelect={handle} is24Hour isSelectSeconds />
+      <TimePicker handleSelect={handle} is24Hour={false} isSelectSeconds />
       <br />
       <br />
       <Word>{`Hello World!!!`}</Word>
