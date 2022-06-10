@@ -67,8 +67,12 @@ The official distribution is from version 1.0.0.
 | props                       | type                 | desc         | default  |
 | --------------------------- | -------------------- | ------------ | -------- |
 | handleSelect                | (value: any) => void | preparing... | required |
-| width?                      | number               | preparing... | 200      |
-| height?                     | number               | preparing... | 30       |
+| isMondayFirst?              | boolean              | preparing... | true     |
+| isWeekendColor?             | boolean              | preparing... | true     |
+| containerWidth?             | number               | preparing... | 200      |
+| containerHeight?            | number               | preparing... | 30       |
+| itemWidth?                  | number               | preparing... | 40       |
+| itemHeight?                 | number               | preparing... | 30       |
 | fontSize?                   | number               | preparing... | 16       |
 | textColor?                  | string               | preparing... | "gray"   |
 | borderRadius?               | number               | preparing... | 5        |

@@ -65,7 +65,7 @@ function App() {
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
       <Word>{`Hello World!!!`}</Word>
-      <DatePicker handleSelect={handle} />
+      <DatePicker handleSelect={handle} isWeekendColor isMondayFirst={true} />
     </div>
   );
 }

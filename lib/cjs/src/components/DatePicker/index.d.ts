@@ -1,8 +1,12 @@
 import React from "react";
 interface DatePickerProps {
     handleSelect: (value: any) => void;
-    width?: number;
-    height?: number;
+    isMondayFirst?: boolean;
+    isWeekendColor?: boolean;
+    containerWidth?: number;
+    containerHeight?: number;
+    itemWidth?: number;
+    itemHeight?: number;
     fontSize?: number;
     textColor?: string;
     borderRadius?: number;
@@ -16,5 +20,5 @@ interface DatePickerProps {
     listStyle?: React.CSSProperties;
     itemStyle?: React.CSSProperties;
 }
-declare const DatePicker: ({ handleSelect, width, height, fontSize, textColor, borderRadius, outlineWidth, outlineColor, selectListActiveStyle, selectListInactiveStyle, selectWrapperActiveStyle, selectWrapperInactiveStyle, listContainerStyle, listStyle, itemStyle, }: DatePickerProps) => import("@emotion/react/jsx-runtime").JSX.Element;
+declare const DatePicker: ({ handleSelect, isMondayFirst, isWeekendColor, containerWidth, containerHeight, itemWidth, itemHeight, fontSize, textColor, borderRadius, outlineWidth, outlineColor, selectListActiveStyle, selectListInactiveStyle, selectWrapperActiveStyle, selectWrapperInactiveStyle, listContainerStyle, listStyle, itemStyle, }: DatePickerProps) => import("@emotion/react/jsx-runtime").JSX.Element;
 export default DatePicker;

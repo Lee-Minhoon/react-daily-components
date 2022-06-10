@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-export declare const WEEK_DAY_STRING: readonly ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
-export declare const WEEK_DAY_KOREAN: readonly ["월", "화", "수", "목", "금", "토", "일"];
+export declare const WEEK_DAY: string[];
+export declare const WEEK_DAY_ABBR: string[];
+export declare const WEEK_DAY_KOREAN: string[];
 export declare enum DATE_FORMAT {
     KOREAN = "KOREAN",
     DASH = "DASH",
@@ -58,5 +59,9 @@ export declare class Date {
     getMonthString(isTwoDigit?: boolean): string;
     getDayString(isTwoDigit?: boolean): string;
 }
-export declare const getCalendarDate: (dateTime: DateTime) => Array<Date>;
+export interface getCalendarDateParams {
+    dateTime: DateTime;
+    isMondayFirst?: boolean;
+}
+export declare const getCalendarDate: ({ dateTime, isMondayFirst, }: getCalendarDateParams) => Array<Date>;
 export {};
