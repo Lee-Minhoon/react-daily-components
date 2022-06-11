@@ -20,11 +20,15 @@ The official distribution is from version 1.0.0.
 
 ## TimePicker
 
+![TimePicker](./img/TimePicker.png)
+
 ### Usage
 
 (https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/TimePicker)
 
 ## DatePicker
+
+![DatePicker](./img/DatePicker.png)
 
 ### Usage
 
@@ -32,11 +36,15 @@ The official distribution is from version 1.0.0.
 
 ## Pagination
 
+![Pagination](./img/Pagination.png)
+
 ### Usage
 
 (https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Pagination)
 
 ## LoadingBar
+
+![LoadingBar](./img/LoadingBar.png)
 
 ### Usage
 

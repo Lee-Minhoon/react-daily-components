@@ -52,7 +52,7 @@ const TimePicker = ({
     new Time({ hour: 0, min: 0, seconds: 0 })
   );
   const [timeType, setTimeType] = useState<TIME_TYPE>(TIME_TYPE.AM);
-  const [hour, setHour] = useState<number>(0);
+  const [hour, setHour] = useState<number>(12);
   const [min, setMin] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const [cursor, setCursor] = useState<number>(0);
