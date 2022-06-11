@@ -23,25 +23,32 @@ function App() {
     <div style={{ padding: "20px" }}>
       <SelectList
         itemList={[
-          "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "B",
-          "C",
-          "D",
-          "E",
-          "F",
-          "G",
-          "H",
-          "I",
-          "J",
-          "K",
+          "Apple🍎",
+          "Banana🍌",
+          "Orange🍊",
+          "Grape🍇",
+          "Kiwi🥝",
+          "Lemon🍋",
+          "Strawberry🍓",
+          "Watermelon🍉",
         ]}
         value={value}
-        outlineWidth={1}
-        isSearchable={true}
-        outlineColor={"gray"}
-        maxItemCount={10}
         handleSelect={setValue}
       />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       <br />
       <br />
