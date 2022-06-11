@@ -1,5 +1,9 @@
 ## Pagination
 
+![Pagination](./img/Pagination.png)
+
+### Props
+
 | props                 | type                         | desc         | default  |
 | --------------------- | ---------------------------- | ------------ | -------- |
 | currentPage           | number                       | preparing... | required |

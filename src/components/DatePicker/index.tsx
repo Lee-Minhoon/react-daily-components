@@ -11,6 +11,8 @@ import { DateTime } from "luxon";
 import _ from "lodash-es";
 import { replaceAt } from "../../utilities/string";
 import { quotient } from "../../utilities/math";
+import useClickOutside from "../../hooks/useClickOutside";
+import useModal from "../../hooks/useModal";
 
 interface DatePickerProps {
   handleSelect: (value: any) => void;
@@ -55,28 +57,14 @@ const DatePicker = ({
   listStyle,
   itemStyle,
 }: DatePickerProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isOpen, setIsOpen, handleOpenClick } = useModal();
   const [date, setDate] = useState<Date>(new Date(DateTime.now()));
   const [cursor, setCursor] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleOpenClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: any) => {
-      if (isOpen && !containerRef.current?.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [isOpen]);
+  useClickOutside(containerRef, setIsOpen);
 
   const handleSelectClick = useCallback((item: any) => {
     setIsOpen(false);

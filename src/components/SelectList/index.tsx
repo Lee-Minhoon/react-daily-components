@@ -1,11 +1,13 @@
 import * as Style from "./style";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import useInput from "../../hooks/useInput";
+import useClickOutside from "../../hooks/useClickOutside";
+import useModal from "../../hooks/useModal";
 
 interface SelectListProps {
-  itemList: Array<any>;
-  value: any;
-  handleSelect: (value: any) => void;
+  itemList: Array<string>;
+  value: string;
+  handleSelect: (value: string) => void;
   isSearchable?: boolean;
   placeholder?: string;
   maxItemCount?: number;
@@ -45,32 +47,18 @@ const SelectList = ({
   listStyle,
   itemStyle,
 }: SelectListProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [resultList, setResultList] = useState<Array<any>>(itemList);
+  const { isOpen, setIsOpen, handleOpenClick } = useModal();
+  const [resultList, setResultList] = useState<Array<string>>(itemList);
   const searchInput = useInput("");
   const ref = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+
+  useClickOutside(ref, setIsOpen);
 
   useEffect(() => {
     if (listRef.current)
       listRef.current.scrollTop =
         resultList.findIndex((item) => item === value) * height;
-  }, [isOpen]);
-
-  const handleOpenClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: any) => {
-      if (isOpen && !ref.current?.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
   }, [isOpen]);
 
   const handleSelectClick = useCallback((item: any) => {
@@ -83,7 +71,7 @@ const SelectList = ({
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.nativeEvent.key === "Enter") {
         itemList.map((item) => {
-          if (item.content === searchInput.value) handleSelect(item);
+          if (item === searchInput.value) handleSelect(item);
         });
         setIsOpen(false);
       } else if (e.nativeEvent.key === "Escape") {

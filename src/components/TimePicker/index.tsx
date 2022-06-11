@@ -1,6 +1,9 @@
 import * as Style from "./style";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { HOURS, Time, TIME_TYPE } from "../../types/time";
+import useClickOutside from "../../hooks/useClickOutside";
+import useSetScrollPosition from "../../hooks/useSetScrollPosition";
+import useModal from "../../hooks/useModal";
 
 interface TimePickerProps {
   handleSelect: (value: any) => void;
@@ -47,7 +50,7 @@ const TimePicker = ({
   listStyle,
   itemStyle,
 }: TimePickerProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isOpen, setIsOpen, handleOpenClick } = useModal();
   const [time, setTime] = useState<Time>(
     new Time({ hour: 0, min: 0, seconds: 0 })
   );
@@ -64,32 +67,14 @@ const TimePicker = ({
   const minRef = useRef<HTMLUListElement>(null);
   const secondsRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    if (timeTypeRef.current)
-      timeTypeRef.current.scrollTop = timeType === TIME_TYPE.AM ? 0 : height;
-    if (hourRef.current)
-      hourRef.current.scrollTop = is24Hour
-        ? hour * height
-        : (hour % 12) * height;
-    if (minRef.current) minRef.current.scrollTop = min * height;
-    if (secondsRef.current) secondsRef.current.scrollTop = seconds * height;
-  }, [isOpen]);
-
-  const handleOpenClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e: any) => {
-      if (isOpen && !containerRef.current?.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [isOpen]);
+  useClickOutside(containerRef, setIsOpen);
+  useSetScrollPosition(
+    hourRef,
+    is24Hour ? hour * height : (hour % 12) * height,
+    isOpen
+  );
+  useSetScrollPosition(minRef, min * height, isOpen);
+  useSetScrollPosition(secondsRef, seconds * height, isOpen);
 
   useEffect(() => {
     if (!inputRef.current) return;

@@ -1,5 +1,7 @@
 ## Word
 
+### Props
+
 | props      | type                | desc         | default  |
 | ---------- | ------------------- | ------------ | -------- |
 | children   | string              | preparing... | required |

@@ -1,5 +1,9 @@
 ## DatePicker
 
+![DatePicker](./img/DatePicker.png)
+
+### Props
+
 | props                       | type                 | desc         | default  |
 | --------------------------- | -------------------- | ------------ | -------- |
 | handleSelect                | (value: any) => void | preparing... | required |

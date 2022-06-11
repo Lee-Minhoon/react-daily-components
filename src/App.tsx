@@ -22,13 +22,55 @@ function App() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <SelectList
+        itemList={[
+          "Apple🍎",
+          "Banana🍌",
+          "Orange🍊",
+          "Grape🍇",
+          "Kiwi🥝",
+          "Lemon🍋",
+          "Strawberry🍓",
+          "Watermelon🍉",
+        ]}
+        value={value}
+        handleSelect={setValue}
+      />
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <LoadingBar />
+      <Pagination
+        totalPages={15}
+        currentPage={1}
+        block={10}
+        width={500}
+        handleClick={handler}
+      />
+      <br />
+      <br />
+      <br />
+      <TimePicker handleSelect={handle} is24Hour={false} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePicker handleSelect={handle} isWeekendColor isMondayFirst={true} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

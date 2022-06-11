@@ -1,5 +1,9 @@
 ## LoadingBar
 
+![LoadingBar](./img/LoadingBar.png)
+
+### Props
+
 | props                | type    | desc         | default              |
 | -------------------- | ------- | ------------ | -------------------- |
 | spinnerSize?         | number  | preparing... | 50                   |

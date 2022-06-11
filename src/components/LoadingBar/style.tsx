@@ -41,9 +41,5 @@ export const Spinner = styled.span<LoadingBarStyleProps>`
     `${spinnerBorderWidth}px solid ${spinnerBarColor}`};
   width: ${({ spinnerSize }) => `${spinnerSize}px`};
   height: ${({ spinnerSize }) => `${spinnerSize}px`};
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   animation: spin 1s infinite linear;
 `;

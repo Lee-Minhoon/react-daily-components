@@ -1,6 +1,4 @@
 import * as Style from "./style";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import useInput from "../../hooks/useInput";
 
 interface LoadingBarProps {
   spinnerSize?: number;
@@ -32,7 +30,7 @@ const LoadingBar = ({
         spinnerBorderWidth={spinnerBorderWidth}
         spinnerBodyColor={spinnerBodyColor}
         spinnerBarColor={spinnerBarColor}
-      ></Style.Spinner>
+      />
     </Style.LoadingBar>
   );
 };

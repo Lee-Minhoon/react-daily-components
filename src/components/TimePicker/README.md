@@ -1,5 +1,9 @@
 ## TimePicker
 
+![TimePicker](./img/TimePicker.png)
+
+### Props
+
 | props                       | type                 | desc         | default  |
 | --------------------------- | -------------------- | ------------ | -------- |
 | handleSelect                | (value: any) => void | preparing... | required |

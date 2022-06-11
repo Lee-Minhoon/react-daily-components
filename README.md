@@ -14,38 +14,28 @@ The official distribution is from version 1.0.0.
 
 ![SelectList](./img/SelectList.png)
 
-### Usage
-
-(https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/SelectList)
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/SelectList)
 
 ## TimePicker
 
 ![TimePicker](./img/TimePicker.png)
 
-### Usage
-
-(https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/TimePicker)
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/TimePicker)
 
 ## DatePicker
 
 ![DatePicker](./img/DatePicker.png)
 
-### Usage
-
-(https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/DatePicker)
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/DatePicker)
 
 ## Pagination
 
 ![Pagination](./img/Pagination.png)
 
-### Usage
-
-(https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Pagination)
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Pagination)
 
 ## LoadingBar
 
 ![LoadingBar](./img/LoadingBar.png)
 
-### Usage
-
-(https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/LoadingBar)
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/LoadingBar)
