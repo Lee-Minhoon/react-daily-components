@@ -161,9 +161,9 @@ const Pagination = ({
   };
 
   return (
-    <Style.Pagination width={width} fontSize={fontSize} style={containerStyle}>
+    <Style.Container width={width} fontSize={fontSize} style={containerStyle}>
       <Style.List gap={gap}>{render()}</Style.List>
-    </Style.Pagination>
+    </Style.Container>
   );
 };
 

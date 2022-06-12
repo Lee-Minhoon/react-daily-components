@@ -8,7 +8,7 @@ interface PaginationStyleProps {
   color?: string;
 }
 
-export const Pagination = styled.nav<PaginationStyleProps>`
+export const Container = styled.nav<PaginationStyleProps>`
   width: ${({ width }) => (width ? `${width}px` : "100%")};
   display: flex;
   justify-content: center;

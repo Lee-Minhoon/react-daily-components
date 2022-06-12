@@ -4,21 +4,16 @@ import { HOURS, Time, TIME_TYPE } from "../../types/time";
 import useClickOutside from "../../hooks/useClickOutside";
 import useSetScrollPosition from "../../hooks/useSetScrollPosition";
 import useModal from "../../hooks/useModal";
+import useCursor from "../../hooks/useCursor";
+import { ContainerProps } from "../../types/props";
 
-interface TimePickerProps {
+interface TimePickerProps extends ContainerProps {
   handleSelect: (value: any) => void;
   is24Hour?: boolean;
   isSelectHour?: boolean;
   isSelectMin?: boolean;
   isSelectSeconds?: boolean;
   maxItemCount?: number;
-  width?: number;
-  height?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
   selectListActiveStyle?: React.CSSProperties;
   selectListInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
@@ -58,7 +53,6 @@ const TimePicker = ({
   const [hour, setHour] = useState<number>(12);
   const [min, setMin] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
-  const [cursor, setCursor] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +60,7 @@ const TimePicker = ({
   const hourRef = useRef<HTMLUListElement>(null);
   const minRef = useRef<HTMLUListElement>(null);
   const secondsRef = useRef<HTMLUListElement>(null);
+  const { cursor, setCursor } = useCursor(inputRef, time);
 
   useClickOutside(containerRef, setIsOpen);
   useSetScrollPosition(
@@ -75,13 +70,6 @@ const TimePicker = ({
   );
   useSetScrollPosition(minRef, min * height, isOpen);
   useSetScrollPosition(secondsRef, seconds * height, isOpen);
-
-  useEffect(() => {
-    if (!inputRef.current) return;
-    inputRef.current.selectionStart = cursor;
-    inputRef.current.selectionEnd = cursor;
-    // inputRef.current.value = time.getString();
-  }, [time, cursor]);
 
   useEffect(() => {
     const newTime = new Time({
@@ -196,7 +184,7 @@ const TimePicker = ({
   );
 
   return (
-    <Style.SelectList
+    <Style.Container
       ref={containerRef}
       isOpen={isOpen}
       maxItemCount={maxItemCount}
@@ -320,7 +308,7 @@ const TimePicker = ({
           )}
         </Style.ListContainer>
       )}
-    </Style.SelectList>
+    </Style.Container>
   );
 };
 

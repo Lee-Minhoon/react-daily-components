@@ -13,7 +13,7 @@ export interface SelectListStyleProps {
   outlineColor?: string;
 }
 
-export const SelectList = styled.div<SelectListStyleProps>`
+export const Container = styled.div<SelectListStyleProps>`
   width: ${({ width }) => `${width}px`};
   position: relative;
   &::after {

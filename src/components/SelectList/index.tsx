@@ -3,21 +3,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import useInput from "../../hooks/useInput";
 import useClickOutside from "../../hooks/useClickOutside";
 import useModal from "../../hooks/useModal";
+import { ContainerProps } from "../../types/props";
 
-interface SelectListProps {
+interface SelectListProps extends ContainerProps {
   itemList: Array<string>;
   value: string;
   handleSelect: (value: string) => void;
   isSearchable?: boolean;
   placeholder?: string;
   maxItemCount?: number;
-  width?: number;
-  height?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
   selectListActiveStyle?: React.CSSProperties;
   selectListInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
@@ -89,7 +83,7 @@ const SelectList = ({
   );
 
   return (
-    <Style.SelectList
+    <Style.Container
       ref={ref}
       isOpen={isOpen}
       maxItemCount={
@@ -166,7 +160,7 @@ const SelectList = ({
           ))}
         </Style.List>
       )}
-    </Style.SelectList>
+    </Style.Container>
   );
 };
 

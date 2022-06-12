@@ -10,7 +10,7 @@ interface LoadingBarStyleProps {
   isFullScreen?: boolean;
 }
 
-export const LoadingBar = styled.span<LoadingBarStyleProps>`
+export const Container = styled.span<LoadingBarStyleProps>`
   width: 100%;
   height: 100%;
   display: flex;

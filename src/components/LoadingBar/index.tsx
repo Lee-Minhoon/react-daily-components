@@ -20,7 +20,7 @@ const LoadingBar = ({
   isFullScreen = true,
 }: LoadingBarProps) => {
   return (
-    <Style.LoadingBar
+    <Style.Container
       backgroundColor={backgroundColor}
       isBlockedBackground={isBlockedBackground}
       isFullScreen={isFullScreen}
@@ -31,7 +31,7 @@ const LoadingBar = ({
         spinnerBodyColor={spinnerBodyColor}
         spinnerBarColor={spinnerBarColor}
       />
-    </Style.LoadingBar>
+    </Style.Container>
   );
 };
 

@@ -12,7 +12,7 @@ export interface SelectListStyleProps {
   outlineColor?: string;
 }
 
-export const SelectList = styled.div<SelectListStyleProps>`
+export const Container = styled.div<SelectListStyleProps>`
   width: ${({ width }) => `${width}px`};
   position: relative;
 `;
@@ -77,9 +77,12 @@ export const ListContainer = styled.div<SelectListStyleProps>`
   text-align: center;
   font-size: ${({ fontSize }) => `${fontSize}px`};
   position: absolute;
+  background-color: white;
+  z-index: 2;
 
   &::after {
     content: "";
+
     position: absolute;
     width: 100%;
     height: 100%;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import "./App.css";
 import { SelectList } from "./components";
 import DatePicker from "./components/DatePicker";
+import Input from "./components/Input";
 import LoadingBar from "./components/LoadingBar";
 import Pagination from "./components/Pagination";
 import TimePicker from "./components/TimePicker";
@@ -11,6 +11,7 @@ import { Time } from "./types/time";
 
 function App() {
   const [value, setValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const handler = (page: number) => {
     console.log(page);
@@ -18,6 +19,11 @@ function App() {
 
   const handle = (item: any) => {
     console.log("hrere", item);
+  };
+
+  const inputHandle = (item: string) => {
+    setInputValue(item);
+    console.log(item);
   };
 
   return (
@@ -40,8 +46,6 @@ function App() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
       <Pagination
         totalPages={15}
         currentPage={1}
@@ -59,9 +63,6 @@ function App() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
       <DatePicker handleSelect={handle} isWeekendColor isMondayFirst={true} />
       <br />
       <br />
@@ -69,8 +70,7 @@ function App() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
+      <Input value={inputValue} handleChange={inputHandle} />
     </div>
   );
 }

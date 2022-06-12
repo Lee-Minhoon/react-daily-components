@@ -12,21 +12,16 @@ import _ from "lodash-es";
 import { replaceAt } from "../../utilities/string";
 import { quotient } from "../../utilities/math";
 import useClickOutside from "../../hooks/useClickOutside";
+import useCursor from "../../hooks/useCursor";
 import useModal from "../../hooks/useModal";
+import { ContainerProps } from "../../types/props";
 
-interface DatePickerProps {
+interface DatePickerProps extends ContainerProps {
   handleSelect: (value: any) => void;
   isMondayFirst?: boolean;
   isWeekendColor?: boolean;
-  containerWidth?: number;
-  containerHeight?: number;
   itemWidth?: number;
   itemHeight?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
   selectListActiveStyle?: React.CSSProperties;
   selectListInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
@@ -40,8 +35,8 @@ const DatePicker = ({
   handleSelect,
   isMondayFirst = true,
   isWeekendColor = true,
-  containerWidth = 200,
-  containerHeight = 30,
+  width = 200,
+  height = 30,
   itemWidth = 40,
   itemHeight = 30,
   fontSize = 16,
@@ -59,10 +54,9 @@ const DatePicker = ({
 }: DatePickerProps) => {
   const { isOpen, setIsOpen, handleOpenClick } = useModal();
   const [date, setDate] = useState<Date>(new Date(DateTime.now()));
-  const [cursor, setCursor] = useState<number>(0);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { cursor, setCursor } = useCursor(inputRef, date);
 
   useClickOutside(containerRef, setIsOpen);
 
@@ -71,13 +65,6 @@ const DatePicker = ({
     setDate(item);
     handleSelect(item);
   }, []);
-
-  useEffect(() => {
-    if (!inputRef.current) return;
-    inputRef.current.selectionStart = cursor;
-    inputRef.current.selectionEnd = cursor;
-    // inputRef.current.value = time.getString();
-  }, [date, cursor]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,11 +140,11 @@ const DatePicker = ({
   }
 
   return (
-    <Style.SelectList
+    <Style.Container
       ref={containerRef}
       isOpen={isOpen}
-      width={containerWidth}
-      height={containerHeight}
+      width={width}
+      height={height}
       borderRadius={borderRadius}
       outlineWidth={outlineWidth}
       outlineColor={outlineColor}
@@ -165,7 +152,7 @@ const DatePicker = ({
     >
       <Style.SelectWrapper
         isOpen={isOpen}
-        height={containerHeight}
+        height={height}
         borderRadius={borderRadius}
         outlineWidth={outlineWidth}
         outlineColor={outlineColor}
@@ -281,7 +268,7 @@ const DatePicker = ({
           </Style.List>
         </Style.ListContainer>
       )}
-    </Style.SelectList>
+    </Style.Container>
   );
 };
 
