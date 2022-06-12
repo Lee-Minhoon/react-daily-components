@@ -3,11 +3,8 @@ import { useState } from "react";
 import { SelectList } from "./components";
 import DatePicker from "./components/DatePicker";
 import Input from "./components/Input";
-import LoadingBar from "./components/LoadingBar";
 import Pagination from "./components/Pagination";
 import TimePicker from "./components/TimePicker";
-import Word from "./components/Word";
-import { Time } from "./types/time";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -70,7 +67,12 @@ function App() {
       <br />
       <br />
       <br />
-      <Input value={inputValue} handleChange={inputHandle} />
+      <Input
+        value={inputValue}
+        handleChange={inputHandle}
+        label={"Password"}
+        labelLocation={"Left"}
+      />
     </div>
   );
 }
