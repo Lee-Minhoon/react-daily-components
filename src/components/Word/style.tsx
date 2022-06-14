@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
-interface TextStyleProps {
+interface WordStyleProps {
   fontSize?: number;
   textColor?: string;
 }
 
-export const Word = styled.span<TextStyleProps>`
+export const Word = styled.span<WordStyleProps>`
   font-size: ${({ fontSize }) => `${fontSize}px`};
   color: ${({ textColor }) => textColor};
 `;

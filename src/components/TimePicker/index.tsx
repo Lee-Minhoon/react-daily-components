@@ -6,6 +6,11 @@ import useSetScrollPosition from "../../hooks/useSetScrollPosition";
 import useModal from "../../hooks/useModal";
 import useCursor from "../../hooks/useCursor";
 import { ContainerProps } from "../../types/props";
+import TimeType from "./TimeType";
+import Hour from "./Hour";
+import Min from "./Min";
+import Seconds from "./Seconds";
+import ArrowButton from "../common/ArrowButton";
 
 interface TimePickerProps extends ContainerProps {
   handleSelect: (value: any) => void;
@@ -223,16 +228,13 @@ const TimePicker = ({
           textColor={textColor}
           onChange={(e) => handleChange(e)}
         />
-        <Style.Button onClick={handleOpenClick}>
-          <Style.Svg
-            viewBox="0 0 20 20"
-            isOpen={isOpen}
-            outlineColor={outlineColor}
-            outlineWidth={outlineWidth}
-          >
-            <polyline points="2 6 10 14 18 6 10 14" />
-          </Style.Svg>
-        </Style.Button>
+        <ArrowButton
+          handleOpenClick={handleOpenClick}
+          isOpen={isOpen}
+          outlineColor={outlineColor}
+          outlineWidth={outlineWidth}
+          direction={isOpen ? "Up" : "Down"}
+        />
       </Style.SelectWrapper>
       {isOpen && (
         <Style.ListContainer
@@ -245,66 +247,45 @@ const TimePicker = ({
           style={listContainerStyle}
         >
           {!is24Hour && (
-            <Style.List ref={timeTypeRef} style={listStyle}>
-              {Object.values(TIME_TYPE).map((item, index) => (
-                <Style.Item
-                  key={index}
-                  isSelected={timeType === item}
-                  height={height}
-                  onClick={() => setTimeType(item)}
-                  style={itemStyle}
-                >
-                  {item}
-                </Style.Item>
-              ))}
-            </Style.List>
+            <TimeType
+              timeTypeRef={timeTypeRef}
+              timeType={timeType}
+              setTimeType={setTimeType}
+              height={height}
+              listStyle={listStyle}
+              itemStyle={itemStyle}
+            />
           )}
           {isSelectHour && (
-            <Style.List ref={hourRef} style={listStyle}>
-              {(is24Hour ? Array.from(new Array(24)) : HOURS).map(
-                (item, index) => (
-                  <Style.Item
-                    key={index}
-                    isSelected={is24Hour ? hour === index : hour === item}
-                    height={height}
-                    onClick={() => setHour(is24Hour ? index : item)}
-                    style={itemStyle}
-                  >
-                    {is24Hour ? index : item}
-                  </Style.Item>
-                )
-              )}
-            </Style.List>
+            <Hour
+              hourRef={hourRef}
+              hour={hour}
+              setHour={setHour}
+              is24Hour={is24Hour}
+              height={height}
+              listStyle={listStyle}
+              itemStyle={itemStyle}
+            />
           )}
           {isSelectMin && (
-            <Style.List ref={minRef} style={listStyle}>
-              {Array.from(new Array(60)).map((item, index) => (
-                <Style.Item
-                  key={index}
-                  isSelected={min === index}
-                  height={height}
-                  onClick={() => setMin(index)}
-                  style={itemStyle}
-                >
-                  {index}
-                </Style.Item>
-              ))}
-            </Style.List>
+            <Min
+              minRef={minRef}
+              min={min}
+              setMin={setMin}
+              height={height}
+              listStyle={listStyle}
+              itemStyle={itemStyle}
+            />
           )}
           {isSelectSeconds && (
-            <Style.List ref={secondsRef} style={listStyle}>
-              {Array.from(new Array(60)).map((item, index) => (
-                <Style.Item
-                  key={index}
-                  isSelected={seconds === index}
-                  height={height}
-                  onClick={() => setSeconds(index)}
-                  style={itemStyle}
-                >
-                  {index}
-                </Style.Item>
-              ))}
-            </Style.List>
+            <Seconds
+              secondsRef={secondsRef}
+              seconds={seconds}
+              setSeconds={setSeconds}
+              height={height}
+              listStyle={listStyle}
+              itemStyle={itemStyle}
+            />
           )}
         </Style.ListContainer>
       )}

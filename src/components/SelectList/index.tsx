@@ -4,6 +4,7 @@ import useInput from "../../hooks/useInput";
 import useClickOutside from "../../hooks/useClickOutside";
 import useModal from "../../hooks/useModal";
 import { ContainerProps } from "../../types/props";
+import ArrowButton from "../common/ArrowButton";
 
 interface SelectListProps extends ContainerProps {
   itemList: Array<string>;
@@ -121,16 +122,13 @@ const SelectList = ({
             textColor={textColor}
           />
         )}
-        <Style.Button onClick={handleOpenClick}>
-          <Style.Svg
-            viewBox="0 0 20 20"
-            isOpen={isOpen}
-            outlineWidth={outlineWidth}
-            outlineColor={outlineColor}
-          >
-            <polyline points="2 6 10 14 18 6 10 14" />
-          </Style.Svg>
-        </Style.Button>
+        <ArrowButton
+          handleOpenClick={handleOpenClick}
+          isOpen={isOpen}
+          outlineColor={outlineColor}
+          outlineWidth={outlineWidth}
+          direction={isOpen ? "Up" : "Down"}
+        />
       </Style.SelectWrapper>
       {isOpen && (
         <Style.List

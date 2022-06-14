@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export interface SelectListStyleProps {
+export interface TimePickerStyleProps {
   isOpen?: boolean;
   isSelected?: boolean;
   maxItemCount?: number;
@@ -13,7 +13,7 @@ export interface SelectListStyleProps {
   outlineColor?: string;
 }
 
-export const Container = styled.div<SelectListStyleProps>`
+export const Container = styled.div<TimePickerStyleProps>`
   width: ${({ width }) => `${width}px`};
   position: relative;
   &::after {
@@ -33,7 +33,7 @@ export const Container = styled.div<SelectListStyleProps>`
   }
 `;
 
-export const SelectWrapper = styled.div<SelectListStyleProps>`
+export const SelectWrapper = styled.div<TimePickerStyleProps>`
   display: flex;
   position: relative;
   align-items: center;
@@ -57,7 +57,7 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
   padding: 0 10px;
 `;
 
-export const Input = styled.input<SelectListStyleProps>`
+export const Input = styled.input<TimePickerStyleProps>`
   flex: 1;
   min-width: 0;
   z-index: 1;
@@ -70,26 +70,7 @@ export const Input = styled.input<SelectListStyleProps>`
   text-overflow: ellipsis;
 `;
 
-export const Button = styled.button<SelectListStyleProps>`
-  z-index: 1;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: none;
-  :hover {
-    cursor: pointer;
-  }
-  background-color: initial;
-`;
-
-export const Svg = styled.svg<SelectListStyleProps>`
-  display: block;
-  stroke: ${({ outlineColor }) => outlineColor};
-  opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
-  stroke-width: ${({ outlineWidth }) => outlineWidth};
-`;
-
-export const ListContainer = styled.div<SelectListStyleProps>`
+export const ListContainer = styled.div<TimePickerStyleProps>`
   color: ${({ textColor }) => textColor};
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
@@ -105,7 +86,7 @@ export const ListContainer = styled.div<SelectListStyleProps>`
   border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
 `;
 
-export const List = styled.ul<SelectListStyleProps>`
+export const List = styled.ul<TimePickerStyleProps>`
   padding: 0;
   margin: 0;
   flex: 1;
@@ -116,7 +97,7 @@ export const List = styled.ul<SelectListStyleProps>`
   }
 `;
 
-export const Item = styled.li<SelectListStyleProps>`
+export const Item = styled.li<TimePickerStyleProps>`
   height: ${({ height }) => `${height}px`};
   padding: 0 10px;
   line-height: ${({ height }) => `${height}px`};

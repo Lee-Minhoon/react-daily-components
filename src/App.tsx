@@ -1,10 +1,7 @@
 import { useState } from "react";
 
-import { SelectList } from "./components";
-import DatePicker from "./components/DatePicker";
+import { DatePicker, Pagination, SelectList, TimePicker } from "./components";
 import Input from "./components/Input";
-import Pagination from "./components/Pagination";
-import TimePicker from "./components/TimePicker";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -38,6 +35,7 @@ function App() {
         ]}
         value={value}
         handleSelect={setValue}
+        isSearchable
       />
       <br />
       <br />
@@ -60,7 +58,7 @@ function App() {
       <br />
       <br />
       <br />
-      <DatePicker handleSelect={handle} isWeekendColor isMondayFirst={true} />
+      <DatePicker handleSelect={handle} isWeekendColor isMondayFirst={false} />
       <br />
       <br />
       <br />
@@ -71,7 +69,7 @@ function App() {
         value={inputValue}
         handleChange={inputHandle}
         label={"Password"}
-        labelLocation={"Left"}
+        labelLocation={"TopRight"}
       />
     </div>
   );

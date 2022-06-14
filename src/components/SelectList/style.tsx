@@ -71,25 +71,6 @@ export const Input = styled.input<SelectListStyleProps>`
   text-overflow: ellipsis;
 `;
 
-export const Button = styled.button<SelectListStyleProps>`
-  z-index: 1;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: none;
-  :hover {
-    cursor: pointer;
-  }
-  background-color: initial;
-`;
-
-export const Svg = styled.svg<SelectListStyleProps>`
-  display: block;
-  stroke: ${({ outlineColor }) => outlineColor};
-  opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
-  stroke-width: ${({ outlineWidth }) => outlineWidth};
-`;
-
 export const List = styled.ul<SelectListStyleProps>`
   list-style-type: none;
   color: ${({ textColor }) => textColor};

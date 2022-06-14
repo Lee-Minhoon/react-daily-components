@@ -15,6 +15,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 import useCursor from "../../hooks/useCursor";
 import useModal from "../../hooks/useModal";
 import { ContainerProps } from "../../types/props";
+import ArrowButton from "../common/ArrowButton";
 
 interface DatePickerProps extends ContainerProps {
   handleSelect: (value: any) => void;
@@ -165,16 +166,13 @@ const DatePicker = ({
           textColor={textColor}
           onChange={(e) => handleChange(e)}
         />
-        <Style.Button onClick={handleOpenClick}>
-          <Style.Svg
-            viewBox="0 0 20 20"
-            isOpen={isOpen}
-            outlineColor={outlineColor}
-            outlineWidth={outlineWidth}
-          >
-            <polyline points="2 6 10 14 18 6 10 14" />
-          </Style.Svg>
-        </Style.Button>
+        <ArrowButton
+          handleOpenClick={handleOpenClick}
+          isOpen={isOpen}
+          outlineColor={outlineColor}
+          outlineWidth={outlineWidth}
+          direction={isOpen ? "Up" : "Down"}
+        />
       </Style.SelectWrapper>
       {isOpen && (
         <Style.ListContainer
@@ -187,45 +185,33 @@ const DatePicker = ({
           style={listContainerStyle}
         >
           <Style.YearMonth height={itemHeight} fontSize={fontSize}>
-            <Style.ArrowButton
-              fontSize={fontSize}
-              onClick={() =>
+            <ArrowButton
+              handleOpenClick={() =>
                 setDate((date) => {
                   const newDate = _.cloneDeep(date);
                   newDate.plus({ month: -1 });
                   return newDate;
                 })
               }
-            >
-              <Style.Svg
-                viewBox="0 0 20 20"
-                isOpen={isOpen}
-                outlineColor={outlineColor}
-                outlineWidth={outlineWidth}
-              >
-                <polyline points="14 2 6 10 14 18 6 10" />
-              </Style.Svg>
-            </Style.ArrowButton>
+              isOpen={isOpen}
+              outlineColor={outlineColor}
+              outlineWidth={outlineWidth}
+              direction="Left"
+            />
             {date.getYearMonthString({ DateFormat: DATE_FORMAT.DASH })}
-            <Style.ArrowButton
-              fontSize={fontSize}
-              onClick={() =>
+            <ArrowButton
+              handleOpenClick={() =>
                 setDate((date) => {
                   const newDate = _.cloneDeep(date);
                   newDate.plus({ month: 1 });
                   return newDate;
                 })
               }
-            >
-              <Style.Svg
-                viewBox="0 0 20 20"
-                isOpen={isOpen}
-                outlineColor={outlineColor}
-                outlineWidth={outlineWidth}
-              >
-                <polyline points="6 2 14 10 6 18 14 10" />
-              </Style.Svg>
-            </Style.ArrowButton>
+              isOpen={isOpen}
+              outlineColor={outlineColor}
+              outlineWidth={outlineWidth}
+              direction="Right"
+            />
           </Style.YearMonth>
           <Style.WeekdayList>
             {WEEK_DAYS.map((item, index) => {

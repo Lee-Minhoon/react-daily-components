@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export interface SelectListStyleProps {
+export interface DatePickerStyleProps {
   isOpen?: boolean;
   isSelected?: boolean;
   width?: number;
@@ -12,12 +12,12 @@ export interface SelectListStyleProps {
   outlineColor?: string;
 }
 
-export const Container = styled.div<SelectListStyleProps>`
+export const Container = styled.div<DatePickerStyleProps>`
   width: ${({ width }) => `${width}px`};
   position: relative;
 `;
 
-export const SelectWrapper = styled.div<SelectListStyleProps>`
+export const SelectWrapper = styled.div<DatePickerStyleProps>`
   display: flex;
   position: relative;
   align-items: center;
@@ -39,7 +39,7 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
   padding: 0 10px;
 `;
 
-export const Input = styled.input<SelectListStyleProps>`
+export const Input = styled.input<DatePickerStyleProps>`
   flex: 1;
   min-width: 0;
   z-index: 1;
@@ -52,26 +52,7 @@ export const Input = styled.input<SelectListStyleProps>`
   text-overflow: ellipsis;
 `;
 
-export const Button = styled.button<SelectListStyleProps>`
-  z-index: 1;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: none;
-  :hover {
-    cursor: pointer;
-  }
-  background-color: initial;
-`;
-
-export const Svg = styled.svg<SelectListStyleProps>`
-  display: block;
-  stroke: ${({ outlineColor }) => outlineColor};
-  opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
-  stroke-width: ${({ outlineWidth }) => outlineWidth};
-`;
-
-export const ListContainer = styled.div<SelectListStyleProps>`
+export const ListContainer = styled.div<DatePickerStyleProps>`
   color: ${({ textColor }) => textColor};
   margin-top: ${({ outlineWidth = 1 }) => `${outlineWidth * 5}px`};
   text-align: center;
@@ -97,7 +78,7 @@ export const ListContainer = styled.div<SelectListStyleProps>`
   }
 `;
 
-export const YearMonth = styled.div<SelectListStyleProps>`
+export const YearMonth = styled.div<DatePickerStyleProps>`
   height: ${({ height }) => `${height}px`};
   font-size: ${({ fontSize }) => `${fontSize}px`};
   line-height: ${({ height }) => `${height}px`};
@@ -107,20 +88,7 @@ export const YearMonth = styled.div<SelectListStyleProps>`
   column-gap: 1em;
 `;
 
-export const ArrowButton = styled.button<SelectListStyleProps>`
-  font-size: ${({ fontSize }) => `${fontSize}px`};
-  width: 1em;
-  height: 1em;
-  padding: 0;
-  border: none;
-  :hover {
-    cursor: pointer;
-  }
-  background-color: initial;
-  z-index: 1;
-`;
-
-export const WeekdayList = styled.ul<SelectListStyleProps>`
+export const WeekdayList = styled.ul<DatePickerStyleProps>`
   padding: 0;
   margin: 0;
   flex: 1;
@@ -129,7 +97,7 @@ export const WeekdayList = styled.ul<SelectListStyleProps>`
   list-style-type: none;
 `;
 
-export const WeekdayItem = styled.li<SelectListStyleProps>`
+export const WeekdayItem = styled.li<DatePickerStyleProps>`
   z-index: 1;
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
@@ -137,7 +105,7 @@ export const WeekdayItem = styled.li<SelectListStyleProps>`
   font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
 `;
 
-export const List = styled.ul<SelectListStyleProps>`
+export const List = styled.ul<DatePickerStyleProps>`
   padding: 0;
   margin: 0;
   flex: 1;
@@ -149,7 +117,7 @@ export const List = styled.ul<SelectListStyleProps>`
   border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
 `;
 
-export const Item = styled.li<SelectListStyleProps>`
+export const Item = styled.li<DatePickerStyleProps>`
   z-index: 1;
   font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
   height: ${({ height }) => `${height}px`};
