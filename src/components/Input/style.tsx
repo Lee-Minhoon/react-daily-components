@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { LabelLocations, LABEL_LOCATIONS } from ".";
 
 export interface InputStyleProps {
   isFocus?: boolean;
-  labelLocation?: string;
+  labelLocation?: LabelLocations;
   gap?: number;
   width?: number;
   height?: number;
@@ -13,17 +14,20 @@ export interface InputStyleProps {
   outlineColor?: string;
 }
 
-const getFlexDirection = (input: string) => {
-  return input === "Left" || input === "Right" ? "row" : "column";
+const getFlexDirection = (input: LabelLocations) => {
+  return input === LABEL_LOCATIONS.left || input === LABEL_LOCATIONS.right
+    ? "row"
+    : "column";
 };
 
-const getAlignItems = (input: string) => {
+const getAlignItems = (input: LabelLocations) => {
   const centerCondition =
-    input === "Left" ||
-    input === "Right" ||
-    input === "TopCenter" ||
-    input === "BotCenter";
-  const rightCondition = input === "TopRight" || input === "BotRight";
+    input === LABEL_LOCATIONS.left ||
+    input === LABEL_LOCATIONS.right ||
+    input === LABEL_LOCATIONS.topCenter ||
+    input === LABEL_LOCATIONS.botCenter;
+  const rightCondition =
+    input === LABEL_LOCATIONS.topRight || input === LABEL_LOCATIONS.botRight;
   if (centerCondition) return "center";
   else if (rightCondition) return "flex-end";
   else return "initial";
@@ -31,9 +35,10 @@ const getAlignItems = (input: string) => {
 
 export const Container = styled.div<InputStyleProps>`
   display: flex;
-  flex-direction: ${({ labelLocation = "Left" }) =>
+  flex-direction: ${({ labelLocation = LABEL_LOCATIONS.left }) =>
     getFlexDirection(labelLocation)};
-  align-items: ${({ labelLocation = "Left" }) => getAlignItems(labelLocation)};
+  align-items: ${({ labelLocation = LABEL_LOCATIONS.left }) =>
+    getAlignItems(labelLocation)};
   width: ${({ width }) => `${width}px`};
   gap: ${({ gap }) => `${gap}px`};
 `;

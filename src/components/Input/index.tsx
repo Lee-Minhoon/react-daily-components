@@ -1,32 +1,43 @@
 import { ContainerProps } from "../../types/props";
 import * as Style from "./style";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
-const labelLocations = {
-  TopLeft: "TopLeft",
-  TopCenter: "TopCenter",
-  TopRight: "TopRight",
-  BotLeft: "BotLeft",
-  BotCenter: "BotCenter",
-  BotRight: "BotRight",
-  Left: "Left",
-  Right: "Right",
+export const REGULAR_EXPRESSIONS = {
+  number: /0-9/,
+  alphabet: /a-zA-Z/,
+  lowerCase: /a-z/,
+  upperCase: /A-Z/,
 } as const;
-type LABEL_LOCATIONS = typeof labelLocations[keyof typeof labelLocations];
+export type RegularExpressions = keyof typeof REGULAR_EXPRESSIONS;
+
+export const LABEL_LOCATIONS = {
+  topLeft: "topLeft",
+  topCenter: "topCenter",
+  topRight: "topRight",
+  totLeft: "botLeft",
+  botCenter: "botCenter",
+  botRight: "botRight",
+  left: "left",
+  right: "right",
+} as const;
+export type LabelLocations =
+  typeof LABEL_LOCATIONS[keyof typeof LABEL_LOCATIONS];
 
 interface InputProps extends ContainerProps {
   value: string;
   handleChange: (value: string) => void;
+  regularExpression?: Array<RegularExpressions>;
   label?: string;
-  labelLocation?: LABEL_LOCATIONS;
+  labelLocation?: LabelLocations;
   gap?: number;
 }
 
 const Input = ({
   value,
   handleChange,
+  regularExpression,
   label,
-  labelLocation = "Left",
+  labelLocation = LABEL_LOCATIONS.left,
   gap = 5,
   width = 200,
   height = 30,
@@ -37,12 +48,34 @@ const Input = ({
   outlineColor = "gray",
 }: InputProps) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
-
   const labelFirstCondition =
-    labelLocation === "Left" ||
-    labelLocation === "TopLeft" ||
-    labelLocation === "TopCenter" ||
-    labelLocation === "TopRight";
+    labelLocation === "left" ||
+    labelLocation === "topLeft" ||
+    labelLocation === "topCenter" ||
+    labelLocation === "topRight";
+
+  const handleInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let reg = "";
+      if (regularExpression) {
+        let arrayValues = regularExpression.map((item) => {
+          return REGULAR_EXPRESSIONS[item].source.replace(
+            /(?<=^[\s"']*)(\w+)/,
+            "$1"
+          );
+        });
+
+        console.log(arrayValues);
+
+        e.currentTarget.value = e.currentTarget.value.replace(
+          // REGULAR_EXPRESSIONS[regularExpression],
+          arrayValues,
+          ""
+        );
+      }
+    },
+    [regularExpression]
+  );
 
   return (
     <Style.Container
@@ -75,6 +108,7 @@ const Input = ({
           id="input"
           value={value}
           onChange={(e) => handleChange(e.target.value)}
+          onInput={handleInput}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           fontSize={fontSize}

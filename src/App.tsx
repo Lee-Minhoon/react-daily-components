@@ -69,7 +69,8 @@ function App() {
         value={inputValue}
         handleChange={inputHandle}
         label={"Password"}
-        labelLocation={"TopRight"}
+        labelLocation={"topRight"}
+        regularExpression={["number"]}
       />
     </div>
   );
