@@ -68,9 +68,9 @@ function App() {
       <Input
         value={inputValue}
         handleChange={inputHandle}
-        label={"Password"}
-        labelLocation={"topRight"}
-        regex={["number", "korean", "blank"]}
+        // label={"Password"}
+        // labelLocation={"topRight"}
+        // regex={["number", "korean", "blank"]}
       />
     </div>
   );
