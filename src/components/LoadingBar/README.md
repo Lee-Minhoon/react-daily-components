@@ -1,6 +1,6 @@
 ## LoadingBar
 
-![LoadingBar](./img/LoadingBar.png)
+![LoadingBar](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/LoadingBar.png?alt=media&token=2f8812f8-c496-404f-8921-f3a00c76e37a)
 
 ### Props
 

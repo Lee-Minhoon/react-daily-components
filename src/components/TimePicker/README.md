@@ -1,6 +1,6 @@
 ## TimePicker
 
-![TimePicker](./img/TimePicker.png)
+![TimePicker](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/TimePicker.png?alt=media&token=5623765b-2344-412f-81f6-8a0308666e54)
 
 ### Props
 

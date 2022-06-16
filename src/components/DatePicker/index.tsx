@@ -23,8 +23,8 @@ interface DatePickerProps extends ContainerProps {
   isWeekendColor?: boolean;
   itemWidth?: number;
   itemHeight?: number;
-  selectListActiveStyle?: React.CSSProperties;
-  selectListInactiveStyle?: React.CSSProperties;
+  containerActiveStyle?: React.CSSProperties;
+  containerInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
   selectWrapperInactiveStyle?: React.CSSProperties;
   listContainerStyle?: React.CSSProperties;
@@ -45,8 +45,8 @@ const DatePicker = ({
   borderRadius = 5,
   outlineWidth = 1,
   outlineColor = "gray",
-  selectListActiveStyle,
-  selectListInactiveStyle,
+  containerActiveStyle,
+  containerInactiveStyle,
   selectWrapperActiveStyle,
   selectWrapperInactiveStyle,
   listContainerStyle,
@@ -149,7 +149,7 @@ const DatePicker = ({
       borderRadius={borderRadius}
       outlineWidth={outlineWidth}
       outlineColor={outlineColor}
-      style={isOpen ? selectListActiveStyle : selectListInactiveStyle}
+      style={isOpen ? containerActiveStyle : containerInactiveStyle}
     >
       <Style.SelectWrapper
         isOpen={isOpen}

@@ -1,6 +1,6 @@
 ## Pagination
 
-![Pagination](./img/Pagination.png)
+![Pagination](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Pagination.png?alt=media&token=63e5a7b2-ec1f-4fe1-a041-ccfedf04d4c0)
 
 ### Props
 

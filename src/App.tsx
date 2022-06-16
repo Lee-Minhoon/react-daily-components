@@ -70,7 +70,7 @@ function App() {
         handleChange={inputHandle}
         label={"Password"}
         labelLocation={"topRight"}
-        regularExpression={["number"]}
+        regex={["number", "korean", "blank"]}
       />
     </div>
   );

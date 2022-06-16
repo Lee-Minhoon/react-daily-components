@@ -1,12 +1,15 @@
 import { ContainerProps } from "../../types/props";
 import * as Style from "./style";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { isArray, isRegExp } from "lodash-es";
 
 export const REGULAR_EXPRESSIONS = {
-  number: /0-9/,
-  alphabet: /a-zA-Z/,
-  lowerCase: /a-z/,
-  upperCase: /A-Z/,
+  korean: "ㄱ-ㅎ가-힣",
+  number: "0-9",
+  letter: "a-zA-Z",
+  lowerCase: "a-z",
+  upperCase: "A-Z",
+  blank: " ",
 } as const;
 export type RegularExpressions = keyof typeof REGULAR_EXPRESSIONS;
 
@@ -26,16 +29,19 @@ export type LabelLocations =
 interface InputProps extends ContainerProps {
   value: string;
   handleChange: (value: string) => void;
-  regularExpression?: Array<RegularExpressions>;
+  regex?: Array<RegularExpressions> | RegExp;
   label?: string;
   labelLocation?: LabelLocations;
   gap?: number;
+  containerStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  inputStyle?: React.CSSProperties;
 }
 
 const Input = ({
   value,
   handleChange,
-  regularExpression,
+  regex,
   label,
   labelLocation = LABEL_LOCATIONS.left,
   gap = 5,
@@ -46,6 +52,9 @@ const Input = ({
   borderRadius = 5,
   outlineWidth = 1,
   outlineColor = "gray",
+  containerStyle,
+  labelStyle,
+  inputStyle,
 }: InputProps) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const labelFirstCondition =
@@ -54,27 +63,24 @@ const Input = ({
     labelLocation === "topCenter" ||
     labelLocation === "topRight";
 
+  let regexp: RegExp;
+  if (isArray(regex)) {
+    let regString = "[^";
+    regex.map((item) => {
+      regString += REGULAR_EXPRESSIONS[item];
+    });
+    regString += "]";
+    regexp = new RegExp(regString);
+  }
+  if (isRegExp(regex)) {
+    regexp = regex;
+  }
+
   const handleInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      let reg = "";
-      if (regularExpression) {
-        let arrayValues = regularExpression.map((item) => {
-          return REGULAR_EXPRESSIONS[item].source.replace(
-            /(?<=^[\s"']*)(\w+)/,
-            "$1"
-          );
-        });
-
-        console.log(arrayValues);
-
-        e.currentTarget.value = e.currentTarget.value.replace(
-          // REGULAR_EXPRESSIONS[regularExpression],
-          arrayValues,
-          ""
-        );
-      }
+      e.currentTarget.value = e.currentTarget.value.replace(regexp, "");
     },
-    [regularExpression]
+    [regex]
   );
 
   return (
@@ -92,6 +98,7 @@ const Input = ({
           height={height}
           fontSize={fontSize}
           textColor={textColor}
+          style={labelStyle}
         >
           {label}
         </Style.Label>
@@ -103,6 +110,7 @@ const Input = ({
         borderRadius={borderRadius}
         outlineWidth={outlineWidth}
         outlineColor={outlineColor}
+        style={containerStyle}
       >
         <Style.Input
           id="input"
@@ -113,6 +121,7 @@ const Input = ({
           onBlur={() => setIsFocus(false)}
           fontSize={fontSize}
           textColor={textColor}
+          style={inputStyle}
         />
       </Style.InputContainer>
       {label && !labelFirstCondition && (
@@ -123,6 +132,7 @@ const Input = ({
           height={height}
           fontSize={fontSize}
           textColor={textColor}
+          style={labelStyle}
         >
           {label}
         </Style.Label>

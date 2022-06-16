@@ -13,8 +13,8 @@ interface SelectListProps extends ContainerProps {
   isSearchable?: boolean;
   placeholder?: string;
   maxItemCount?: number;
-  selectListActiveStyle?: React.CSSProperties;
-  selectListInactiveStyle?: React.CSSProperties;
+  containerActiveStyle?: React.CSSProperties;
+  containerInactiveStyle?: React.CSSProperties;
   selectWrapperActiveStyle?: React.CSSProperties;
   selectWrapperInactiveStyle?: React.CSSProperties;
   listStyle?: React.CSSProperties;
@@ -35,8 +35,8 @@ const SelectList = ({
   borderRadius = 5,
   outlineWidth = 1,
   outlineColor = "gray",
-  selectListActiveStyle,
-  selectListInactiveStyle,
+  containerActiveStyle,
+  containerInactiveStyle,
   selectWrapperActiveStyle,
   selectWrapperInactiveStyle,
   listStyle,
@@ -95,7 +95,7 @@ const SelectList = ({
       borderRadius={borderRadius}
       outlineWidth={outlineWidth}
       outlineColor={outlineColor}
-      style={isOpen ? selectListActiveStyle : selectListInactiveStyle}
+      style={isOpen ? containerActiveStyle : containerInactiveStyle}
     >
       <Style.SelectWrapper
         isOpen={isOpen}
