@@ -4,116 +4,38 @@ It's still in the testing phase.
 
 The official distribution is from version 1.0.0.
 
-## Word
+## Input
 
-| props      | type                | desc         | default  |
-| ---------- | ------------------- | ------------ | -------- |
-| children   | string              | preparing... | required |
-| fontSize?  | number              | preparing... | 16       |
-| textColor? | string              | preparing... | "gray"   |
-| textStyle? | React.CSSProperties | preparing... | -        |
+![Input](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Input.png?alt=media&token=b1436dd4-790c-4c2b-8033-85b4d11b8a84)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Input)
 
 ## SelectList
 
-| prop                       | type                 | desc         | default  |
-| -------------------------- | -------------------- | ------------ | -------- |
-| itemList                   | Array\<any\>         | preparing... | required |
-| value                      | any                  | preparing... | required |
-| handleSelect               | (value: any) => void | preparing... | required |
-| isSearchable?              | boolean              | preparing... | false    |
-| placholder?                | string               | preparing... | -        |
-| maxItemCount?              | number               | preparing... | 8        |
-| width?                     | number               | preparing... | 200      |
-| height?                    | number               | preparing... | 30       |
-| fontSize?                  | number               | preparing... | 16       |
-| textColor?                 | string               | preparing... | "gray"   |
-| borderRadius?              | number               | preparing... | 5        |
-| outlineWidth?              | number               | preparing... | 1        |
-| outlineColor?              | string               | preparing... | "gray"   |
-| selectListActiveStyle?     | React.CSSProperties  | preparing... | -        |
-| selectListInactiveStyle?   | React.CSSProperties  | preparing... | -        |
-| selectWrapperActiveStyle?  | React.CSSProperties  | preparing... | -        |
-| selectWrapperIactiveStyle? | React.CSSProperties  | preparing... | -        |
-| listStyle?                 | React.CSSProperties  | preparing... | -        |
-| itemStyle?                 | React.CSSProperties  | preparing... | -        |
+![SelectList](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/SelectList.png?alt=media&token=f446a0d7-4908-4d4e-8eae-548f6f87ebf9)
 
-# TimePicker
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/SelectList)
 
-| props                       | type                 | desc         | default  |
-| --------------------------- | -------------------- | ------------ | -------- |
-| handleSelect                | (value: any) => void | preparing... | required |
-| is24Hour?                   | boolean              | preparing... | false    |
-| isSelectHour?               | boolean              | preparing... | true     |
-| isSelectMin?                | boolean              | preparing... | true     |
-| isSelectSeconds?            | boolean              | preparing... | false    |
-| maxItemCount?               | number               | preparing... | 6        |
-| width?                      | number               | preparing... | 200      |
-| height?                     | number               | preparing... | 30       |
-| fontSize?                   | number               | preparing... | 16       |
-| textColor?                  | string               | preparing... | "gray"   |
-| borderRadius?               | number               | preparing... | 5        |
-| outlineWidth?               | number               | preparing... | 1        |
-| outlineColor?               | string               | preparing... | "gray"   |
-| selectListActiveStyle?      | React.CSSProperties  | preparing... | -        |
-| selectListInactiveStyle?    | React.CSSProperties  | preparing... | -        |
-| selectWrapperActiveStyle?   | React.CSSProperties  | preparing... | -        |
-| selectWrapperInactiveStyle? | React.CSSProperties  | preparing... | -        |
-| listContainerStyle?         | React.CSSProperties  | preparing... | -        |
-| listStyle?                  | React.CSSProperties  | preparing... | -        |
-| itemStyle?                  | React.CSSProperties  | preparing... | -        |
+## TimePicker
 
-# DatePicker
+![TimePicker](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/TimePicker.png?alt=media&token=5623765b-2344-412f-81f6-8a0308666e54)
 
-| props                       | type                 | desc         | default  |
-| --------------------------- | -------------------- | ------------ | -------- |
-| handleSelect                | (value: any) => void | preparing... | required |
-| isMondayFirst?              | boolean              | preparing... | true     |
-| isWeekendColor?             | boolean              | preparing... | true     |
-| containerWidth?             | number               | preparing... | 200      |
-| containerHeight?            | number               | preparing... | 30       |
-| itemWidth?                  | number               | preparing... | 40       |
-| itemHeight?                 | number               | preparing... | 30       |
-| fontSize?                   | number               | preparing... | 16       |
-| textColor?                  | string               | preparing... | "gray"   |
-| borderRadius?               | number               | preparing... | 5        |
-| outlineWidth?               | number               | preparing... | 1        |
-| outlineColor?               | string               | preparing... | "gray"   |
-| selectListActiveStyle?      | React.CSSProperties  | preparing... | -        |
-| selectListInactiveStyle?    | React.CSSProperties  | preparing... | -        |
-| selectWrapperActiveStyle?   | React.CSSProperties  | preparing... | -        |
-| selectWrapperInactiveStyle? | React.CSSProperties  | preparing... | -        |
-| listContainerStyle?         | React.CSSProperties  | preparing... | -        |
-| listStyle?                  | React.CSSProperties  | preparing... | -        |
-| itemStyle?                  | React.CSSProperties  | preparing... | -        |
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/TimePicker)
+
+## DatePicker
+
+![DatePicker](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/DatePicker.png?alt=media&token=d308c46b-fa7f-4836-9c2f-04f6e0d4415a)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/DatePicker)
 
 ## Pagination
 
-| props                 | type                         | desc         | default  |
-| --------------------- | ---------------------------- | ------------ | -------- |
-| currentPage           | number                       | preparing... | required |
-| totalPages            | number                       | preparing... | required |
-| block                 | number                       | preparing... | required |
-| handleClick           | (targetPage: number) => void | preparing... | required |
-| isShowFirstAndLast?   | boolean                      | preparing... | true     |
-| isShowDeactiveButton? | boolean                      | preparing... | true     |
-| width?                | number                       | preparing... | -        |
-| gap?                  | number                       | preparing... | 10       |
-| fontSize?             | number                       | preparing... | 16       |
-| color?                | string                       | preparing... | "gray"   |
-| containerStyle?       | React.CSSProperties          | preparing... | -        |
-| firstPageRenderItem?  | JSX.Element                  | preparing... | -        |
-| prevPageRenderItem?   | JSX.Element                  | preparing... | -        |
-| nextPageRenderItem?   | JSX.Element                  | preparing... | -        |
-| lastPageRenderItem?   | JSX.Element                  | preparing... | -        |
+![Pagination](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Pagination.png?alt=media&token=63e5a7b2-ec1f-4fe1-a041-ccfedf04d4c0)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Pagination)
 
 ## LoadingBar
 
-| props                | type    | desc         | default              |
-| -------------------- | ------- | ------------ | -------------------- |
-| spinnerSize?         | number  | preparing... | 50                   |
-| spinnerBorderWidth?  | number  | preparing... | 5                    |
-| spinnerBodyColor?    | string  | preparing... | "white"              |
-| spinnerBarColor?     | string  | preparing... | "gray"               |
-| backgroundColor?     | string  | preparing... | "rgba(0, 0, 0, 0.2)" |
-| isBlockedBackground? | boolean | preparing... | true                 |
-| isFullScreen?        | boolean | preparing... | true                 |
+![LoadingBar](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/LoadingBar.png?alt=media&token=2f8812f8-c496-404f-8921-f3a00c76e37a)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/LoadingBar)

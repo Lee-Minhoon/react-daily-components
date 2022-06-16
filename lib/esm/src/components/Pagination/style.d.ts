@@ -6,7 +6,7 @@ interface PaginationStyleProps {
     fontSize?: number;
     color?: string;
 }
-export declare const Pagination: import("@emotion/styled").StyledComponent<{
+export declare const Container: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & PaginationStyleProps, import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLElement>, HTMLElement>, {}>;

@@ -1,18 +1,12 @@
 import React from "react";
-interface TimePickerProps {
+import { ContainerProps } from "../../types/props";
+interface TimePickerProps extends ContainerProps {
     handleSelect: (value: any) => void;
     is24Hour?: boolean;
     isSelectHour?: boolean;
     isSelectMin?: boolean;
     isSelectSeconds?: boolean;
     maxItemCount?: number;
-    width?: number;
-    height?: number;
-    fontSize?: number;
-    textColor?: string;
-    borderRadius?: number;
-    outlineWidth?: number;
-    outlineColor?: string;
     selectListActiveStyle?: React.CSSProperties;
     selectListInactiveStyle?: React.CSSProperties;
     selectWrapperActiveStyle?: React.CSSProperties;

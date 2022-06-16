@@ -12,7 +12,7 @@ export interface SelectListStyleProps {
     outlineWidth?: number;
     outlineColor?: string;
 }
-export declare const SelectList: import("@emotion/styled").StyledComponent<{
+export declare const Container: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & SelectListStyleProps, import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>;
@@ -24,14 +24,6 @@ export declare const Input: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & SelectListStyleProps, import("react").DetailedHTMLProps<import("react").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, {}>;
-export declare const Button: import("@emotion/styled").StyledComponent<{
-    theme?: import("@emotion/react").Theme | undefined;
-    as?: import("react").ElementType<any> | undefined;
-} & SelectListStyleProps, import("react").DetailedHTMLProps<import("react").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, {}>;
-export declare const Svg: import("@emotion/styled").StyledComponent<{
-    theme?: import("@emotion/react").Theme | undefined;
-    as?: import("react").ElementType<any> | undefined;
-} & SelectListStyleProps, import("react").SVGProps<SVGSVGElement>, {}>;
 export declare const List: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;

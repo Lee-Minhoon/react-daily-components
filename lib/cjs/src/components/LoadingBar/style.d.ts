@@ -8,7 +8,7 @@ interface LoadingBarStyleProps {
     isBlockedBackground?: boolean;
     isFullScreen?: boolean;
 }
-export declare const LoadingBar: import("@emotion/styled").StyledComponent<{
+export declare const Container: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & LoadingBarStyleProps, import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, {}>;

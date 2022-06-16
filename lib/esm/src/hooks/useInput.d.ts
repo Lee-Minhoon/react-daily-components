@@ -1,7 +1,7 @@
 /// <reference types="react" />
-declare const useInput: (initialValue: any) => {
-    value: any;
+declare const useInput: (initialValue: string) => {
+    value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    setValue: import("react").Dispatch<any>;
+    setValue: import("react").Dispatch<import("react").SetStateAction<string>>;
 };
 export default useInput;

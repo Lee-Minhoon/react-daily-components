@@ -7,9 +7,6 @@ interface ArrowButtonStyleProps {
 }
 
 export const Button = styled.button<ArrowButtonStyleProps>`
-  /* font-size: ${({ fontSize }) => `${fontSize}px`};
-  width: 1em;
-  height: 1em; */
   z-index: 1;
   width: 20px;
   height: 20px;
