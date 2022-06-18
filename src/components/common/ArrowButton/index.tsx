@@ -1,5 +1,4 @@
 import * as Style from "./style";
-import React from "react";
 
 const arrowDirection = {
   Up: "Up",

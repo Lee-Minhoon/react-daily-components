@@ -1,7 +1,12 @@
 import { useState } from "react";
 
 import { DatePicker, Pagination, SelectList, TimePicker } from "./components";
+import Button from "./components/Button";
 import Input from "./components/Input";
+
+const test = async () => {
+  setTimeout(() => console.log("here"), 0);
+};
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -72,6 +77,12 @@ function App() {
         // labelLocation={"topRight"}
         // regex={["number", "korean", "blank"]}
       />
+      <br />
+      <br />
+      <br />
+      <Button handleClick={test} debounce={0} throttle={10000}>
+        {"Button"}
+      </Button>
     </div>
   );
 }

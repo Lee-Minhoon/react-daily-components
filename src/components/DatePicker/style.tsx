@@ -1,15 +1,9 @@
 import styled from "@emotion/styled";
+import { ContainerProps } from "../../types/props";
 
-export interface DatePickerStyleProps {
+export interface DatePickerStyleProps extends ContainerProps {
   isOpen?: boolean;
   isSelected?: boolean;
-  width?: number;
-  height?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
 }
 
 export const Container = styled.div<DatePickerStyleProps>`

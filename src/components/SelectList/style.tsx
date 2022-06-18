@@ -1,17 +1,11 @@
 import styled from "@emotion/styled";
+import { ContainerProps } from "../../types/props";
 
-export interface SelectListStyleProps {
+export interface SelectListStyleProps extends ContainerProps {
   isOpen?: boolean;
   isSelected?: boolean;
   placeholder?: string;
   maxItemCount?: number;
-  width?: number;
-  height?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
 }
 
 export const Container = styled.div<SelectListStyleProps>`

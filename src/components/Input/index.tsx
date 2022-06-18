@@ -33,6 +33,7 @@ interface InputProps extends ContainerProps {
   label?: string;
   labelLocation?: LabelLocations;
   gap?: number;
+  handleClick?: () => void;
   containerStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
   inputStyle?: React.CSSProperties;
@@ -45,6 +46,7 @@ const Input = ({
   label,
   labelLocation = LABEL_LOCATIONS.left,
   gap = 5,
+  handleClick,
   width = 200,
   height = 30,
   fontSize = 16,
@@ -123,6 +125,9 @@ const Input = ({
           textColor={textColor}
           style={inputStyle}
         />
+        <Style.Button fontSize={fontSize} textColor={textColor}>
+          {"Submit"}
+        </Style.Button>
       </Style.InputContainer>
       {label && !labelFirstCondition && (
         <Style.Label

@@ -1,4 +1,4 @@
-import * as Style from "./style";
+import * as Style from "../style";
 
 interface PageItemProps {
   children: JSX.Element;

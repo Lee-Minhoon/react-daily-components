@@ -1,17 +1,11 @@
 import styled from "@emotion/styled";
 import { LabelLocations, LABEL_LOCATIONS } from ".";
+import { ContainerProps } from "../../types/props";
 
-export interface InputStyleProps {
+export interface InputStyleProps extends ContainerProps {
   isFocus?: boolean;
   labelLocation?: LabelLocations;
   gap?: number;
-  width?: number;
-  height?: number;
-  fontSize?: number;
-  textColor?: string;
-  borderRadius?: number;
-  outlineWidth?: number;
-  outlineColor?: string;
 }
 
 const getFlexDirection = (input: LabelLocations) => {
@@ -82,6 +76,11 @@ export const Input = styled.input<InputStyleProps>`
   font-size: ${({ fontSize }) => `${fontSize}px`};
   overflow-x: hidden;
   text-overflow: ellipsis;
+`;
+
+export const Button = styled.button<InputStyleProps>`
+  color: ${({ textColor }) => textColor};
+  font-size: ${({ fontSize }) => `${fontSize}px`};
 `;
 
 // export const Input = styled.input<InputStyleProps>`
