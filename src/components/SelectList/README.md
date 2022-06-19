@@ -4,7 +4,7 @@
 
 ### Usage
 
-```
+```javascript
 import React, { useState } from "react";
 import { SelectList } from "react-daily-components";
 
@@ -20,7 +20,7 @@ const ITEM_LIST = [
 ];
 
 function App() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState < string > "";
 
   return (
     <div>

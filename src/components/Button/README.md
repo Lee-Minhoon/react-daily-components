@@ -4,7 +4,7 @@
 
 ### Usage
 
-```
+```javascript
 import React from "react";
 import { Button } from "react-daily-components";
 

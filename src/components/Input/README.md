@@ -4,12 +4,12 @@
 
 ### Usage
 
-```
+```javascript
 import React, { useState } from "react";
 import { Input } from "react-daily-components";
 
 function App() {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState < string > "";
 
   return (
     <div>

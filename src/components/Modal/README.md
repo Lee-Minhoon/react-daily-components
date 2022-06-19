@@ -4,12 +4,12 @@
 
 ### Usage
 
-```
+```javascript
 import React, { useState } from "react";
 import { Button, Modal } from "react-daily-components";
 
 function App() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState < boolean > false;
 
   return (
     <div>

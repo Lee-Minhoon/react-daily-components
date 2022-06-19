@@ -4,12 +4,12 @@
 
 ### Usage
 
-```
+```javascript
 import React, { useEffect, useState } from "react";
 import { LoadingBar } from "react-daily-components";
 
 function App() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState < boolean > true;
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 3000);

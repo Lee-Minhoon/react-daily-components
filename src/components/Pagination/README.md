@@ -4,14 +4,14 @@
 
 ### Usage
 
-```
+```javascript
 import React, { useState } from "react";
 import { Pagination } from "react-daily-components";
 
 const totalPage = 15;
 
 function App() {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState < number > 1;
 
   return (
     <div>
