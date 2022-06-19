@@ -2,6 +2,27 @@
 
 ![TimePicker](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/TimePicker.png?alt=media&token=5623765b-2344-412f-81f6-8a0308666e54)
 
+### Usage
+
+```
+import React from "react";
+import { TimePicker } from "react-daily-components";
+
+function App() {
+  return (
+    <div>
+      <TimePicker
+        handleSelect={(time) => {
+          console.log(time);
+        }}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
 ### Props
 
 | props                       | type                 | desc         | default  |

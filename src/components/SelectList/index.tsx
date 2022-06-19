@@ -79,7 +79,6 @@ const SelectList = ({
         );
         setIsOpen(true);
       }
-      console.log("Here!@!!");
     },
     [searchInput.value]
   );

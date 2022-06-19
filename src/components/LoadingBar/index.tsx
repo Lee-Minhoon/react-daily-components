@@ -1,26 +1,27 @@
 import * as Style from "./style";
+import Background from "./../common/Background/index";
 
 interface LoadingBarProps {
+  isFullScreen?: boolean;
+  isBlockedBackground?: boolean;
   spinnerSize?: number;
   spinnerBorderWidth?: number;
   spinnerBodyColor?: string;
   spinnerBarColor?: string;
   backgroundColor?: string;
-  isBlockedBackground?: boolean;
-  isFullScreen?: boolean;
 }
 
 const LoadingBar = ({
+  isFullScreen = true,
+  isBlockedBackground = true,
   spinnerSize = 50,
   spinnerBorderWidth = 5,
   spinnerBodyColor = "white",
   spinnerBarColor = "gray",
   backgroundColor = "rgba(0, 0, 0, 0.2)",
-  isBlockedBackground = true,
-  isFullScreen = true,
 }: LoadingBarProps) => {
   return (
-    <Style.Container
+    <Background
       backgroundColor={backgroundColor}
       isBlockedBackground={isBlockedBackground}
       isFullScreen={isFullScreen}
@@ -31,7 +32,7 @@ const LoadingBar = ({
         spinnerBodyColor={spinnerBodyColor}
         spinnerBarColor={spinnerBarColor}
       />
-    </Style.Container>
+    </Background>
   );
 };
 

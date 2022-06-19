@@ -2,6 +2,25 @@
 
 ![Input](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Input.png?alt=media&token=b1436dd4-790c-4c2b-8033-85b4d11b8a84)
 
+### Usage
+
+```
+import React, { useState } from "react";
+import { Input } from "react-daily-components";
+
+function App() {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  return (
+    <div>
+      <Input value={inputValue} handleChange={setInputValue} />
+    </div>
+  );
+}
+
+export default App;
+```
+
 ### Props
 
 | props           | type                                  | desc         | default   |

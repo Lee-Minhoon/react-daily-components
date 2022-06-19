@@ -2,6 +2,33 @@
 
 ![Pagination](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Pagination.png?alt=media&token=63e5a7b2-ec1f-4fe1-a041-ccfedf04d4c0)
 
+### Usage
+
+```
+import React, { useState } from "react";
+import { Pagination } from "react-daily-components";
+
+const totalPage = 15;
+
+function App() {
+  const [page, setPage] = useState<number>(1);
+
+  return (
+    <div>
+      <Pagination
+        totalPages={totalPage}
+        currentPage={page}
+        block={10}
+        width={500}
+        handleClick={setPage}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
 ### Props
 
 | props                 | type                         | desc         | default  |

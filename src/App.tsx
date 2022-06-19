@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DatePicker, Pagination, SelectList, TimePicker } from "./components";
 import Button from "./components/Button";
 import Input from "./components/Input";
+import Modal from "./components/Modal";
 
 const test = async () => {
   setTimeout(() => console.log("here"), 0);
@@ -11,6 +12,7 @@ const test = async () => {
 function App() {
   const [value, setValue] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handler = (page: number) => {
     console.log(page);
@@ -82,9 +84,21 @@ function App() {
       <br />
       <br />
       <br />
-      <Button handleClick={test} debounce={0} throttle={10000}>
+      <Button handleClick={() => setIsOpen(true)} debounce={0} throttle={100}>
         {"Button"}
       </Button>
+      {isOpen && (
+        <Modal
+          title={"Auguries of Innocence"}
+          handleCancelClick={() => setIsOpen(false)}
+          handleConfirmClick={() => setIsOpen(false)}
+        >
+          {`To see a World in a Grain of Sand
+          And a Heaven in a Wild Flower,
+          Hold Infinity in the palm of your hand
+          And Eternity in an hour...`}
+        </Modal>
+      )}
     </div>
   );
 }

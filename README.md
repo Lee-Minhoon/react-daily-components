@@ -45,3 +45,9 @@ The official distribution is from version 1.0.0.
 ![LoadingBar](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/LoadingBar.png?alt=media&token=2f8812f8-c496-404f-8921-f3a00c76e37a)
 
 [Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/LoadingBar)
+
+## Modal
+
+![Modal](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Modal.png?alt=media&token=9cfb1ca0-0119-4c07-9211-52a7db639a8c)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Modal)

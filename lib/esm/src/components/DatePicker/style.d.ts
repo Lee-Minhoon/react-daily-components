@@ -1,14 +1,8 @@
 /// <reference types="react" />
-export interface DatePickerStyleProps {
+import { ContainerProps } from "../../types/props";
+export interface DatePickerStyleProps extends ContainerProps {
     isOpen?: boolean;
     isSelected?: boolean;
-    width?: number;
-    height?: number;
-    fontSize?: number;
-    textColor?: string;
-    borderRadius?: number;
-    outlineWidth?: number;
-    outlineColor?: string;
 }
 export declare const Container: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;

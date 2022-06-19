@@ -1,16 +1,10 @@
 /// <reference types="react" />
 import { LabelLocations } from ".";
-export interface InputStyleProps {
+import { ContainerProps } from "../../types/props";
+export interface InputStyleProps extends ContainerProps {
     isFocus?: boolean;
     labelLocation?: LabelLocations;
     gap?: number;
-    width?: number;
-    height?: number;
-    fontSize?: number;
-    textColor?: string;
-    borderRadius?: number;
-    outlineWidth?: number;
-    outlineColor?: string;
 }
 export declare const Container: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
@@ -28,3 +22,7 @@ export declare const Input: import("@emotion/styled").StyledComponent<{
     theme?: import("@emotion/react").Theme | undefined;
     as?: import("react").ElementType<any> | undefined;
 } & InputStyleProps, import("react").DetailedHTMLProps<import("react").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, {}>;
+export declare const Button: import("@emotion/styled").StyledComponent<{
+    theme?: import("@emotion/react").Theme | undefined;
+    as?: import("react").ElementType<any> | undefined;
+} & InputStyleProps, import("react").DetailedHTMLProps<import("react").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, {}>;

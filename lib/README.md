@@ -4,6 +4,12 @@ It's still in the testing phase.
 
 The official distribution is from version 1.0.0.
 
+## Button
+
+![Button](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Button.png?alt=media&token=81cca214-0405-4282-b219-8a7e750241c9)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Button)
+
 ## Input
 
 ![Input](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Input.png?alt=media&token=b1436dd4-790c-4c2b-8033-85b4d11b8a84)
@@ -39,3 +45,9 @@ The official distribution is from version 1.0.0.
 ![LoadingBar](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/LoadingBar.png?alt=media&token=2f8812f8-c496-404f-8921-f3a00c76e37a)
 
 [Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/LoadingBar)
+
+## Modal
+
+![Modal](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/Modal.png?alt=media&token=9cfb1ca0-0119-4c07-9211-52a7db639a8c)
+
+[Usage](https://github.com/Lee-Minhoon/react-daily-components/tree/main/src/components/Modal)

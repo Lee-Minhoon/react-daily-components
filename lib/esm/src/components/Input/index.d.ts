@@ -27,9 +27,12 @@ interface InputProps extends ContainerProps {
     label?: string;
     labelLocation?: LabelLocations;
     gap?: number;
+    handleClick?: (value: string) => void;
+    debounce?: number;
+    throttle?: number;
     containerStyle?: React.CSSProperties;
     labelStyle?: React.CSSProperties;
     inputStyle?: React.CSSProperties;
 }
-declare const Input: ({ value, handleChange, regex, label, labelLocation, gap, width, height, fontSize, textColor, borderRadius, outlineWidth, outlineColor, containerStyle, labelStyle, inputStyle, }: InputProps) => import("@emotion/react/jsx-runtime").JSX.Element;
+declare const Input: ({ value, handleChange, regex, label, labelLocation, gap, handleClick, debounce, throttle, width, height, fontSize, textColor, borderRadius, outlineWidth, outlineColor, containerStyle, labelStyle, inputStyle, }: InputProps) => import("@emotion/react/jsx-runtime").JSX.Element;
 export default Input;

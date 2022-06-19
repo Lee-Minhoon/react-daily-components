@@ -2,6 +2,27 @@
 
 ![DatePicker](https://firebasestorage.googleapis.com/v0/b/react-daily-components.appspot.com/o/DatePicker.png?alt=media&token=d308c46b-fa7f-4836-9c2f-04f6e0d4415a)
 
+### Usage
+
+```
+import React from "react";
+import { DatePicker } from "react-daily-components";
+
+function App() {
+  return (
+    <div>
+      <DatePicker
+        handleSelect={(date) => {
+          console.log(date);
+        }}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
 ### Props
 
 | props                       | type                 | desc         | default  |
