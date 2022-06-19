@@ -1,10 +1,11 @@
 import * as Style from "./style";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import useInput from "../../hooks/useInput";
 import useClickOutside from "../../hooks/useClickOutside";
 import useModal from "../../hooks/useModal";
 import { ContainerProps } from "../../types/props";
 import ArrowButton from "../common/ArrowButton";
+import useSetScrollPosition from "../../hooks/useSetScrollPosition";
 
 interface SelectListProps extends ContainerProps {
   itemList: Array<string>;
@@ -49,12 +50,11 @@ const SelectList = ({
   const listRef = useRef<HTMLUListElement>(null);
 
   useClickOutside(ref, setIsOpen);
-
-  useEffect(() => {
-    if (listRef.current)
-      listRef.current.scrollTop =
-        resultList.findIndex((item) => item === value) * height;
-  }, [isOpen]);
+  useSetScrollPosition(
+    listRef,
+    resultList.findIndex((item) => item === value) * height,
+    isOpen
+  );
 
   const handleSelectClick = useCallback((item: any) => {
     setIsOpen(false);
@@ -79,6 +79,7 @@ const SelectList = ({
         );
         setIsOpen(true);
       }
+      console.log("Here!@!!");
     },
     [searchInput.value]
   );

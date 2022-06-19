@@ -73,6 +73,8 @@ function App() {
       <Input
         value={inputValue}
         handleChange={inputHandle}
+        handleClick={(e) => console.log(e)}
+        throttle={3000}
         // label={"Password"}
         // labelLocation={"topRight"}
         // regex={["number", "korean", "blank"]}

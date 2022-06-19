@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
-const uesDebounce = (callback: () => void, timeout: number) => {
+const uesDebounce = <T extends any[]>(
+  callback: (...params: T) => void,
+  timeout: number
+) => {
   const timerRef = useRef<any>(null);
 
-  return () => {
+  return (...params: T) => {
     if (timerRef.current) clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      callback();
+      callback(...params);
       timerRef.current = null;
     }, timeout);
   };

@@ -8,6 +8,7 @@ export const Button = styled.button<ButtonStyleProps>`
   font-size: ${({ fontSize }) => `${fontSize}px`};
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
+  padding: 0 10px;
   border: none;
   background-color: initial;
   cursor: pointer;

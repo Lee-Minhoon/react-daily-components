@@ -7,11 +7,14 @@
 | props           | type                                  | desc         | default   |
 | --------------- | ------------------------------------- | ------------ | --------- |
 | value           | string                                | preparing... | required  |
-| handleChange?   | (value: string) => void               | preparing... | required  |
+| handleChange    | (value: string) => void               | preparing... | required  |
 | regex?          | Array\<RegularExpressions\> \| RegExp | preparing... | -         |
 | label?          | string                                | preparing... | -         |
 | labelLocation?  | LabelLocations                        | preparing... | "topLeft" |
 | gap?            | number                                | preparing... | 5         |
+| handleClick?    | () => void                            | preparing... | -         |
+| debounce?       | number                                | preparing... | 0         |
+| throttle?       | number                                | preparing... | 0         |
 | width?          | number                                | preparing... | 200       |
 | height?         | number                                | preparing... | 30        |
 | fontSize?       | number                                | preparing... | 16        |

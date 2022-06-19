@@ -16,7 +16,7 @@ const Button = ({
   handleClick,
   debounce = 0,
   throttle = 0,
-  width = 200,
+  width,
   height = 30,
   fontSize = 16,
   textColor = "gray",
