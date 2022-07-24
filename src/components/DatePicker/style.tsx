@@ -1,5 +1,16 @@
 import styled from "@emotion/styled";
 import { ContainerProps } from "../../types/props";
+import {
+  getOutline,
+  getOulineWidth,
+  getFontSize,
+  getTextColor,
+  getBorderRadius,
+  getFullVirtualElement,
+  getWidth,
+  getHeight,
+  ellipsis,
+} from "./../../utilities/css";
 
 export interface DatePickerStyleProps extends ContainerProps {
   isOpen?: boolean;
@@ -7,7 +18,7 @@ export interface DatePickerStyleProps extends ContainerProps {
 }
 
 export const Container = styled.div<DatePickerStyleProps>`
-  width: ${({ width }) => `${width}px`};
+  width: ${(props) => getWidth(props)};
   position: relative;
 `;
 
@@ -15,7 +26,7 @@ export const SelectWrapper = styled.div<DatePickerStyleProps>`
   display: flex;
   position: relative;
   align-items: center;
-  height: ${({ height }) => `${height}px`};
+  height: ${(props) => getHeight(props)};
   &::after {
     opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
     content: "";
@@ -24,9 +35,8 @@ export const SelectWrapper = styled.div<DatePickerStyleProps>`
     height: 100%;
     top: 0;
     left: 0;
-    outline: ${({ outlineWidth, outlineColor }) =>
-      `${outlineWidth}px solid ${outlineColor}`};
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    outline: ${(props) => getOutline(props)};
+    border-radius: ${(props) => getBorderRadius(props)};
     box-shadow: ${({ isOpen }) =>
       isOpen ? "0 0 6px rgba(0, 0, 0, 0.4)" : "initial"};
   }
@@ -37,20 +47,20 @@ export const Input = styled.input<DatePickerStyleProps>`
   flex: 1;
   min-width: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0);
+
+  font-size: ${(props) => getFontSize(props)};
+  color: ${(props) => getTextColor(props)};
+
   border: none;
   outline: none;
-  color: ${({ textColor }) => textColor};
-  font-size: ${({ fontSize }) => `${fontSize}px`};
-  overflow-x: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const ListContainer = styled.div<DatePickerStyleProps>`
-  color: ${({ textColor }) => textColor};
-  margin-top: ${({ outlineWidth = 1 }) => `${outlineWidth * 5}px`};
+  color: ${(props) => getTextColor(props)};
+  margin-top: ${(props) =>
+    `${props.outlineWidth ?? props.theme.outlineWidth ?? 1 * 5}px`};
   text-align: center;
-  font-size: ${({ fontSize }) => `${fontSize}px`};
+  font-size: ${(props) => getFontSize(props)};
   position: absolute;
   background-color: white;
   z-index: 2;
@@ -63,9 +73,8 @@ export const ListContainer = styled.div<DatePickerStyleProps>`
     height: 100%;
     top: 0;
     left: 0;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
-    outline: ${({ isOpen, outlineWidth, outlineColor }) =>
-      isOpen ? `${outlineWidth}px solid ${outlineColor}` : "initial"};
+    border-radius: ${(props) => getBorderRadius(props)};
+    outline: ${(props) => (props.isOpen ? getOutline(props) : "initial")};
     opacity: 0.5;
     box-shadow: ${({ isOpen }) =>
       isOpen ? "0 0 6px rgba(0, 0, 0, 0.4)" : "initial"};
@@ -73,9 +82,9 @@ export const ListContainer = styled.div<DatePickerStyleProps>`
 `;
 
 export const YearMonth = styled.div<DatePickerStyleProps>`
-  height: ${({ height }) => `${height}px`};
-  font-size: ${({ fontSize }) => `${fontSize}px`};
-  line-height: ${({ height }) => `${height}px`};
+  height: ${(props) => getHeight(props)};
+  font-size: ${(props) => getFontSize(props)};
+  line-height: ${(props) => getHeight(props)};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,9 +102,9 @@ export const WeekdayList = styled.ul<DatePickerStyleProps>`
 
 export const WeekdayItem = styled.li<DatePickerStyleProps>`
   z-index: 1;
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
-  line-height: ${({ height }) => `${height}px`};
+  width: ${(props) => getWidth(props)};
+  height: ${(props) => getHeight(props)};
+  line-height: ${(props) => getHeight(props)};
   font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
 `;
 
@@ -107,16 +116,16 @@ export const List = styled.ul<DatePickerStyleProps>`
   grid-template-columns: repeat(7, 1fr);
   list-style-type: none;
   overflow: hidden;
-  border-bottom-left-radius: ${({ borderRadius }) => `${borderRadius}px`};
-  border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  border-bottom-left-radius: ${(props) => getBorderRadius(props)};
+  border-bottom-right-radius: ${(props) => getBorderRadius(props)};
 `;
 
 export const Item = styled.li<DatePickerStyleProps>`
   z-index: 1;
-  font-size: ${({ fontSize = 16 }) => `${fontSize * 0.75}px`};
-  height: ${({ height }) => `${height}px`};
-  width: ${({ width }) => `${width}px`};
-  line-height: ${({ height }) => `${height}px`};
+  font-size: ${(props) => getFontSize(props)};
+  width: ${(props) => getWidth(props)};
+  height: ${(props) => getHeight(props)};
+  line-height: ${(props) => getHeight(props)};
   :hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.1);

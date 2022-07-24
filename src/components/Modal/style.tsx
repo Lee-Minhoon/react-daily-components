@@ -1,17 +1,27 @@
 import styled from "@emotion/styled";
 import { ContainerProps } from "../../types/props";
+import {
+  getOutline,
+  getOulineWidth,
+  getFontSize,
+  getTextColor,
+  getBorderRadius,
+  getFullVirtualElement,
+  getWidth,
+  getHeight,
+  ellipsis,
+} from "./../../utilities/css";
 
 export interface ModalStyleProps extends ContainerProps {}
 
 export const Container = styled.div<ModalStyleProps>`
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
+  width: ${(props) => getWidth(props)};
+  height: ${(props) => getHeight(props)};
   background-color: white;
-  outline: ${({ outlineWidth, outlineColor }) =>
-    `${outlineWidth}px solid ${outlineColor}`};
-  border-radius: ${({ borderRadius }) => `${borderRadius}px`};
-  color: ${({ textColor }) => textColor};
-  font-size: ${({ fontSize }) => `${fontSize}px`};
+  outline: ${(props) => getOutline(props)};
+  border-radius: ${(props) => getBorderRadius(props)};
+  font-size: ${(props) => getFontSize(props)};
+  color: ${(props) => getTextColor(props)};
 `;
 
 export const Header = styled.div<ModalStyleProps>`
@@ -20,7 +30,8 @@ export const Header = styled.div<ModalStyleProps>`
   display: flex;
   align-items: center;
   padding: 0 20px;
-  font-size: ${({ fontSize = 16 }) => `${fontSize * 1.2}px`};
+  font-size: ${(props) =>
+    `${props.fontSize ?? props.theme.fontSize ?? 16 * 1.2}px`};
 `;
 
 export const Content = styled.div<ModalStyleProps>`

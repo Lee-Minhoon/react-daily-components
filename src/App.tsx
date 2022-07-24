@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={{ outlineColor: "red" }}>
+    <ThemeProvider theme={{ outlineColor: "green" }}>
       <div style={{ padding: "20px" }}>
         <SelectList
           itemList={[
@@ -85,11 +85,7 @@ function App() {
         <br />
         <br />
         <br />
-        <Button
-          onClick={() => console.log("test")}
-          debounce={2000}
-          throttle={1000}
-        >
+        <Button onClick={() => setIsOpen(true)} debounce={2000} throttle={1000}>
           {"Button"}
         </Button>
         {isOpen && (

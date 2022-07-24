@@ -18,8 +18,8 @@ const points = {
 interface ArrowButtonProps {
   handleOpenClick: () => void;
   isOpen: boolean;
-  outlineColor: string;
-  outlineWidth: number;
+  outlineColor?: string;
+  outlineWidth?: number;
   direction: ARROW_DIRECTION;
 }
 

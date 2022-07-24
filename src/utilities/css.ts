@@ -25,6 +25,14 @@ export const getBorderRadius = (props: Props) => {
   return `${props.borderRadius ?? props.theme.borderRadius ?? 5}px`;
 };
 
+export const getOulineWidth = (props: Props) => {
+  return `${props.outlineWidth ?? props.theme.outlineWidth ?? 1}px`;
+};
+
+export const getOulineColor = (props: Props) => {
+  return `${props.outlineColor ?? props.theme.outlineColor ?? "gray"}`;
+};
+
 export const getOutline = (props: Props) => {
   return `${props.outlineWidth ?? props.theme.outlineWidth ?? 1}px solid ${
     props.outlineColor ?? props.theme.outlineColor ?? "gray"

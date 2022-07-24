@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ContainerProps } from "../../types/props";
 import {
   getOutline,
+  getOulineWidth,
   getFontSize,
   getTextColor,
   getBorderRadius,
@@ -22,13 +23,9 @@ export const Container = styled.div<SelectListStyleProps>`
   width: ${(props) => getWidth(props)};
   position: relative;
   &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
+    ${getFullVirtualElement()};
     height: ${({ isOpen, height = 30, maxItemCount = 8, outlineWidth = 1 }) =>
       isOpen ? `${(maxItemCount + 1) * height + outlineWidth}px` : "100%"};
-    top: 0;
-    left: 0;
     outline: ${(props) => (props.isOpen ? getOutline(props) : "initial")};
     border-radius: ${(props) => getBorderRadius(props)};
     opacity: 0.5;
@@ -73,7 +70,7 @@ export const List = styled.ul<SelectListStyleProps>`
   color: ${(props) => getTextColor(props)};
   padding: 0;
   margin: 0;
-  margin-top: ${({ outlineWidth }) => `${outlineWidth}px`};
+  margin-top: ${(props) => getOulineWidth(props)};
   max-height: ${({ height = 30, maxItemCount = 8 }) =>
     `${height * maxItemCount}px`};
   overflow-y: auto;

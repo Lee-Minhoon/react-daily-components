@@ -24,11 +24,11 @@ const Modal = ({
   isBlockedBackground = true,
   width = 400,
   height,
-  fontSize = 16,
-  textColor = "gray",
-  borderRadius = 5,
-  outlineWidth = 0,
-  outlineColor = "gray",
+  fontSize,
+  textColor,
+  borderRadius,
+  outlineWidth,
+  outlineColor,
   backgroundColor = "rgba(0, 0, 0, 0.2)",
 }: ModalProps) => {
   const containerRef = useRef(null);
@@ -55,8 +55,8 @@ const Modal = ({
         </Style.Header>
         <Style.Content>{children}</Style.Content>
         <Style.Footer>
-          <Button handleClick={handleCancelClick}>{"Cancel"}</Button>
-          <Button handleClick={handleConfirmClick}>{"Confirm"}</Button>
+          <Button onClick={handleCancelClick}>{"Cancel"}</Button>
+          <Button onClick={handleConfirmClick}>{"Confirm"}</Button>
         </Style.Footer>
       </Style.Container>
     </Background>
