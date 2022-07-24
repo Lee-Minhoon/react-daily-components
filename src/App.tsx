@@ -23,11 +23,11 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={{}}>
+    <ThemeProvider theme={{ outlineColor: "red" }}>
       <div style={{ padding: "20px" }}>
         <SelectList
           itemList={[
-            "Apple🍎",
+            "Appleddddddddddddddddddddddd🍎",
             "Banana🍌",
             "Orange🍊",
             "Grape🍇",

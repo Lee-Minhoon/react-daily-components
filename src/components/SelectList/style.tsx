@@ -1,5 +1,15 @@
 import styled from "@emotion/styled";
 import { ContainerProps } from "../../types/props";
+import {
+  getOutline,
+  getFontSize,
+  getTextColor,
+  getBorderRadius,
+  getFullVirtualElement,
+  getWidth,
+  getHeight,
+  ellipsis,
+} from "./../../utilities/css";
 
 export interface SelectListStyleProps extends ContainerProps {
   isOpen?: boolean;
@@ -9,7 +19,7 @@ export interface SelectListStyleProps extends ContainerProps {
 }
 
 export const Container = styled.div<SelectListStyleProps>`
-  width: ${({ width }) => `${width}px`};
+  width: ${(props) => getWidth(props)};
   position: relative;
   &::after {
     content: "";
@@ -19,9 +29,8 @@ export const Container = styled.div<SelectListStyleProps>`
       isOpen ? `${(maxItemCount + 1) * height + outlineWidth}px` : "100%"};
     top: 0;
     left: 0;
-    outline: ${({ isOpen, outlineWidth, outlineColor }) =>
-      isOpen ? `${outlineWidth}px solid ${outlineColor}` : "initial"};
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    outline: ${(props) => (props.isOpen ? getOutline(props) : "initial")};
+    border-radius: ${(props) => getBorderRadius(props)};
     opacity: 0.5;
     box-shadow: ${({ isOpen }) =>
       isOpen ? "0 0 6px rgba(0, 0, 0, 0.4)" : "initial"};
@@ -32,18 +41,12 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
   display: flex;
   position: relative;
   align-items: center;
-  height: ${({ height }) => `${height}px`};
+  height: ${(props) => getHeight(props)};
   &::after {
+    ${getFullVirtualElement()}
     opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    outline: ${({ outlineWidth, outlineColor }) =>
-      `${outlineWidth}px solid ${outlineColor}`};
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    outline: ${(props) => getOutline(props)};
+    border-radius: ${(props) => getBorderRadius(props)};
     border-bottom-left-radius: ${({ isOpen, borderRadius }) =>
       isOpen ? "initial" : `${borderRadius}px`};
     border-bottom-right-radius: ${({ isOpen, borderRadius }) =>
@@ -53,21 +56,21 @@ export const SelectWrapper = styled.div<SelectListStyleProps>`
 `;
 
 export const Input = styled.input<SelectListStyleProps>`
+  z-index: 1;
   flex: 1;
   min-width: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0);
+
+  font-size: ${(props) => getFontSize(props)};
+  color: ${(props) => getTextColor(props)};
+
+  ${ellipsis()};
   border: none;
   outline: none;
-  color: ${({ textColor }) => textColor};
-  font-size: ${({ fontSize }) => `${fontSize}px`};
-  overflow-x: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const List = styled.ul<SelectListStyleProps>`
   list-style-type: none;
-  color: ${({ textColor }) => textColor};
+  color: ${(props) => getTextColor(props)};
   padding: 0;
   margin: 0;
   margin-top: ${({ outlineWidth }) => `${outlineWidth}px`};
@@ -77,30 +80,29 @@ export const List = styled.ul<SelectListStyleProps>`
   position: absolute;
   background-color: white;
   width: 100%;
-  font-size: ${({ fontSize }) => `${fontSize}px`};
+  font-size: ${(props) => getFontSize(props)};
   z-index: 2;
-  border-bottom-left-radius: ${({ borderRadius }) => `${borderRadius}px`};
-  border-bottom-right-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  border-bottom-left-radius: ${(props) => getBorderRadius(props)};
+  border-bottom-right-radius: ${(props) => getBorderRadius(props)};
   ::-webkit-scrollbar {
     width: 12px;
   }
   ::-webkit-scrollbar-track {
     background-color: whitesmoke;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    border-radius: ${(props) => getBorderRadius(props)};
   }
   ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    border-radius: ${(props) => getBorderRadius(props)};
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
 export const Item = styled.li<SelectListStyleProps>`
-  height: ${({ height }) => `${height}px`};
+  height: ${(props) => getHeight(props)};
   padding: 0 10px;
-  line-height: ${({ height }) => `${height}px`};
-  overflow-x: hidden;
-  text-overflow: ellipsis;
+  line-height: ${(props) => getHeight(props)};
+  ${ellipsis()};
   :hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.1);

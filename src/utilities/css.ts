@@ -38,3 +38,8 @@ export const getFullVirtualElement = () =>
   height: 100%;
   top: 0;
   left: 0;`;
+
+export const ellipsis = () =>
+  `overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;`;

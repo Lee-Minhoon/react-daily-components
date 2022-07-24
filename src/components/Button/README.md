@@ -25,14 +25,14 @@ This component extends the html button tag.
 So, you can use all the properties of the html button tag.
 For example onClick, style, etc...
 
-| prop          | type   | desc                                   | default |
-| ------------- | ------ | -------------------------------------- | ------- |
-| debounce?     | number | Add debounce to your onClick function. | 0       |
-| throttle?     | number | Add throttle to your onClick function. | 0       |
-| width?        | number | Can be injected as ThemeProvider...    | auto    |
-| height?       | number | Can be injected as ThemeProvider...    | 30      |
-| fontSize?     | number | Can be injected as ThemeProvider...    | 16      |
-| textColor?    | string | Can be injected as ThemeProvider...    | "gray"  |
-| borderRadius? | number | Can be injected as ThemeProvider...    | 5       |
-| outlineWidth? | number | Can be injected as ThemeProvider...    | 1       |
-| outlineColor? | string | Can be injected as ThemeProvider...    | "gray"  |
+| prop          | type   | desc                                        | default |
+| ------------- | ------ | ------------------------------------------- | ------- |
+| debounce?     | number | Add debounce to your onClick function.      | 0       |
+| throttle?     | number | Add throttle to your onClick function.      | 0       |
+| width?        | number | It can also be injected as ThemeProvider... | auto    |
+| height?       | number | It can also be injected as ThemeProvider... | 30      |
+| fontSize?     | number | It can also be injected as ThemeProvider... | 16      |
+| textColor?    | string | It can also be injected as ThemeProvider... | "gray"  |
+| borderRadius? | number | It can also be injected as ThemeProvider... | 5       |
+| outlineWidth? | number | It can also be injected as ThemeProvider... | 1       |
+| outlineColor? | string | It can also be injected as ThemeProvider... | "gray"  |

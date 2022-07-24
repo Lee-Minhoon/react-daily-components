@@ -42,13 +42,13 @@ For example onChange, style, etc...
 | handleClick?    | () => void                            | Submit button onClick handler                      | -         |
 | debounce?       | number                                | Add debounce to your button onClick function       | 0         |
 | throttle?       | number                                | Add throttle to your button onClick function       | 0         |
-| width?          | number                                | Can be injected as ThemeProvider...                | 200       |
-| height?         | number                                | Can be injected as ThemeProvider...                | 30        |
-| fontSize?       | number                                | Can be injected as ThemeProvider...                | 16        |
-| textColor?      | string                                | Can be injected as ThemeProvider...                | "gray"    |
-| borderRadius?   | number                                | Can be injected as ThemeProvider...                | 5         |
-| outlineWidth?   | number                                | Can be injected as ThemeProvider...                | 1         |
-| outlineColor?   | string                                | Can be injected as ThemeProvider...                | "gray"    |
+| width?          | number                                | It can also be injected as ThemeProvider...        | 200       |
+| height?         | number                                | It can also be injected as ThemeProvider...        | 30        |
+| fontSize?       | number                                | It can also be injected as ThemeProvider...        | 16        |
+| textColor?      | string                                | It can also be injected as ThemeProvider...        | "gray"    |
+| borderRadius?   | number                                | It can also be injected as ThemeProvider...        | 5         |
+| outlineWidth?   | number                                | It can also be injected as ThemeProvider...        | 1         |
+| outlineColor?   | string                                | It can also be injected as ThemeProvider...        | "gray"    |
 | containerStyle? | React.CSSProperties                   | Container inline style                             | -         |
 | labelStyle?     | React.CSSProperties                   | Container inline style                             | -         |
 
