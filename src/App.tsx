@@ -84,7 +84,7 @@ function App() {
       <br />
       <br />
       <br />
-      <Button handleClick={() => setIsOpen(true)} debounce={0} throttle={100}>
+      <Button handleClick={() => setIsOpen(true)} debounce={0} throttle={0}>
         {"Button"}
       </Button>
       {isOpen && (

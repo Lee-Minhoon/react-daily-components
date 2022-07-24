@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ESNext", // 사용할 ECAMScript 버전
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // 컴파일 과정에서 사용될 라이브러리 목록
+    "allowJs": false, // 자바스크립트 파일 컴파일 여부
+    "skipLibCheck": true, // 선언 파일의 타입 확인 생략 여부
+    "esModuleInterop": false, // CommonJS와 ESModules 간의 상호 운용성이 생기게할 것인지
+    "allowSyntheticDefaultImports": true, // import Default가 없어도 import가 가능하게 할 것인지 여부
+    "strict": true, // 엄격한 타입 확인
+    "forceConsistentCasingInFileNames": true, // 사용할 파일의 이름을 정확하게 작성 여부 (대소문자 같은 것들)
+    "module": "ESNext", // 사용될 모듈 시스템 설정
+    "moduleResolution": "Node", // 모듈 해석 방법 설정
+    "resolveJsonModule": true, // 확장자가 json인 모듈의 import 허용 여부
+    "isolatedModules": true, // 모든 파일을 모듈화하여 작성할 것인지
+    "noEmit": true, // TypeScript를 단순 타입 확인용으로 쓸 것인지 여부
+    "jsx": "react-jsx" // JSX코드를 어떻게 컴파일 할 것인지
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
