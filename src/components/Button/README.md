@@ -11,7 +11,7 @@ import { Button } from "react-daily-components";
 function App() {
   return (
     <div>
-      <Button handleClick={() => console.log("Hi")}>{"Button"}</Button>
+      <Button onClick={() => console.log("Hi")}>{"Button"}</Button>
     </div>
   );
 }
@@ -21,17 +21,18 @@ export default App;
 
 ### Props
 
-| prop          | type                   | desc         | default  |
-| ------------- | ---------------------- | ------------ | -------- |
-| children      | JSX.Element \| string; | preparing... | required |
-| handleClick   | () => void;            | preparing... | required |
-| debounce?     | number                 | preparing... | 0        |
-| throttle?     | number                 | preparing... | 0        |
-| width?        | number                 | preparing... | auto     |
-| height?       | number                 | preparing... | 30       |
-| fontSize?     | number                 | preparing... | 16       |
-| textColor?    | string                 | preparing... | "gray"   |
-| borderRadius? | number                 | preparing... | 5        |
-| outlineWidth? | number                 | preparing... | 1        |
-| outlineColor? | string                 | preparing... | "gray"   |
-| buttonStyle?  | React.CSSProperties    | preparing... | -        |
+This component extends the html button tag.
+So, you can use all the properties of the html button tag.
+For example onClick, style, etc...
+
+| prop          | type   | desc                                   | default |
+| ------------- | ------ | -------------------------------------- | ------- |
+| debounce?     | number | Add debounce to your onClick function. | 0       |
+| throttle?     | number | Add throttle to your onClick function. | 0       |
+| width?        | number | Can be injected as ThemeProvider...    | auto    |
+| height?       | number | Can be injected as ThemeProvider...    | 30      |
+| fontSize?     | number | Can be injected as ThemeProvider...    | 16      |
+| textColor?    | string | Can be injected as ThemeProvider...    | "gray"  |
+| borderRadius? | number | Can be injected as ThemeProvider...    | 5       |
+| outlineWidth? | number | Can be injected as ThemeProvider...    | 1       |
+| outlineColor? | string | Can be injected as ThemeProvider...    | "gray"  |

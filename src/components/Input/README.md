@@ -11,6 +11,10 @@ import { Input } from "react-daily-components";
 function App() {
   const [inputValue, setInputValue] = useState < string > "";
 
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  }, []);
+
   return (
     <div>
       <Input value={inputValue} handleChange={setInputValue} />
@@ -23,24 +27,30 @@ export default App;
 
 ### Props
 
-| props           | type                                  | desc         | default   |
-| --------------- | ------------------------------------- | ------------ | --------- |
-| value           | string                                | preparing... | required  |
-| handleChange    | (value: string) => void               | preparing... | required  |
-| regex?          | Array\<RegularExpressions\> \| RegExp | preparing... | -         |
-| label?          | string                                | preparing... | -         |
-| labelLocation?  | LabelLocations                        | preparing... | "topLeft" |
-| gap?            | number                                | preparing... | 5         |
-| handleClick?    | () => void                            | preparing... | -         |
-| debounce?       | number                                | preparing... | 0         |
-| throttle?       | number                                | preparing... | 0         |
-| width?          | number                                | preparing... | 200       |
-| height?         | number                                | preparing... | 30        |
-| fontSize?       | number                                | preparing... | 16        |
-| textColor?      | string                                | preparing... | "gray"    |
-| borderRadius?   | number                                | preparing... | 5         |
-| outlineWidth?   | number                                | preparing... | 1         |
-| outlineColor?   | string                                | preparing... | "gray"    |
-| containerStyle? | React.CSSProperties                   | preparing... | -         |
-| labelStyle?     | React.CSSProperties                   | preparing... | -         |
-| inputStyle?     | React.CSSProperties                   | preparing... | -         |
+This component extends the html input tag.
+So, you can use all the properties of the html input tag.
+For example onChange, style, etc...
+
+| props           | type                                  | desc                                               | default   |
+| --------------- | ------------------------------------- | -------------------------------------------------- | --------- |
+| value           | string                                | Input tag value                                    | required  |
+| regex?          | Array\<RegularExpressions\> \| RegExp | Regular Expressions to allow or Regular Expression | -         |
+| label?          | string                                | Label tag string                                   | -         |
+| labelLocation?  | LabelLocations                        | Relative position of the Label                     | "topLeft" |
+| gap?            | number                                | Input tag and Label tag spacing                    | 5         |
+| buttonText?     | string                                | Submit button text                                 | "Submit"  |
+| handleClick?    | () => void                            | Submit button onClick handler                      | -         |
+| debounce?       | number                                | Add debounce to your button onClick function       | 0         |
+| throttle?       | number                                | Add throttle to your button onClick function       | 0         |
+| width?          | number                                | Can be injected as ThemeProvider...                | 200       |
+| height?         | number                                | Can be injected as ThemeProvider...                | 30        |
+| fontSize?       | number                                | Can be injected as ThemeProvider...                | 16        |
+| textColor?      | string                                | Can be injected as ThemeProvider...                | "gray"    |
+| borderRadius?   | number                                | Can be injected as ThemeProvider...                | 5         |
+| outlineWidth?   | number                                | Can be injected as ThemeProvider...                | 1         |
+| outlineColor?   | string                                | Can be injected as ThemeProvider...                | "gray"    |
+| containerStyle? | React.CSSProperties                   | Container inline style                             | -         |
+| labelStyle?     | React.CSSProperties                   | Container inline style                             | -         |
+
+RegularExpressions = "korean" | "number" | "letter" | "lowerCase" | "upperCase" | "blank"
+LabelLocations = "topLeft" | "topCenter" | "topRight" | "botLeft" | "botCenter" | "botRight" | "left" | "right

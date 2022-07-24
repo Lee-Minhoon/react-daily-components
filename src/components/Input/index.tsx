@@ -1,6 +1,6 @@
-import { ContainerProps } from "../../types/props";
+import { ContainerProps, InputDefaultProps } from "../../types/props";
 import * as Style from "./style";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { isArray, isRegExp } from "lodash-es";
 import uesDebounce from "../../hooks/useDebounce";
 import useThrottle from "../../hooks/useThrottle";
@@ -28,42 +28,41 @@ export const LABEL_LOCATIONS = {
 export type LabelLocations =
   typeof LABEL_LOCATIONS[keyof typeof LABEL_LOCATIONS];
 
-interface InputProps extends ContainerProps {
+interface InputProps extends ContainerProps, InputDefaultProps {
   value: string;
-  handleChange: (value: string) => void;
   regex?: Array<RegularExpressions> | RegExp;
   label?: string;
   labelLocation?: LabelLocations;
   gap?: number;
+  buttonText?: string;
   handleClick?: (value: string) => void;
   debounce?: number;
   throttle?: number;
   containerStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
-  inputStyle?: React.CSSProperties;
 }
 
-const Input = ({
-  value,
-  handleChange,
-  regex,
-  label,
-  labelLocation = LABEL_LOCATIONS.left,
-  gap = 5,
-  handleClick,
-  debounce = 0,
-  throttle = 0,
-  width = 200,
-  height = 30,
-  fontSize = 16,
-  textColor = "gray",
-  borderRadius = 5,
-  outlineWidth = 1,
-  outlineColor = "gray",
-  containerStyle,
-  labelStyle,
-  inputStyle,
-}: InputProps) => {
+const Input = (props: InputProps) => {
+  const {
+    value,
+    regex,
+    label,
+    labelLocation = LABEL_LOCATIONS.left,
+    gap = 5,
+    buttonText = "Submit",
+    handleClick,
+    debounce = 0,
+    throttle = 0,
+    width = 200,
+    height = 30,
+    fontSize,
+    textColor,
+    borderRadius,
+    outlineWidth,
+    outlineColor,
+    containerStyle,
+    labelStyle,
+  } = props;
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const labelFirstCondition =
     labelLocation === "left" ||
@@ -91,11 +90,11 @@ const Input = ({
     [regex]
   );
 
-  const debouncedFunction = uesDebounce(
+  const throttledFunction = useThrottle(
     handleClick ? () => handleClick(value) : () => {},
-    debounce
+    throttle
   );
-  const throttledFunction = useThrottle(debouncedFunction, throttle);
+  const debouncedFunction = uesDebounce(throttledFunction, debounce);
 
   return (
     <Style.Container
@@ -127,26 +126,25 @@ const Input = ({
         style={containerStyle}
       >
         <Style.Input
+          {...props}
           id="input"
           value={value}
-          onChange={(e) => handleChange(e.target.value)}
           onInput={handleInput}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           fontSize={fontSize}
           textColor={textColor}
-          style={inputStyle}
         />
         {handleClick && (
           <Style.Button
             isFocus={isFocus}
             fontSize={fontSize}
             textColor={textColor}
-            onClick={throttledFunction}
+            onClick={debouncedFunction}
             outlineWidth={outlineWidth}
             outlineColor={outlineColor}
           >
-            {"Submit"}
+            {buttonText}
           </Style.Button>
         )}
       </Style.InputContainer>
