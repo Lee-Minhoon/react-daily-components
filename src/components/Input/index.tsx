@@ -28,7 +28,7 @@ export const LABEL_LOCATIONS = {
 export type LabelLocations =
   typeof LABEL_LOCATIONS[keyof typeof LABEL_LOCATIONS];
 
-interface InputProps extends ContainerProps, InputDefaultProps {
+interface InputProps extends ContainerProps {
   value: string;
   regex?: Array<RegularExpressions> | RegExp;
   label?: string;
@@ -42,7 +42,7 @@ interface InputProps extends ContainerProps, InputDefaultProps {
   labelStyle?: React.CSSProperties;
 }
 
-const Input = (props: InputProps) => {
+const Input = (props: InputProps & InputDefaultProps) => {
   const {
     value,
     regex,
