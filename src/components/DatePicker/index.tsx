@@ -8,7 +8,7 @@ import {
   WEEK_DAY_ABBR,
 } from "../../types/date";
 import { DateTime } from "luxon";
-import _ from "lodash-es";
+import _ from "lodash";
 import { replaceAt } from "../../utilities/string";
 import { quotient } from "../../utilities/math";
 import useClickOutside from "../../hooks/useClickOutside";

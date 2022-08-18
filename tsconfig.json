@@ -16,6 +16,6 @@
     "noEmit": true, // TypeScript를 단순 타입 확인용으로 쓸 것인지 여부
     "jsx": "react-jsx" // JSX코드를 어떻게 컴파일 할 것인지
   },
-  "include": ["src"],
+  "include": ["src"], // 포함할 파일들
   "references": [{ "path": "./tsconfig.node.json" }]
 }

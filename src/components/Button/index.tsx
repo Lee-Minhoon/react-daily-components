@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import uesDebounce from "../../hooks/useDebounce";
 import useThrottle from "../../hooks/useThrottle";
 import { ButtonDefaultProps, ContainerProps } from "../../types/props";
@@ -8,34 +9,14 @@ export interface ButtonProps extends ContainerProps, ButtonDefaultProps {
   throttle?: number;
 }
 
-const Button = (props: ButtonProps) => {
-  const {
-    debounce = 0,
-    throttle = 0,
-    width,
-    height = 30,
-    fontSize,
-    textColor,
-    borderRadius,
-    outlineWidth,
-    outlineColor,
-  } = props;
+const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
+  const { debounce = 0, throttle = 0 } = props;
   const throttledFunction = useThrottle(props.onClick ?? (() => {}), throttle);
   const debouncedFunction = uesDebounce(throttledFunction, debounce);
 
   return (
-    <Style.Button
-      {...props}
-      width={width}
-      height={height}
-      fontSize={fontSize}
-      textColor={textColor}
-      borderRadius={borderRadius}
-      outlineWidth={outlineWidth}
-      outlineColor={outlineColor}
-      onClick={debouncedFunction}
-    />
+    <Style.Button ref={forwardedRef} onClick={debouncedFunction} {...props} />
   );
-};
+});
 
 export default Button;

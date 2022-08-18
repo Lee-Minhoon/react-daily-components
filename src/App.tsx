@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { DatePicker, Pagination, SelectList, TimePicker } from "./components";
 import Button from "./components/Button";
 import Input from "./components/Input";
@@ -9,6 +9,7 @@ function App() {
   const [value, setValue] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const ref = useRef(null);
 
   const handler = (page: number) => {
     console.log(page);
@@ -21,6 +22,8 @@ function App() {
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
+
+  console.log(ref);
 
   return (
     <ThemeProvider theme={{ outlineColor: "green" }}>
@@ -85,7 +88,12 @@ function App() {
         <br />
         <br />
         <br />
-        <Button onClick={() => setIsOpen(true)} debounce={2000} throttle={1000}>
+        <Button
+          ref={ref}
+          onClick={() => setIsOpen(true)}
+          debounce={2000}
+          throttle={1000}
+        >
           {"Button"}
         </Button>
         {isOpen && (

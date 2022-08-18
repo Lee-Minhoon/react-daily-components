@@ -1,7 +1,7 @@
 import { ContainerProps, InputDefaultProps } from "../../types/props";
 import * as Style from "./style";
 import { useCallback, useState } from "react";
-import { isArray, isRegExp } from "lodash-es";
+import { isArray, isRegExp } from "lodash";
 import uesDebounce from "../../hooks/useDebounce";
 import useThrottle from "../../hooks/useThrottle";
 
