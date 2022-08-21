@@ -1,4 +1,4 @@
-## Pagination
+## Grid
 
 ### Usage
 

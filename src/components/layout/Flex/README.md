@@ -1,4 +1,4 @@
-## Pagination
+## Flex
 
 ### Usage
 
