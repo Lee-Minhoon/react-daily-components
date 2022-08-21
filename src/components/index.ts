@@ -1,8 +1,19 @@
-export { default as Button } from "./Button";
-export { default as Input } from "./Input";
-export { default as SelectList } from "./SelectList";
-export { default as TimePicker } from "./TimePicker";
-export { default as DatePicker } from "./DatePicker";
-export { default as Pagination } from "./Pagination";
-export { default as LoadingBar } from "./LoadingBar";
-export { default as Modal } from "./Modal";
+//layout
+export { default as Flex } from "./layout/Flex";
+export { default as Grid } from "./layout/Grid";
+
+//display
+
+//inputs
+export { default as Button } from "./inputs/Button";
+export { default as TextInput } from "./inputs/TextInput";
+export { default as Select } from "./inputs/Select";
+export { default as TimePicker } from "./inputs/TimePicker";
+export { default as DatePicker } from "./inputs/DatePicker";
+
+//feedback
+export { default as LoadingBar } from "./feedback/LoadingBar";
+export { default as Modal } from "./feedback/Modal";
+
+//navigation
+export { default as Pagination } from "./navigation/Pagination";

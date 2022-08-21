@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@emotion/react";
 import { useCallback, useRef, useState } from "react";
-import { DatePicker, Pagination, SelectList, TimePicker } from "./components";
-import Button from "./components/Button";
-import Input from "./components/Input";
-import Modal from "./components/Modal";
+import { DatePicker, Grid, Pagination, Select, TimePicker } from "./components";
+import Button from "./components/inputs/Button";
+import TextInput from "./components/inputs/TextInput";
+import Modal from "./components/feedback/Modal";
+import Flex from "./components/layout/Flex";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -26,11 +27,11 @@ function App() {
   console.log(ref);
 
   return (
-    <ThemeProvider theme={{ outlineColor: "green" }}>
+    <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
       <div style={{ padding: "20px" }}>
-        <SelectList
+        <Select
           itemList={[
-            "Appleddddddddddddddddddddddd🍎",
+            "Appledddddddddddddddddddddddd🍎",
             "Banana🍌",
             "Orange🍊",
             "Grape🍇",
@@ -41,6 +42,7 @@ function App() {
           ]}
           value={value}
           handleSelect={setValue}
+          maxItemCount={5}
           isSearchable
         />
         <br />
@@ -69,31 +71,37 @@ function App() {
           isWeekendColor
           isMondayFirst={false}
         />
+        <Grid
+          w={"200px"}
+          h={"200px"}
+          gap={"10px"}
+          gar={"1fr"}
+          gtc={"repeat(3, 1fr)"}
+        >
+          <span>item 1</span>
+          <span>item 2</span>
+          <span>item 3</span>
+          <span>item 4</span>
+          <span>item 5</span>
+          <span>item 6</span>
+          <span>item 7</span>
+          <span>item 8</span>
+        </Grid>
         <br />
         <br />
         <br />
         <br />
         <br />
         <br />
-        <Input
+        <TextInput
           value={inputValue}
           onChange={handleChange}
-          handleClick={(e) => console.log(e)}
-          buttonText={"제출"}
-          throttle={3000}
-          label={"Password"}
-          labelLocation={"botLeft"}
-          regex={["number", "korean", "blank"]}
+          regex={/[^0-9]/g}
         />
         <br />
         <br />
         <br />
-        <Button
-          ref={ref}
-          onClick={() => setIsOpen(true)}
-          debounce={2000}
-          throttle={1000}
-        >
+        <Button variant="contained" onClick={() => setIsOpen(true)}>
           {"Button"}
         </Button>
         {isOpen && (
@@ -109,6 +117,12 @@ function App() {
           </Modal>
         )}
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </ThemeProvider>
   );
 }

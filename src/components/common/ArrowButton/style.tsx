@@ -20,10 +20,8 @@ export const Button = styled.button<ArrowButtonStyleProps>`
 
 export const Svg = styled.svg<ArrowButtonStyleProps>`
   display: block;
-  stroke: ${(props) => props.outlineColor ?? props.theme.outlineColor};
-  opacity: ${({ isOpen }) => (isOpen ? "initial" : 0.5)};
-  stroke-width: ${(props) =>
-    `${props.outlineWidth ?? props.theme.outlineWidth}px`};
+  stroke: ${(props) => props.theme.defaultColor ?? "gray"};
+  stroke-width: 1px;
 `;
 
 // export const ArrowButton = styled.button<SelectListStyleProps>`

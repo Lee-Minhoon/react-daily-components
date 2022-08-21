@@ -1,5 +1,10 @@
 export const hexToRgb = (hex: string) => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, (m, r, g, b) => {
+    return r + r + g + g + b + b;
+  });
+
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
         r: parseInt(result[1], 16),
@@ -8,3 +13,5 @@ export const hexToRgb = (hex: string) => {
       }
     : null;
 };
+
+// source : https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
