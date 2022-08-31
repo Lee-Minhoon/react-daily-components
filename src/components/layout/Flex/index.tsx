@@ -1,16 +1,12 @@
 import { ForwardedRef, forwardRef } from "react";
-import { DivDefaultProps } from "../../../types/props";
+import {
+  DivDefaultProps,
+  SizePropsT,
+  WhiteSpaceProps,
+} from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface FlexProps extends DivDefaultProps {
-  width?: StandardProperties["width"];
-  w?: StandardProperties["width"];
-  height?: StandardProperties["height"];
-  h?: StandardProperties["height"];
-  margin?: StandardProperties["margin"];
-  m?: StandardProperties["margin"];
-  padding?: StandardProperties["padding"];
-  p?: StandardProperties["padding"];
+interface FlexProps extends DivDefaultProps, SizePropsT, WhiteSpaceProps {
   direction?: StandardProperties["flexDirection"];
   d?: StandardProperties["flexDirection"];
   alignContent?: StandardProperties["alignContent"];
@@ -32,7 +28,9 @@ const Flex = forwardRef(
     const style: React.CSSProperties = {
       display: "flex",
       width: props.width ?? props.w,
+      maxWidth: props.maxWidth ?? props.mw,
       height: props.height ?? props.h,
+      maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
       flexDirection: props.direction ?? props.d,
@@ -46,6 +44,7 @@ const Flex = forwardRef(
 
       ...props.style,
     };
+
     return <div {...props} ref={forwardedRef} style={style} />;
   }
 );

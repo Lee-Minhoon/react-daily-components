@@ -1,16 +1,12 @@
 import { ForwardedRef, forwardRef } from "react";
-import { DivDefaultProps } from "../../../types/props";
+import {
+  DivDefaultProps,
+  SizePropsT,
+  WhiteSpaceProps,
+} from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface GridProps extends DivDefaultProps {
-  width?: StandardProperties["width"];
-  w?: StandardProperties["width"];
-  height?: StandardProperties["height"];
-  h?: StandardProperties["height"];
-  margin?: StandardProperties["margin"];
-  m?: StandardProperties["margin"];
-  padding?: StandardProperties["padding"];
-  p?: StandardProperties["padding"];
+interface GridProps extends DivDefaultProps, SizePropsT, WhiteSpaceProps {
   autoColumns?: StandardProperties["gridAutoColumns"];
   gac?: StandardProperties["gridAutoColumns"];
   autoRows?: StandardProperties["gridAutoRows"];
@@ -41,7 +37,9 @@ const Grid = forwardRef(
     const style: React.CSSProperties = {
       display: "grid",
       width: props.width ?? props.w,
+      maxWidth: props.maxWidth ?? props.mw,
       height: props.height ?? props.h,
+      maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
       gridAutoColumns: props.autoColumns ?? props.gac,
@@ -59,6 +57,7 @@ const Grid = forwardRef(
 
       ...props.style,
     };
+
     return <div {...props} ref={forwardedRef} style={style} />;
   }
 );

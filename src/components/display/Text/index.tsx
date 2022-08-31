@@ -1,12 +1,12 @@
-import React, { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 import {
+  ParagraphDefaultProps,
   SizePropsT,
-  SpanDefaultProps,
   WhiteSpaceProps,
 } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface WordProps extends SpanDefaultProps, SizePropsT, WhiteSpaceProps {
+interface TextProps extends ParagraphDefaultProps, SizePropsT, WhiteSpaceProps {
   font?: StandardProperties["font"];
   fontStyle?: StandardProperties["fontStyle"];
   fst?: StandardProperties["fontStyle"];
@@ -24,8 +24,8 @@ interface WordProps extends SpanDefaultProps, SizePropsT, WhiteSpaceProps {
   td?: StandardProperties["textDecoration"];
 }
 
-const Word = forwardRef(
-  (props: WordProps, forwardedRef: ForwardedRef<HTMLParagraphElement>) => {
+const Text = forwardRef(
+  (props: TextProps, forwardedRef: ForwardedRef<HTMLParagraphElement>) => {
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
       maxWidth: props.maxWidth ?? props.mw,
@@ -45,8 +45,8 @@ const Word = forwardRef(
       ...props.style,
     };
 
-    return <span {...props} ref={forwardedRef} style={style} />;
+    return <p {...props} ref={forwardedRef} style={style} />;
   }
 );
 
-export default Word;
+export default Text;

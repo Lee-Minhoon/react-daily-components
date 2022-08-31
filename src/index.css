@@ -33,7 +33,7 @@ span.ripple {
 
 @keyframes ripple {
   to {
-    transform: scale(3);
+    transform: scale(4);
     opacity: 0;
   }
 }

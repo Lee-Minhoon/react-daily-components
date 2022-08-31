@@ -2,7 +2,11 @@ import { useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
 import uesDebounce from "../../../hooks/useDebounce";
 import useThrottle from "../../../hooks/useThrottle";
-import { ButtonDefaultProps, ContainerProps } from "../../../types/props";
+import {
+  ButtonDefaultProps,
+  SizePropsT,
+  WhiteSpaceProps,
+} from "../../../types/props";
 import * as Style from "./style";
 
 export const BUTTON_TYPES = {
@@ -12,30 +16,19 @@ export const BUTTON_TYPES = {
 } as const;
 export type ButtonTypes = keyof typeof BUTTON_TYPES;
 
-export interface ButtonProps extends ContainerProps, ButtonDefaultProps {
+export interface ButtonProps
+  extends ButtonDefaultProps,
+    SizePropsT,
+    WhiteSpaceProps {
   variant?: ButtonTypes;
   debounce?: number;
   throttle?: number;
 }
 
-const GetButtonByType = (type: ButtonTypes) => {
-  let Button;
-  switch (type) {
-    case BUTTON_TYPES.text:
-      Button = Style.TextButton;
-      break;
-    case BUTTON_TYPES.contained:
-      Button = Style.ContainedButton;
-      break;
-    case BUTTON_TYPES.outlined:
-      Button = Style.OutlinedButton;
-  }
-  return Button;
-};
-
 const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
   const theme = useTheme();
   const {
+    onClick = () => {},
     variant = BUTTON_TYPES.contained,
     debounce = 0,
     throttle = 0,
@@ -53,8 +46,8 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
       const diameter = Math.max(button.clientWidth, button.clientHeight);
       const radius = diameter / 2;
       circle.style.width = circle.style.height = `${diameter}px`;
-      circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
-      circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+      circle.style.top = `${event.pageY - button.offsetTop - radius}px`;
+      circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
       circle.style.backgroundColor =
         variant === BUTTON_TYPES.contained
           ? "#fff"
@@ -73,7 +66,7 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
     [variant]
   );
 
-  const throttledFunction = useThrottle(props.onClick ?? (() => {}), throttle);
+  const throttledFunction = useThrottle(onClick, throttle);
   const debouncedFunction = uesDebounce(throttledFunction, debounce);
 
   const handleClick = useCallback(
@@ -84,9 +77,37 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
     [rippleEffect, props.onClick]
   );
 
+  const style: React.CSSProperties = {
+    width: props.width ?? props.w,
+    maxWidth: props.maxWidth ?? props.mw,
+    height: props.height ?? props.h,
+    maxHeight: props.maxHeight ?? props.mh,
+    margin: props.margin ?? props.m,
+    padding: props.padding ?? props.p,
+
+    ...props.style,
+  };
+
   const Button = GetButtonByType(variant);
 
-  return <Button {...props} ref={forwardedRef} onClick={handleClick} />;
+  return (
+    <Button {...props} ref={forwardedRef} style={style} onClick={handleClick} />
+  );
 });
 
 export default Button;
+
+const GetButtonByType = (type: ButtonTypes) => {
+  let Button;
+  switch (type) {
+    case BUTTON_TYPES.text:
+      Button = Style.TextButton;
+      break;
+    case BUTTON_TYPES.contained:
+      Button = Style.ContainedButton;
+      break;
+    case BUTTON_TYPES.outlined:
+      Button = Style.OutlinedButton;
+  }
+  return Button;
+};

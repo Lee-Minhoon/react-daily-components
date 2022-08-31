@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import { TRANSITION_FAST } from "../../../constants/css";
-import { ContainerProps } from "../../../types/props";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
 
-export interface ButtonStyleProps extends ContainerProps {}
+export interface ButtonStyleProps {}
 
 export const Button = styled.button<ButtonStyleProps>`
   position: relative;

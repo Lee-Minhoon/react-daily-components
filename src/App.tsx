@@ -5,6 +5,9 @@ import Button from "./components/inputs/Button";
 import TextInput from "./components/inputs/TextInput";
 import Modal from "./components/feedback/Modal";
 import Flex from "./components/layout/Flex";
+import View from "./components/display/View";
+import Text from "./components/display/Text";
+import Word from "./components/display/Word";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -101,9 +104,12 @@ function App() {
         <br />
         <br />
         <br />
-        <Button variant="contained" onClick={() => setIsOpen(true)}>
-          {"Button"}
-        </Button>
+        <Text>df</Text>
+        <Text>df</Text>
+        <Word>df</Word>
+        <Word>df</Word>
+        <View w="20px" h="20px" bs="1px 1px 1px 1px black" margin="20px" />
+        <Button onClick={() => {}}>{"Button"}</Button>
         {isOpen && (
           <Modal
             title={"Auguries of Innocence"}
