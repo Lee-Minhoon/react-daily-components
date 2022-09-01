@@ -153,7 +153,8 @@ export const COLOR_STRING: ColorString = {
   yellowgreen: "#9acd32",
 } as const;
 
-export const TRANSITION_FAST = 0.25 as const;
+export const TRANSITION_NORMAL = 0.25 as const;
+export const TRANSITION_FAST = 0.15 as const;
 
 export const VIRTUAL_ELEMENT = `
   content: "";

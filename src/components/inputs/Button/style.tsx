@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TRANSITION_FAST } from "../../../constants/css";
+import { TRANSITION_NORMAL } from "../../../constants/css";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
 
 export interface ButtonStyleProps {}
@@ -15,8 +15,8 @@ export const Button = styled.button<ButtonStyleProps>`
     z-index: -2;
     border-radius: inherit;
     opacity: 0.7;
-    transition: opacity ${TRANSITION_FAST}s ease-in-out,
-      box-shadow ${TRANSITION_FAST}s ease-in-out;
+    transition: opacity ${TRANSITION_NORMAL}s ease-in-out,
+      box-shadow ${TRANSITION_NORMAL}s ease-in-out;
   }
   &:hover {
     &::after {

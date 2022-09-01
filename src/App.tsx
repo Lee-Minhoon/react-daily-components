@@ -100,6 +100,9 @@ function App() {
           value={inputValue}
           onChange={handleChange}
           regex={/[^0-9]/g}
+          width={"7rem"}
+          height={"50px"}
+          label={"password"}
         />
         <br />
         <br />

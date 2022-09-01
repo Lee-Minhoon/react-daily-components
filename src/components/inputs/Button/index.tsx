@@ -91,7 +91,7 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
   const Button = GetButtonByType(variant);
 
   return (
-    <Button {...props} ref={forwardedRef} style={style} onClick={handleClick} />
+    <Button {...props} ref={forwardedRef} onClick={handleClick} style={style} />
   );
 });
 

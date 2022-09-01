@@ -1,16 +1,19 @@
-import { ContainerProps, InputDefaultProps } from "../../../types/props";
+import {
+  InputDefaultProps,
+  SizePropsT,
+  WhiteSpaceProps,
+} from "../../../types/props";
 import * as Style from "./style";
 import React, { forwardRef, useCallback, useState } from "react";
 
-interface InputProps extends ContainerProps {
+interface InputProps extends InputDefaultProps, WhiteSpaceProps {
+  label?: string;
   regex?: RegExp;
-  containerStyle?: React.CSSProperties;
 }
 
 const TextInput = forwardRef(
-  (props: InputProps & InputDefaultProps, forwardedRef: any) => {
-    const { regex, width = 200, height = 35, containerStyle } = props;
-    const [isFocus, setIsFocus] = useState<boolean>(false);
+  (props: InputProps & SizePropsT, forwardedRef: any) => {
+    const { label, regex } = props;
 
     const handleInput = useCallback(
       (e: React.FormEvent<HTMLInputElement>) => {
@@ -20,37 +23,27 @@ const TextInput = forwardRef(
       [regex]
     );
 
-    const handleFoucs = useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
-        props.onFocus && props.onFocus(e);
-        setIsFocus(true);
-      },
-      [setIsFocus]
-    );
+    const style: React.CSSProperties = {
+      width: props.width ?? props.w,
+      maxWidth: props.maxWidth ?? props.mw,
+      height: props.height ?? props.h,
+      maxHeight: props.maxHeight ?? props.mh,
+      margin: props.margin ?? props.m,
+      padding: props.padding ?? props.p,
 
-    const handleBlur = useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
-        props.onBlur && props.onBlur(e);
-        setIsFocus(false);
-      },
-      [setIsFocus]
-    );
+      ...props.style,
+    };
 
     return (
-      <Style.InputContainer
-        isActive={isFocus}
-        width={width}
-        height={height}
-        style={containerStyle}
-      >
-        <Style.Input
+      <Style.Container>
+        <Style.TextInput
           {...props}
           ref={forwardedRef}
           onInput={handleInput}
-          onFocus={handleFoucs}
-          onBlur={handleBlur}
+          style={style}
         />
-      </Style.InputContainer>
+        <Style.Label>{label}</Style.Label>
+      </Style.Container>
     );
   }
 );

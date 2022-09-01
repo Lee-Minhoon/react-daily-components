@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TRANSITION_FAST } from "../../../constants/css";
+import { TRANSITION_NORMAL } from "../../../constants/css";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
 
 interface ContainerBaseStyleProps {
@@ -12,8 +12,8 @@ export const ContainerBase = styled.div<ContainerBaseStyleProps>`
   border-color: ${({ isActive, theme }) =>
     isActive ? theme.primaryColor ?? "gray" : theme.defaultColor ?? "gray"};
   box-shadow: ${({ isActive }) => (isActive ? OUT_SHADOW : "initial")};
-  transition: border ${TRANSITION_FAST}s ease-in-out,
-    box-shadow ${TRANSITION_FAST}s ease-in-out;
+  transition: border ${TRANSITION_NORMAL}s ease-in-out,
+    box-shadow ${TRANSITION_NORMAL}s ease-in-out;
 `;
 
 export const ContainerAbsoluteBase = styled.div<ContainerBaseStyleProps>`
@@ -24,7 +24,7 @@ export const ContainerAbsoluteBase = styled.div<ContainerBaseStyleProps>`
     border-color: ${({ isActive, theme }) =>
       isActive ? theme.primaryColor ?? "gray" : theme.defaultColor ?? "gray"};
     box-shadow: ${({ isActive }) => (isActive ? OUT_SHADOW : "initial")};
-    transition: border ${TRANSITION_FAST}s ease-in-out,
-      box-shadow ${TRANSITION_FAST}s ease-in-out;
+    transition: border ${TRANSITION_NORMAL}s ease-in-out,
+      box-shadow ${TRANSITION_NORMAL}s ease-in-out;
   }
 `;

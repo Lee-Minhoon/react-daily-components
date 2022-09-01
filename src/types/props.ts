@@ -16,10 +16,10 @@ export interface ContainerProps extends SizeProps {}
 export interface SizePropsT {
   width?: StandardProperties["width"];
   w?: StandardProperties["width"];
-  maxWidth?: StandardProperties["maxWidth"];
-  mw?: StandardProperties["maxWidth"];
   height?: StandardProperties["height"];
   h?: StandardProperties["height"];
+  maxWidth?: StandardProperties["maxWidth"];
+  mw?: StandardProperties["maxWidth"];
   maxHeight?: StandardProperties["maxWidth"];
   mh?: StandardProperties["maxHeight"];
 }

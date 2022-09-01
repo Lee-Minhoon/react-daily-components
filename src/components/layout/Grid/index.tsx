@@ -37,8 +37,8 @@ const Grid = forwardRef(
     const style: React.CSSProperties = {
       display: "grid",
       width: props.width ?? props.w,
-      maxWidth: props.maxWidth ?? props.mw,
       height: props.height ?? props.h,
+      maxWidth: props.maxWidth ?? props.mw,
       maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,

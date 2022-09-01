@@ -19,8 +19,8 @@ const View = forwardRef(
   (props: ViewProps, forwardedRef: ForwardedRef<HTMLDivElement>) => {
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
-      maxWidth: props.maxWidth ?? props.mw,
       height: props.height ?? props.h,
+      maxWidth: props.maxWidth ?? props.mw,
       maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
