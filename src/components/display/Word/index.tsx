@@ -1,12 +1,8 @@
 import React, { ForwardedRef, forwardRef } from "react";
-import {
-  SizePropsT,
-  SpanDefaultProps,
-  WhiteSpaceProps,
-} from "../../../types/props";
+import { ElementProps, SpanDefaultProps } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface WordProps extends SpanDefaultProps, SizePropsT, WhiteSpaceProps {
+interface WordProps extends SpanDefaultProps, ElementProps {
   font?: StandardProperties["font"];
   fontStyle?: StandardProperties["fontStyle"];
   fst?: StandardProperties["fontStyle"];
@@ -29,8 +25,6 @@ const Word = forwardRef(
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
       height: props.height ?? props.h,
-      maxWidth: props.maxWidth ?? props.mw,
-      maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
       font: props.font,

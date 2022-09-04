@@ -25,9 +25,7 @@ const TextInput = forwardRef(
 
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
-      maxWidth: props.maxWidth ?? props.mw,
       height: props.height ?? props.h,
-      maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
 

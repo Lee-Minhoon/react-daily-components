@@ -1,34 +1,5 @@
 ## Grid
 
-### Usage
-
-```javascript
-import { Grid } from "react-daily-components";
-
-function App() {
-  return (
-    <Grid
-      w={"200px"}
-      h={"200px"}
-      gap={"10px"}
-      gar={"1fr"}
-      gtc={"repeat(3, 1fr)"}
-    >
-      <span>item 1</span>
-      <span>item 2</span>
-      <span>item 3</span>
-      <span>item 4</span>
-      <span>item 5</span>
-      <span>item 6</span>
-      <span>item 7</span>
-      <span>item 8</span>
-    </Grid>
-  );
-}
-
-export default App;
-```
-
 ### Props
 
 This component extends the html div tag.

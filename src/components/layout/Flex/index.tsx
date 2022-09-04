@@ -1,12 +1,8 @@
 import { ForwardedRef, forwardRef } from "react";
-import {
-  DivDefaultProps,
-  SizePropsT,
-  WhiteSpaceProps,
-} from "../../../types/props";
+import { ContainerPropsT, DivDefaultProps } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface FlexProps extends DivDefaultProps, SizePropsT, WhiteSpaceProps {
+interface FlexProps extends DivDefaultProps, ContainerPropsT {
   direction?: StandardProperties["flexDirection"];
   d?: StandardProperties["flexDirection"];
   alignContent?: StandardProperties["alignContent"];

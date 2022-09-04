@@ -10,8 +10,6 @@ For example onClick, style, etc...
 | ---------------------- | ------------------------------------- | ------------ | ------- |
 | width? \| w?           | StandardProperties["width"]           | preparing... | -       |
 | height? \| h?          | StandardProperties["height"];         | preparing... | -       |
-| maxWidth? \| mw?       | StandardProperties["maxWidth"]        | preparing... | -       |
-| maxHeight? \| mh?      | StandardProperties["maxHeight"];      | preparing... | -       |
 | margin? \|m?           | StandardProperties["margin"];         | preparing... | -       |
 | padding? \| p?         | StandardProperties["padding"];        | preparing... | -       |
 | font?                  | StandardProperties["font"];           | preparing... | -       |

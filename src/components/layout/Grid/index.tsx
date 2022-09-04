@@ -1,12 +1,8 @@
 import { ForwardedRef, forwardRef } from "react";
-import {
-  DivDefaultProps,
-  SizePropsT,
-  WhiteSpaceProps,
-} from "../../../types/props";
+import { ContainerPropsT, DivDefaultProps } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface GridProps extends DivDefaultProps, SizePropsT, WhiteSpaceProps {
+interface GridProps extends DivDefaultProps, ContainerPropsT {
   autoColumns?: StandardProperties["gridAutoColumns"];
   gac?: StandardProperties["gridAutoColumns"];
   autoRows?: StandardProperties["gridAutoRows"];

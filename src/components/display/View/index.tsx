@@ -1,12 +1,8 @@
 import { ForwardedRef, forwardRef } from "react";
-import {
-  DivDefaultProps,
-  SizePropsT,
-  WhiteSpaceProps,
-} from "../../../types/props";
+import { DivDefaultProps, ElementProps } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface ViewProps extends DivDefaultProps, SizePropsT, WhiteSpaceProps {
+interface ViewProps extends DivDefaultProps, ElementProps {
   border?: StandardProperties["border"];
   bd?: StandardProperties["border"];
   borderRadius?: StandardProperties["borderRadius"];
@@ -20,8 +16,6 @@ const View = forwardRef(
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
       height: props.height ?? props.h,
-      maxWidth: props.maxWidth ?? props.mw,
-      maxHeight: props.maxHeight ?? props.mh,
       margin: props.margin ?? props.m,
       padding: props.padding ?? props.p,
       border: props.border ?? props.bd,

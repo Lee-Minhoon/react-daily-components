@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { TRANSITION_NORMAL } from "../../../constants/css";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
+import { getPrimaryColor } from "../../../utilities/css";
 
 export interface ButtonStyleProps {}
 
@@ -29,13 +30,13 @@ export const Button = styled.button<ButtonStyleProps>`
 `;
 
 export const TextButton = styled(Button)<ButtonStyleProps>`
-  color: ${({ theme }) => theme.primaryColor ?? "gray"};
+  color: ${(props) => getPrimaryColor(props)};
 `;
 
 export const ContainedButton = styled(Button)<ButtonStyleProps>`
   color: white;
   &::after {
-    background-color: ${({ theme }) => theme.primaryColor ?? "gray"};
+    background-color: ${(props) => getPrimaryColor(props)};
   }
   &:hover {
     &::after {
@@ -45,9 +46,9 @@ export const ContainedButton = styled(Button)<ButtonStyleProps>`
 `;
 
 export const OutlinedButton = styled(Button)<ButtonStyleProps>`
-  color: ${({ theme }) => theme.primaryColor ?? "gray"};
+  color: ${(props) => getPrimaryColor(props)};
   &::after {
-    border: 1px solid ${({ theme }) => theme.primaryColor ?? "gray"};
+    border: 1px solid ${(props) => getPrimaryColor(props)};
   }
   &:hover {
     &::after {

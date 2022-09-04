@@ -13,15 +13,20 @@ export interface SizeProps {
 
 export interface ContainerProps extends SizeProps {}
 
+export interface ElementProps extends SizePropsT, WhiteSpaceProps {}
+
+export interface ContainerPropsT extends SizePropsT, WhiteSpaceProps {
+  maxWidth?: StandardProperties["maxWidth"];
+  mw?: StandardProperties["maxWidth"];
+  maxHeight?: StandardProperties["maxHeight"];
+  mh?: StandardProperties["maxHeight"];
+}
+
 export interface SizePropsT {
   width?: StandardProperties["width"];
   w?: StandardProperties["width"];
   height?: StandardProperties["height"];
   h?: StandardProperties["height"];
-  maxWidth?: StandardProperties["maxWidth"];
-  mw?: StandardProperties["maxWidth"];
-  maxHeight?: StandardProperties["maxWidth"];
-  mh?: StandardProperties["maxHeight"];
 }
 
 export interface WhiteSpaceProps {
@@ -34,6 +39,11 @@ export interface WhiteSpaceProps {
 export type DivDefaultProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
+>;
+
+export type HeadingDefaultProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLHeadingElement>,
+  HTMLHeadingElement
 >;
 
 export type ParagraphDefaultProps = DetailedHTMLProps<

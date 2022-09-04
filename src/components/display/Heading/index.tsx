@@ -1,8 +1,19 @@
 import { ForwardedRef, forwardRef } from "react";
-import { ElementProps, ParagraphDefaultProps } from "../../../types/props";
+import { ElementProps, HeadingDefaultProps } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 
-interface TextProps extends ParagraphDefaultProps, ElementProps {
+const LEVEL = {
+  1: "h1",
+  2: "h2",
+  3: "h3",
+  4: "h4",
+  5: "h5",
+  6: "h6",
+} as const;
+type Level = keyof typeof LEVEL;
+
+interface HeadingProps extends HeadingDefaultProps, ElementProps {
+  level?: Level;
   font?: StandardProperties["font"];
   fontStyle?: StandardProperties["fontStyle"];
   fst?: StandardProperties["fontStyle"];
@@ -20,8 +31,10 @@ interface TextProps extends ParagraphDefaultProps, ElementProps {
   td?: StandardProperties["textDecoration"];
 }
 
-const Text = forwardRef(
-  (props: TextProps, forwardedRef: ForwardedRef<HTMLParagraphElement>) => {
+const Heading = forwardRef(
+  (props: HeadingProps, forwardedRef: ForwardedRef<HTMLParagraphElement>) => {
+    const { level } = props;
+
     const style: React.CSSProperties = {
       width: props.width ?? props.w,
       height: props.height ?? props.h,
@@ -39,8 +52,10 @@ const Text = forwardRef(
       ...props.style,
     };
 
-    return <p {...props} ref={forwardedRef} style={style} />;
+    const Heading = LEVEL[props.level ?? 1];
+
+    return <Heading {...props} ref={forwardedRef} style={style} />;
   }
 );
 
-export default Text;
+export default Heading;

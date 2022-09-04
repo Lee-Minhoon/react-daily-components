@@ -2,25 +2,18 @@ import { useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
 import uesDebounce from "../../../hooks/useDebounce";
 import useThrottle from "../../../hooks/useThrottle";
-import {
-  ButtonDefaultProps,
-  SizePropsT,
-  WhiteSpaceProps,
-} from "../../../types/props";
-import * as Style from "./style";
+import { ButtonDefaultProps, ElementProps } from "../../../types/props";
+import { TextButton, ContainedButton, OutlinedButton } from "./style";
 
-export const BUTTON_TYPES = {
-  text: "text",
-  contained: "contained",
-  outlined: "outlined",
+const VARIANTS = {
+  text: TextButton,
+  contained: ContainedButton,
+  outlined: OutlinedButton,
 } as const;
-export type ButtonTypes = keyof typeof BUTTON_TYPES;
+type Variants = keyof typeof VARIANTS;
 
-export interface ButtonProps
-  extends ButtonDefaultProps,
-    SizePropsT,
-    WhiteSpaceProps {
-  variant?: ButtonTypes;
+export interface ButtonProps extends ButtonDefaultProps, ElementProps {
+  variant?: Variants;
   debounce?: number;
   throttle?: number;
 }
@@ -29,7 +22,7 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
   const theme = useTheme();
   const {
     onClick = () => {},
-    variant = BUTTON_TYPES.contained,
+    variant = VARIANTS.contained,
     debounce = 0,
     throttle = 0,
   } = props;
@@ -49,9 +42,7 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
       circle.style.top = `${event.pageY - button.offsetTop - radius}px`;
       circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
       circle.style.backgroundColor =
-        variant === BUTTON_TYPES.contained
-          ? "#fff"
-          : theme.primaryColor ?? "gray";
+        variant === VARIANTS.contained ? "#fff" : theme.primaryColor ?? "gray";
       circle.style.opacity = "1";
       circle.classList.add("ripple");
 
@@ -79,16 +70,14 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
 
   const style: React.CSSProperties = {
     width: props.width ?? props.w,
-    maxWidth: props.maxWidth ?? props.mw,
     height: props.height ?? props.h,
-    maxHeight: props.maxHeight ?? props.mh,
     margin: props.margin ?? props.m,
     padding: props.padding ?? props.p,
 
     ...props.style,
   };
 
-  const Button = GetButtonByType(variant);
+  const Button = VARIANTS[props.variant ?? "contained"];
 
   return (
     <Button {...props} ref={forwardedRef} onClick={handleClick} style={style} />
@@ -96,18 +85,3 @@ const Button = forwardRef((props: ButtonProps, forwardedRef: any) => {
 });
 
 export default Button;
-
-const GetButtonByType = (type: ButtonTypes) => {
-  let Button;
-  switch (type) {
-    case BUTTON_TYPES.text:
-      Button = Style.TextButton;
-      break;
-    case BUTTON_TYPES.contained:
-      Button = Style.ContainedButton;
-      break;
-    case BUTTON_TYPES.outlined:
-      Button = Style.OutlinedButton;
-  }
-  return Button;
-};

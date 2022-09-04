@@ -8,12 +8,16 @@ import Flex from "./components/layout/Flex";
 import View from "./components/display/View";
 import Text from "./components/display/Text";
 import Word from "./components/display/Word";
+import Divider from "./components/layout/Divider";
+import Heading from "./components/display/Heading";
 
 function App() {
   const [value, setValue] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef(null);
+
+  const [page, setPage] = useState<number>(1);
 
   const handler = (page: number) => {
     console.log(page);
@@ -27,7 +31,7 @@ function App() {
     setInputValue(e.target.value);
   }, []);
 
-  console.log(ref);
+  console.log(ref.current);
 
   return (
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
@@ -52,12 +56,13 @@ function App() {
         <br />
         <br />
         <br />
+        <Heading level={1}>hi</Heading>
         <Pagination
-          totalPages={15}
-          currentPage={1}
-          block={10}
+          totalPages={1000}
+          currentPage={page}
+          block={5}
           width={500}
-          handleClick={handler}
+          handleClick={(page) => setPage(page)}
         />
         <br />
         <br />
@@ -100,15 +105,15 @@ function App() {
           value={inputValue}
           onChange={handleChange}
           regex={/[^0-9]/g}
-          width={"7rem"}
-          height={"50px"}
           label={"password"}
+          placeholder={"put the password"}
         />
         <br />
         <br />
         <br />
         <Text>df</Text>
         <Text>df</Text>
+        <Divider direction="horizontal" borderWidth="1px" label="?" />
         <Word>df</Word>
         <Word>df</Word>
         <View w="20px" h="20px" bs="1px 1px 1px 1px black" margin="20px" />
