@@ -57,6 +57,7 @@ export const getBorderProps = (props: BorderProps) => {
 
 export const getFontProps = (props: FontProps) => {
   return {
+    color: props.color ?? props.c,
     font: props.font,
     fontStyle: props.fontStyle ?? props.fst,
     fontWeight: props.fontWeight ?? props.fw,

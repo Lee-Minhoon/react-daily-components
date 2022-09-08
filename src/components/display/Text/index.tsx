@@ -7,10 +7,10 @@ import {
 } from "../../../types/props";
 import { getFontProps, getElementProps } from "../../../utilities/props";
 
-interface TextProps extends ParagraphDefaultProps, ElementProps, FontProps {}
+interface TextProps extends ParagraphDefaultProps, ElementProps {}
 
 const Text = forwardRef(
-  (props: TextProps, forwardedRef: ParagraphForwardedRef) => {
+  (props: TextProps & FontProps, forwardedRef: ParagraphForwardedRef) => {
     const style: React.CSSProperties = {
       ...getElementProps(props),
       ...getFontProps(props),

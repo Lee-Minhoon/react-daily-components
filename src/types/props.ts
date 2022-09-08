@@ -66,6 +66,8 @@ export interface BackgroundProps {
  * PropTypes of HTML font css
  */
 export interface FontProps {
+  color?: StandardProperties["color"];
+  c?: StandardProperties["color"];
   font?: StandardProperties["font"];
   fontStyle?: StandardProperties["fontStyle"];
   fst?: StandardProperties["fontStyle"];
