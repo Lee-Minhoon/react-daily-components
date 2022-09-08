@@ -1,8 +1,18 @@
 //layout
 export { default as Flex } from "./layout/Flex";
 export { default as Grid } from "./layout/Grid";
+export { default as Divider } from "./layout/Divider";
 
 //display
+export { default as Heading } from "./display/Heading";
+export { default as Table } from "./display/Table";
+export { default as TableHead } from "./display/Table/TableHead";
+export { default as TableBody } from "./display/Table/TableBody";
+export { default as TableRow } from "./display/Table/TableRow";
+export { default as TableCell } from "./display/Table/TableCell";
+export { default as Text } from "./display/Text";
+export { default as View } from "./display/View";
+export { default as Word } from "./display/Word";
 
 //inputs
 export { default as Button } from "./inputs/Button";
