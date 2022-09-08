@@ -1,4 +1,5 @@
 import {
+  FontProps,
   InputDefaultProps,
   InputForwardedRef,
   SizePropsT,
@@ -6,6 +7,11 @@ import {
 } from "../../../types/props";
 import { Container, Input, Label } from "./style";
 import React, { forwardRef, useCallback } from "react";
+import {
+  getFontProps,
+  getSizeProps,
+  getWhiteSpaceProps,
+} from "../../../utilities/props";
 
 interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
   label?: string;
@@ -13,7 +19,10 @@ interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
 }
 
 const TextField = forwardRef(
-  (props: TextFieldProps & SizePropsT, forwardedRef: InputForwardedRef) => {
+  (
+    props: TextFieldProps & SizePropsT & FontProps,
+    forwardedRef: InputForwardedRef
+  ) => {
     const { label, regex } = props;
 
     const handleInput = useCallback(
@@ -25,10 +34,9 @@ const TextField = forwardRef(
     );
 
     const style: React.CSSProperties = {
-      width: props.width ?? props.w,
-      height: props.height ?? props.h,
-      margin: props.margin ?? props.m,
-      padding: props.padding ?? props.p,
+      ...getSizeProps(props),
+      ...getWhiteSpaceProps(props),
+      ...getFontProps(props),
 
       ...props.style,
     };
@@ -41,7 +49,7 @@ const TextField = forwardRef(
           onInput={handleInput}
           style={style}
         />
-        <Label>{label}</Label>
+        <Label style={{ ...getFontProps(props) }}>{label}</Label>
       </Container>
     );
   }

@@ -4,6 +4,7 @@ import {
   ContainerPropsT,
   ElementProps,
   FontProps,
+  MaxSizeProps,
   SizePropsT,
   WhiteSpaceProps,
 } from "../types/props";
@@ -11,10 +12,10 @@ import {
 export const getContainerProps = (props: ContainerPropsT) => {
   return {
     ...getSizeProps(props),
+    ...getMaxSizeProps(props),
     ...getWhiteSpaceProps(props),
     ...getBackgroundProps(props),
-    maxWidth: props.maxWidth ?? props.mw,
-    maxHeight: props.maxHeight ?? props.mh,
+    ...getBorderProps(props),
   };
 };
 
@@ -23,6 +24,7 @@ export const getElementProps = (props: ElementProps) => {
     ...getSizeProps(props),
     ...getWhiteSpaceProps(props),
     ...getBackgroundProps(props),
+    ...getBorderProps(props),
   };
 };
 
@@ -30,6 +32,13 @@ export const getSizeProps = (props: SizePropsT) => {
   return {
     width: props.width ?? props.w,
     height: props.height ?? props.h,
+  };
+};
+
+export const getMaxSizeProps = (props: MaxSizeProps) => {
+  return {
+    maxWidth: props.maxWidth ?? props.mw,
+    maxHeight: props.maxHeight ?? props.mh,
   };
 };
 

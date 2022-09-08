@@ -7,7 +7,7 @@ import {
 } from "../../../types/props";
 import { getElementProps } from "../../../utilities/props";
 
-interface ViewProps extends DivDefaultProps, ElementProps, BorderProps {}
+interface ViewProps extends DivDefaultProps, ElementProps {}
 
 const View = forwardRef((props: ViewProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {

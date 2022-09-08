@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
 import {
-  ElementProps,
   FontProps,
   HeadingDefaultProps,
   HeadingForwardedRef,
+  WhiteSpaceProps,
 } from "../../../types/props";
-import { getElementProps } from "../../../utilities/props";
+import { getFontProps, getWhiteSpaceProps } from "../../../utilities/props";
 
 const LEVEL = {
   1: "h1",
@@ -17,7 +17,7 @@ const LEVEL = {
 } as const;
 type Level = keyof typeof LEVEL;
 
-interface HeadingProps extends HeadingDefaultProps, ElementProps {
+interface HeadingProps extends HeadingDefaultProps, WhiteSpaceProps {
   level: Level;
 }
 
@@ -26,7 +26,8 @@ const Heading = forwardRef(
     const { level } = props;
 
     const style: React.CSSProperties = {
-      ...getElementProps(props),
+      ...getWhiteSpaceProps(props),
+      ...getFontProps(props),
       ...props.style,
     };
 

@@ -1,18 +1,18 @@
 import { forwardRef } from "react";
 import {
-  ElementProps,
   FontProps,
   ParagraphDefaultProps,
   ParagraphForwardedRef,
+  WhiteSpaceProps,
 } from "../../../types/props";
-import { getFontProps, getElementProps } from "../../../utilities/props";
+import { getFontProps, getWhiteSpaceProps } from "../../../utilities/props";
 
-interface TextProps extends ParagraphDefaultProps, ElementProps {}
+interface TextProps extends ParagraphDefaultProps, WhiteSpaceProps {}
 
 const Text = forwardRef(
   (props: TextProps & FontProps, forwardedRef: ParagraphForwardedRef) => {
     const style: React.CSSProperties = {
-      ...getElementProps(props),
+      ...getWhiteSpaceProps(props),
       ...getFontProps(props),
       ...props.style,
     };

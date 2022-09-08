@@ -1,24 +1,18 @@
 import React, { forwardRef } from "react";
 import {
-  BorderProps,
   WhiteSpaceProps,
   FontProps,
   SpanDefaultProps,
   SpanForwardedRef,
 } from "../../../types/props";
-import {
-  getWhiteSpaceProps,
-  getFontProps,
-  getBorderProps,
-} from "../../../utilities/props";
+import { getWhiteSpaceProps, getFontProps } from "../../../utilities/props";
 
-interface WordProps extends SpanDefaultProps, WhiteSpaceProps, BorderProps {}
+interface WordProps extends SpanDefaultProps, WhiteSpaceProps {}
 
 const Word = forwardRef(
   (props: WordProps & FontProps, forwardedRef: SpanForwardedRef) => {
     const style: React.CSSProperties = {
       ...getWhiteSpaceProps(props),
-      ...getBorderProps(props),
       ...getFontProps(props),
       ...props.style,
     };

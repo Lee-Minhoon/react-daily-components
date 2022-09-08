@@ -15,22 +15,21 @@ export interface SizeProps {
 export interface ContainerProps extends SizeProps {}
 
 /**
- * PropTypes of Element
- */
-export type ElementProps = SizePropsT & WhiteSpaceProps & BackgroundProps;
-
-/**
  * PropTypes of Container
  */
-export interface ContainerPropsT
-  extends SizePropsT,
-    WhiteSpaceProps,
-    BackgroundProps {
-  maxWidth?: StandardProperties["maxWidth"];
-  mw?: StandardProperties["maxWidth"];
-  maxHeight?: StandardProperties["maxHeight"];
-  mh?: StandardProperties["maxHeight"];
-}
+export type ContainerPropsT = SizePropsT &
+  MaxSizeProps &
+  WhiteSpaceProps &
+  BackgroundProps &
+  BorderProps;
+
+/**
+ * PropTypes of Element
+ */
+export type ElementProps = SizePropsT &
+  WhiteSpaceProps &
+  BackgroundProps &
+  BorderProps;
 
 /**
  * PropTypes of HTML width & height css
@@ -40,6 +39,16 @@ export interface SizePropsT {
   w?: StandardProperties["width"];
   height?: StandardProperties["height"];
   h?: StandardProperties["height"];
+}
+
+/**
+ * PropTypes of HTML max_width & max_height css
+ */
+export interface MaxSizeProps {
+  maxWidth?: StandardProperties["maxWidth"];
+  mw?: StandardProperties["maxWidth"];
+  maxHeight?: StandardProperties["maxHeight"];
+  mh?: StandardProperties["maxHeight"];
 }
 
 /**
