@@ -17,12 +17,12 @@ const LEVEL = {
 } as const;
 type Level = keyof typeof LEVEL;
 
-interface HeadingProps extends HeadingDefaultProps, ElementProps, FontProps {
+interface HeadingProps extends HeadingDefaultProps, ElementProps {
   level: Level;
 }
 
 const Heading = forwardRef(
-  (props: HeadingProps, forwardedRef: HeadingForwardedRef) => {
+  (props: HeadingProps & FontProps, forwardedRef: HeadingForwardedRef) => {
     const { level } = props;
 
     const style: React.CSSProperties = {

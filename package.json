@@ -19,7 +19,7 @@
     "clean": "rimraf lib",
     "copy-files": "copyfiles README.md lib",
     "tsc-build": "npm run clean && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json && npm run copy-files",
-    "publish:npm": "npm run tsc-build && npm publish"
+    "publish": "npm run tsc-build && npm publish"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
