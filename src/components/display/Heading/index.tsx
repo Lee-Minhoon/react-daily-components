@@ -5,11 +5,7 @@ import {
   HeadingDefaultProps,
   HeadingForwardedRef,
 } from "../../../types/props";
-import {
-  getFontProps,
-  getSizeProps,
-  getWhiteSpaceProps,
-} from "../../../utilities/props";
+import { getElementProps } from "../../../utilities/props";
 
 const LEVEL = {
   1: "h1",
@@ -30,9 +26,7 @@ const Heading = forwardRef(
     const { level } = props;
 
     const style: React.CSSProperties = {
-      ...getSizeProps(props),
-      ...getWhiteSpaceProps(props),
-      ...getFontProps(props),
+      ...getElementProps(props),
       ...props.style,
     };
 

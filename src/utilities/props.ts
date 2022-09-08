@@ -1,9 +1,30 @@
 import {
+  BackgroundProps,
   BorderProps,
+  ContainerPropsT,
+  ElementProps,
   FontProps,
   SizePropsT,
   WhiteSpaceProps,
 } from "../types/props";
+
+export const getContainerProps = (props: ContainerPropsT) => {
+  return {
+    ...getSizeProps(props),
+    ...getWhiteSpaceProps(props),
+    ...getBackgroundProps(props),
+    maxWidth: props.maxWidth ?? props.mw,
+    maxHeight: props.maxHeight ?? props.mh,
+  };
+};
+
+export const getElementProps = (props: ElementProps) => {
+  return {
+    ...getSizeProps(props),
+    ...getWhiteSpaceProps(props),
+    ...getBackgroundProps(props),
+  };
+};
 
 export const getSizeProps = (props: SizePropsT) => {
   return {
@@ -16,6 +37,13 @@ export const getWhiteSpaceProps = (props: WhiteSpaceProps) => {
   return {
     margin: props.margin ?? props.m,
     padding: props.padding ?? props.p,
+  };
+};
+
+export const getBackgroundProps = (props: BackgroundProps) => {
+  return {
+    background: props.background ?? props.bg,
+    backgroundColor: props.backgroundColor ?? props.bgc,
   };
 };
 

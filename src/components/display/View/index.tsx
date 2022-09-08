@@ -5,19 +5,13 @@ import {
   DivForwardedRef,
   ElementProps,
 } from "../../../types/props";
-import {
-  getBorderProps,
-  getSizeProps,
-  getWhiteSpaceProps,
-} from "../../../utilities/props";
+import { getElementProps } from "../../../utilities/props";
 
 interface ViewProps extends DivDefaultProps, ElementProps, BorderProps {}
 
 const View = forwardRef((props: ViewProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
-    ...getSizeProps(props),
-    ...getWhiteSpaceProps(props),
-    ...getBorderProps(props),
+    ...getElementProps(props),
     ...props.style,
   };
 

@@ -5,7 +5,7 @@ import {
   DivForwardedRef,
 } from "../../../types/props";
 import type { StandardProperties } from "csstype";
-import { getSizeProps, getWhiteSpaceProps } from "../../../utilities/props";
+import { getContainerProps } from "../../../utilities/props";
 
 interface GridProps extends DivDefaultProps, ContainerPropsT {
   autoColumns?: StandardProperties["gridAutoColumns"];
@@ -36,10 +36,7 @@ interface GridProps extends DivDefaultProps, ContainerPropsT {
 const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     display: "grid",
-    ...getSizeProps(props),
-    ...getWhiteSpaceProps(props),
-    maxWidth: props.maxWidth ?? props.mw,
-    maxHeight: props.maxHeight ?? props.mh,
+    ...getContainerProps(props),
     gridAutoColumns: props.autoColumns ?? props.gac,
     gridAutoRows: props.autoRows ?? props.gar,
     gridAutoFlow: props.autoFlow ?? props.gaf,

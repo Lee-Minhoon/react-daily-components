@@ -5,7 +5,7 @@ import {
   DivForwardedRef,
 } from "../../../types/props";
 import type { StandardProperties } from "csstype";
-import { getSizeProps, getWhiteSpaceProps } from "../../../utilities/props";
+import { getContainerProps } from "../../../utilities/props";
 
 interface FlexProps extends DivDefaultProps, ContainerPropsT {
   direction?: StandardProperties["flexDirection"];
@@ -27,10 +27,7 @@ interface FlexProps extends DivDefaultProps, ContainerPropsT {
 const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     display: "flex",
-    ...getSizeProps(props),
-    ...getWhiteSpaceProps(props),
-    maxWidth: props.maxWidth ?? props.mw,
-    maxHeight: props.maxHeight ?? props.mh,
+    ...getContainerProps(props),
     flexDirection: props.direction ?? props.d,
     alignContent: props.alignContent ?? props.ac,
     alignItems: props.alignItems ?? props.ai,
