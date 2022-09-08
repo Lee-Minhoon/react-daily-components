@@ -1,7 +1,7 @@
 import * as Style from "../style";
 
 interface PageItemProps {
-  children: JSX.Element;
+  children: any;
   activate: boolean;
   targetPage: number;
   handleClick: (targetPage: number) => void;

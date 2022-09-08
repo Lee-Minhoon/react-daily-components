@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { TRANSITION_NORMAL } from "../../../constants/css";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
 
-interface ContainerBaseStyleProps {
+export interface ContainerBaseStyleProps {
   isActive: boolean;
 }
 

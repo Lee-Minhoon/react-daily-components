@@ -17,12 +17,15 @@ export interface ContainerProps extends SizeProps {}
 /**
  * PropTypes of Element
  */
-export type ElementProps = SizePropsT & WhiteSpaceProps;
+export type ElementProps = SizePropsT & WhiteSpaceProps & BackgroundProps;
 
 /**
  * PropTypes of Container
  */
-export interface ContainerPropsT extends SizePropsT, WhiteSpaceProps {
+export interface ContainerPropsT
+  extends SizePropsT,
+    WhiteSpaceProps,
+    BackgroundProps {
   maxWidth?: StandardProperties["maxWidth"];
   mw?: StandardProperties["maxWidth"];
   maxHeight?: StandardProperties["maxHeight"];
@@ -47,6 +50,16 @@ export interface WhiteSpaceProps {
   m?: StandardProperties["margin"];
   padding?: StandardProperties["padding"];
   p?: StandardProperties["padding"];
+}
+
+/**
+ * PropTypes of HTML background css
+ */
+export interface BackgroundProps {
+  background?: StandardProperties["background"];
+  bg?: StandardProperties["background"];
+  backgroundColor?: StandardProperties["backgroundColor"];
+  bgc?: StandardProperties["backgroundColor"];
 }
 
 /**
