@@ -8,6 +8,7 @@ import type { StandardProperties } from "csstype";
 import { getContainerProps } from "../../../utilities/props";
 
 interface FlexProps extends DivDefaultProps, ContainerPropsT {
+  flex?: StandardProperties["flex"];
   direction?: StandardProperties["flexDirection"];
   d?: StandardProperties["flexDirection"];
   alignContent?: StandardProperties["alignContent"];
@@ -28,6 +29,7 @@ const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     display: "flex",
     ...getContainerProps(props),
+    flex: props.flex,
     flexDirection: props.direction ?? props.d,
     alignContent: props.alignContent ?? props.ac,
     alignItems: props.alignItems ?? props.ai,
