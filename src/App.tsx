@@ -57,7 +57,9 @@ function App() {
         <Text></Text>
         <br />
         <br />
-        <Heading level={1}>hi</Heading>
+        <Heading level={1} color="red">
+          hi
+        </Heading>
         <Pagination
           totalPages={1000}
           currentPage={page}
