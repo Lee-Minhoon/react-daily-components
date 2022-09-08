@@ -2,7 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { useCallback, useRef, useState } from "react";
 import { DatePicker, Grid, Pagination, Select, TimePicker } from "./components";
 import Button from "./components/inputs/Button";
-import TextInput from "./components/inputs/TextInput";
+import TextField from "./components/inputs/TextField";
 import Modal from "./components/feedback/Modal";
 import Flex from "./components/layout/Flex";
 import View from "./components/display/View";
@@ -101,7 +101,7 @@ function App() {
         <br />
         <br />
         <br />
-        <TextInput
+        <TextField
           value={inputValue}
           onChange={handleChange}
           regex={/[^0-9]/g}

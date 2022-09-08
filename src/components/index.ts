@@ -6,7 +6,7 @@ export { default as Grid } from "./layout/Grid";
 
 //inputs
 export { default as Button } from "./inputs/Button";
-export { default as TextInput } from "./inputs/TextInput";
+export { default as TextField } from "./inputs/TextField";
 export { default as Select } from "./inputs/Select";
 export { default as TimePicker } from "./inputs/TimePicker";
 export { default as DatePicker } from "./inputs/DatePicker";

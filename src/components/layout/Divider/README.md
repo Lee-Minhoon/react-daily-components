@@ -8,7 +8,8 @@ For example onClick, style, etc...
 
 | props          | type                           | desc         | default      |
 | -------------- | ------------------------------ | ------------ | ------------ |
-| label?         | string                         | preparing... | -            |
 | direction?     | "horizontal" \| "vertical"     | preparing... | "horizontal" |
+| label?         | string                         | preparing... | -            |
+| labelStyle?    | React.CSSProperties            | preparing... | -            |
 | margin? \|m?   | StandardProperties["margin"];  | preparing... | -            |
 | padding? \| p? | StandardProperties["padding"]; | preparing... | -            |

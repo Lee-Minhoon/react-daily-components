@@ -1,6 +1,11 @@
-import { ForwardedRef, forwardRef } from "react";
-import { ContainerPropsT, DivDefaultProps } from "../../../types/props";
+import { forwardRef } from "react";
+import {
+  ContainerPropsT,
+  DivDefaultProps,
+  DivForwardedRef,
+} from "../../../types/props";
 import type { StandardProperties } from "csstype";
+import { getSizeProps, getWhiteSpaceProps } from "../../../utilities/props";
 
 interface FlexProps extends DivDefaultProps, ContainerPropsT {
   direction?: StandardProperties["flexDirection"];
@@ -19,30 +24,25 @@ interface FlexProps extends DivDefaultProps, ContainerPropsT {
   rg?: StandardProperties["rowGap"];
 }
 
-const Flex = forwardRef(
-  (props: FlexProps, forwardedRef: ForwardedRef<HTMLDivElement>) => {
-    const style: React.CSSProperties = {
-      display: "flex",
-      width: props.width ?? props.w,
-      height: props.height ?? props.h,
-      maxWidth: props.maxWidth ?? props.mw,
-      maxHeight: props.maxHeight ?? props.mh,
-      margin: props.margin ?? props.m,
-      padding: props.padding ?? props.p,
-      flexDirection: props.direction ?? props.d,
-      alignContent: props.alignContent ?? props.ac,
-      alignItems: props.alignItems ?? props.ai,
-      justifyContent: props.justifyContent ?? props.jc,
-      flexWrap: props.wrap,
-      gap: props.gap,
-      rowGap: props.rowGap ?? props.rg,
-      columnGap: props.columnGap ?? props.cg,
+const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
+  const style: React.CSSProperties = {
+    display: "flex",
+    ...getSizeProps(props),
+    ...getWhiteSpaceProps(props),
+    maxWidth: props.maxWidth ?? props.mw,
+    maxHeight: props.maxHeight ?? props.mh,
+    flexDirection: props.direction ?? props.d,
+    alignContent: props.alignContent ?? props.ac,
+    alignItems: props.alignItems ?? props.ai,
+    justifyContent: props.justifyContent ?? props.jc,
+    flexWrap: props.wrap,
+    gap: props.gap,
+    rowGap: props.rowGap ?? props.rg,
+    columnGap: props.columnGap ?? props.cg,
+    ...props.style,
+  };
 
-      ...props.style,
-    };
-
-    return <div {...props} ref={forwardedRef} style={style} />;
-  }
-);
+  return <div {...props} ref={forwardedRef} style={style} />;
+});
 
 export default Flex;

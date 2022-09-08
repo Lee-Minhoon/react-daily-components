@@ -1,32 +1,27 @@
-import { ForwardedRef, forwardRef } from "react";
-import { DivDefaultProps, ElementProps } from "../../../types/props";
-import type { StandardProperties } from "csstype";
+import { forwardRef } from "react";
+import {
+  BorderProps,
+  DivDefaultProps,
+  DivForwardedRef,
+  ElementProps,
+} from "../../../types/props";
+import {
+  getBorderProps,
+  getSizeProps,
+  getWhiteSpaceProps,
+} from "../../../utilities/props";
 
-interface ViewProps extends DivDefaultProps, ElementProps {
-  border?: StandardProperties["border"];
-  bd?: StandardProperties["border"];
-  borderRadius?: StandardProperties["borderRadius"];
-  bdr?: StandardProperties["borderRadius"];
-  boxShadow?: StandardProperties["boxShadow"];
-  bs?: StandardProperties["boxShadow"];
-}
+interface ViewProps extends DivDefaultProps, ElementProps, BorderProps {}
 
-const View = forwardRef(
-  (props: ViewProps, forwardedRef: ForwardedRef<HTMLDivElement>) => {
-    const style: React.CSSProperties = {
-      width: props.width ?? props.w,
-      height: props.height ?? props.h,
-      margin: props.margin ?? props.m,
-      padding: props.padding ?? props.p,
-      border: props.border ?? props.bd,
-      borderRadius: props.borderRadius ?? props.bdr,
-      boxShadow: props.boxShadow ?? props.bs,
+const View = forwardRef((props: ViewProps, forwardedRef: DivForwardedRef) => {
+  const style: React.CSSProperties = {
+    ...getSizeProps(props),
+    ...getWhiteSpaceProps(props),
+    ...getBorderProps(props),
+    ...props.style,
+  };
 
-      ...props.style,
-    };
-
-    return <div {...props} ref={forwardedRef} style={style} />;
-  }
-);
+  return <div {...props} ref={forwardedRef} style={style} />;
+});
 
 export default View;

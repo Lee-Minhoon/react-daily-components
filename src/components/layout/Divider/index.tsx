@@ -1,7 +1,12 @@
-import { ForwardedRef, forwardRef, useRef } from "react";
-import { DivDefaultProps, WhiteSpaceProps } from "../../../types/props";
+import { forwardRef, useRef } from "react";
+import {
+  DivDefaultProps,
+  DivForwardedRef,
+  WhiteSpaceProps,
+} from "../../../types/props";
 import type { StandardProperties } from "csstype";
 import { Container, Label } from "./style";
+import { getWhiteSpaceProps } from "../../../utilities/props";
 
 const DIRECTIONS = {
   horizontal: "horizontal",
@@ -10,8 +15,9 @@ const DIRECTIONS = {
 type Directions = keyof typeof DIRECTIONS;
 
 interface DividerProps extends DivDefaultProps, WhiteSpaceProps {
-  label?: string;
   direction?: Directions;
+  label?: string;
+  labelStyle?: React.CSSProperties;
   borderStyle?:
     | StandardProperties["borderTopStyle"]
     | StandardProperties["borderRightStyle"];
@@ -33,8 +39,8 @@ interface DividerProps extends DivDefaultProps, WhiteSpaceProps {
 }
 
 const Divider = forwardRef(
-  (props: DividerProps, forwardedRef: ForwardedRef<HTMLDivElement>) => {
-    const { direction, label } = props;
+  (props: DividerProps, forwardedRef: DivForwardedRef) => {
+    const { direction, label, labelStyle } = props;
     const labelRef = useRef<HTMLSpanElement>(null);
 
     const border =
@@ -53,18 +59,17 @@ const Divider = forwardRef(
     const style: React.CSSProperties = {
       width: direction === "horizontal" ? "100%" : props.borderWidth,
       height: props.direction === "horizontal" ? "initial" : "100%",
-      margin: props.margin ?? props.m,
-      padding: props.padding ?? props.p,
-
+      ...getWhiteSpaceProps(props),
       ...border,
-
       ...props.style,
     };
 
     return (
       <Container height={labelRef.current?.clientHeight}>
         <div {...props} ref={forwardedRef} style={style} />
-        <Label ref={labelRef}>{label}</Label>
+        <Label ref={labelRef} style={labelStyle}>
+          {label}
+        </Label>
       </Container>
     );
   }

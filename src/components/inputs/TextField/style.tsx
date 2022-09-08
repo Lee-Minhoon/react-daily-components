@@ -10,7 +10,7 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const TextInput = styled.input`
+export const Input = styled.input`
   padding: 0 10px;
   outline: none;
   height: 50px;

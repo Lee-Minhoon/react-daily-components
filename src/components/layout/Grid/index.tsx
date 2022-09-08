@@ -1,6 +1,11 @@
-import { ForwardedRef, forwardRef } from "react";
-import { ContainerPropsT, DivDefaultProps } from "../../../types/props";
+import { forwardRef } from "react";
+import {
+  ContainerPropsT,
+  DivDefaultProps,
+  DivForwardedRef,
+} from "../../../types/props";
 import type { StandardProperties } from "csstype";
+import { getSizeProps, getWhiteSpaceProps } from "../../../utilities/props";
 
 interface GridProps extends DivDefaultProps, ContainerPropsT {
   autoColumns?: StandardProperties["gridAutoColumns"];
@@ -28,34 +33,29 @@ interface GridProps extends DivDefaultProps, ContainerPropsT {
   rg?: StandardProperties["rowGap"];
 }
 
-const Grid = forwardRef(
-  (props: GridProps, forwardedRef: ForwardedRef<HTMLDivElement>) => {
-    const style: React.CSSProperties = {
-      display: "grid",
-      width: props.width ?? props.w,
-      height: props.height ?? props.h,
-      maxWidth: props.maxWidth ?? props.mw,
-      maxHeight: props.maxHeight ?? props.mh,
-      margin: props.margin ?? props.m,
-      padding: props.padding ?? props.p,
-      gridAutoColumns: props.autoColumns ?? props.gac,
-      gridAutoRows: props.autoRows ?? props.gar,
-      gridAutoFlow: props.autoFlow ?? props.gaf,
-      gridTemplateColumns: props.templateColumns ?? props.gtc,
-      gridTemplateRows: props.templateRows ?? props.gtr,
-      gridTemplateAreas: props.templateArea ?? props.gta,
-      alignContent: props.alignContent ?? props.ac,
-      alignItems: props.alignItems ?? props.ai,
-      justifyContent: props.justifyContent ?? props.jc,
-      gap: props.gap,
-      rowGap: props.rowGap ?? props.rg,
-      columnGap: props.columnGap ?? props.cg,
+const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
+  const style: React.CSSProperties = {
+    display: "grid",
+    ...getSizeProps(props),
+    ...getWhiteSpaceProps(props),
+    maxWidth: props.maxWidth ?? props.mw,
+    maxHeight: props.maxHeight ?? props.mh,
+    gridAutoColumns: props.autoColumns ?? props.gac,
+    gridAutoRows: props.autoRows ?? props.gar,
+    gridAutoFlow: props.autoFlow ?? props.gaf,
+    gridTemplateColumns: props.templateColumns ?? props.gtc,
+    gridTemplateRows: props.templateRows ?? props.gtr,
+    gridTemplateAreas: props.templateArea ?? props.gta,
+    alignContent: props.alignContent ?? props.ac,
+    alignItems: props.alignItems ?? props.ai,
+    justifyContent: props.justifyContent ?? props.jc,
+    gap: props.gap,
+    rowGap: props.rowGap ?? props.rg,
+    columnGap: props.columnGap ?? props.cg,
+    ...props.style,
+  };
 
-      ...props.style,
-    };
-
-    return <div {...props} ref={forwardedRef} style={style} />;
-  }
-);
+  return <div {...props} ref={forwardedRef} style={style} />;
+});
 
 export default Grid;

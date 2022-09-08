@@ -1,18 +1,19 @@
 import {
   InputDefaultProps,
+  InputForwardedRef,
   SizePropsT,
   WhiteSpaceProps,
 } from "../../../types/props";
-import * as Style from "./style";
-import React, { forwardRef, useCallback, useState } from "react";
+import { Container, Input, Label } from "./style";
+import React, { forwardRef, useCallback } from "react";
 
-interface InputProps extends InputDefaultProps, WhiteSpaceProps {
+interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
   label?: string;
   regex?: RegExp;
 }
 
-const TextInput = forwardRef(
-  (props: InputProps & SizePropsT, forwardedRef: any) => {
+const TextField = forwardRef(
+  (props: TextFieldProps & SizePropsT, forwardedRef: InputForwardedRef) => {
     const { label, regex } = props;
 
     const handleInput = useCallback(
@@ -33,17 +34,17 @@ const TextInput = forwardRef(
     };
 
     return (
-      <Style.Container>
-        <Style.TextInput
+      <Container>
+        <Input
           {...props}
           ref={forwardedRef}
           onInput={handleInput}
           style={style}
         />
-        <Style.Label>{label}</Style.Label>
-      </Style.Container>
+        <Label>{label}</Label>
+      </Container>
     );
   }
 );
 
-export default TextInput;
+export default TextField;
