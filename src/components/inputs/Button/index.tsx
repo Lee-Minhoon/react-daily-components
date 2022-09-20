@@ -7,7 +7,7 @@ import {
   ButtonForwardedRef,
   ElementProps,
 } from "../../../types/props";
-import { getSizeProps, getWhiteSpaceProps } from "../../../utilities/props";
+import { getElementProps } from "../../../utilities/props";
 import { TextButton, ContainedButton, OutlinedButton } from "./style";
 
 const VARIANTS = {
@@ -77,8 +77,7 @@ const Button = forwardRef(
     );
 
     const style: React.CSSProperties = {
-      ...getSizeProps(props),
-      ...getWhiteSpaceProps(props),
+      ...getElementProps(props),
       ...props.style,
     };
 

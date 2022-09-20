@@ -6,8 +6,9 @@ import {
 } from "../../../types/props";
 import type { StandardProperties } from "csstype";
 import { getContainerProps } from "../../../utilities/props";
+import { Container } from "./style";
 
-interface GridProps extends DivDefaultProps, ContainerPropsT {
+export interface GridProps extends DivDefaultProps, ContainerPropsT {
   autoColumns?: StandardProperties["gridAutoColumns"];
   gac?: StandardProperties["gridAutoColumns"];
   autoRows?: StandardProperties["gridAutoRows"];
@@ -52,7 +53,7 @@ const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
     ...props.style,
   };
 
-  return <div {...props} ref={forwardedRef} style={style} />;
+  return <Container {...props} ref={forwardedRef} style={style} />;
 });
 
 export default Grid;
