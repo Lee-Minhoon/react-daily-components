@@ -1,15 +1,15 @@
 import {
   BackgroundProps,
   BorderProps,
-  ContainerPropsT,
+  ContainerProps,
   ElementProps,
   FontProps,
   MaxSizeProps,
-  SizePropsT,
+  SizeProps,
   WhiteSpaceProps,
 } from "../types/props";
 
-export const getContainerProps = (props: ContainerPropsT) => {
+export const getContainerProps = (props: ContainerProps) => {
   return {
     ...getSizeProps(props),
     ...getMaxSizeProps(props),
@@ -28,7 +28,7 @@ export const getElementProps = (props: ElementProps) => {
   };
 };
 
-export const getSizeProps = (props: SizePropsT) => {
+export const getSizeProps = (props: SizeProps) => {
   return {
     width: props.width ?? props.w,
     height: props.height ?? props.h,

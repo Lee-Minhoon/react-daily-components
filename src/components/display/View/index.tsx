@@ -1,11 +1,7 @@
 import { forwardRef } from "react";
-import {
-  BorderProps,
-  DivDefaultProps,
-  DivForwardedRef,
-  ElementProps,
-} from "../../../types/props";
-import { getElementProps } from "../../../utilities/props";
+import { DivDefaultProps, DivForwardedRef, ElementProps } from "types/props";
+import { getElementProps } from "utilities/props";
+import * as Styled from "./style";
 
 interface ViewProps extends DivDefaultProps, ElementProps {}
 
@@ -15,7 +11,7 @@ const View = forwardRef((props: ViewProps, forwardedRef: DivForwardedRef) => {
     ...props.style,
   };
 
-  return <div {...props} ref={forwardedRef} style={style} />;
+  return <Styled.View {...props} ref={forwardedRef} style={style} />;
 });
 
 export default View;

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { SizeProps } from "../../../types/props";
+import { SizePropsDeprecated } from "../../../types/props";
 import { VIRTUAL_ELEMENT } from "../../../constants/css";
 import { ContainerAbsoluteBase } from "../../base/ContainerBase";
 import { ItemBase } from "../../base/ItemBase";
 
-export interface TimePickerStyleProps extends SizeProps {
+export interface TimePickerStyleProps extends SizePropsDeprecated {
   isOpen?: boolean;
   isSelected?: boolean;
   maxItemCount?: number;

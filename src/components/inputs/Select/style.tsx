@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SizeProps } from "../../../types/props";
+import { SizePropsDeprecated } from "../../../types/props";
 import {
   ELLIPSIS,
   VIRTUAL_ELEMENT,
@@ -9,7 +9,7 @@ import { ContainerAbsoluteBase } from "../../base/ContainerBase";
 import { InputEllipsisBase } from "../../base/InputBase";
 import { ItemBase } from "../../base/ItemBase";
 
-export interface SelectListStyleProps extends SizeProps {
+export interface SelectListStyleProps extends SizePropsDeprecated {
   isOpen?: boolean;
   isSelected?: boolean;
   placeholder?: string;

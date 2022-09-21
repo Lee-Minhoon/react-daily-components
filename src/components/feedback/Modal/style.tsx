@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { ContainerProps } from "../../../types/props";
+import { ContainerPropsDeprecated } from "../../../types/props";
 
-export interface ModalStyleProps extends ContainerProps {}
+export interface ModalStyleProps extends ContainerPropsDeprecated {}
 
 export const Container = styled.div<ModalStyleProps>`
   width: ${({ width }) => `${width}px`};

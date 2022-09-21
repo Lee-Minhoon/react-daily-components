@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { ContainerProps } from "../../../types/props";
+import { ContainerPropsDeprecated } from "../../../types/props";
 
-export interface BackgroundStyleProps extends ContainerProps {
+export interface BackgroundStyleProps extends ContainerPropsDeprecated {
   isFullScreen?: boolean;
   isBlockedBackground?: boolean;
   backgroundColor?: string;

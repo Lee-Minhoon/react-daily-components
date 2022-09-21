@@ -1,19 +1,20 @@
 import { forwardRef } from "react";
 import {
-  FontProps,
   HeadingDefaultProps,
   HeadingForwardedRef,
   WhiteSpaceProps,
-} from "../../../types/props";
-import { getFontProps, getWhiteSpaceProps } from "../../../utilities/props";
+  FontProps,
+} from "types/props";
+import { getFontProps, getWhiteSpaceProps } from "utilities/props";
+import * as Styled from "./style";
 
 const LEVEL = {
-  1: "h1",
-  2: "h2",
-  3: "h3",
-  4: "h4",
-  5: "h5",
-  6: "h6",
+  1: Styled.H1,
+  2: Styled.H2,
+  3: Styled.H3,
+  4: Styled.H4,
+  5: Styled.H5,
+  6: Styled.H6,
 } as const;
 type Level = keyof typeof LEVEL;
 

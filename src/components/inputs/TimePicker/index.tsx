@@ -5,14 +5,14 @@ import useClickOutside from "../../../hooks/useClickOutside";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 import useModal from "../../../hooks/useModal";
 import useCursor from "../../../hooks/useCursor";
-import { SizeProps } from "../../../types/props";
+import { SizePropsDeprecated } from "../../../types/props";
 import TimeType from "./TimeType";
 import Hour from "./Hour";
 import Min from "./Min";
 import Seconds from "./Seconds";
 import ArrowButton from "../../common/ArrowButton";
 
-interface TimePickerProps extends SizeProps {
+interface TimePickerProps extends SizePropsDeprecated {
   handleSelect: (value: any) => void;
   is24Hour?: boolean;
   isSelectHour?: boolean;

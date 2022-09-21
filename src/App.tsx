@@ -114,8 +114,8 @@ function App() {
         <br />
         <br />
         <br />
-        <Text>df</Text>
-        <Text>df</Text>
+        <Text tag="p">df</Text>
+        <Text tag="span">df</Text>
         <Divider direction="horizontal" borderWidth="1px" label="?" />
         <Word>df</Word>
         <Word>df</Word>

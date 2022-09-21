@@ -12,7 +12,6 @@ export { default as TableRow } from "./display/Table/TableRow";
 export { default as TableCell } from "./display/Table/TableCell";
 export { default as Text } from "./display/Text";
 export { default as View } from "./display/View";
-export { default as Word } from "./display/Word";
 
 //inputs
 export { default as Button } from "./inputs/Button";

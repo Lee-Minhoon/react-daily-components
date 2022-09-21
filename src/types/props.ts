@@ -7,17 +7,17 @@ import {
 } from "react";
 import type { StandardProperties } from "csstype";
 
-export interface SizeProps {
+export interface SizePropsDeprecated {
   width?: number;
   height?: number;
 }
 
-export interface ContainerProps extends SizeProps {}
+export interface ContainerPropsDeprecated extends SizePropsDeprecated {}
 
 /**
  * PropTypes of Container
  */
-export type ContainerPropsT = SizePropsT &
+export type ContainerProps = SizeProps &
   MaxSizeProps &
   WhiteSpaceProps &
   BackgroundProps &
@@ -26,7 +26,7 @@ export type ContainerPropsT = SizePropsT &
 /**
  * PropTypes of Element
  */
-export type ElementProps = SizePropsT &
+export type ElementProps = SizeProps &
   WhiteSpaceProps &
   BackgroundProps &
   BorderProps;
@@ -34,7 +34,7 @@ export type ElementProps = SizePropsT &
 /**
  * PropTypes of HTML width & height css
  */
-export interface SizePropsT {
+export interface SizeProps {
   width?: StandardProperties["width"];
   w?: StandardProperties["width"];
   height?: StandardProperties["height"];
@@ -105,6 +105,15 @@ export interface BorderProps {
   boxShadow?: StandardProperties["boxShadow"];
   bs?: StandardProperties["boxShadow"];
 }
+
+/**
+ * Types of HTML tag
+ */
+export type HTMLDefaultProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLElement>,
+  HTMLElement
+>;
+export type HTMLForwardedRef = ForwardedRef<HTMLElement>;
 
 /**
  * Types of HTML div tag
@@ -186,6 +195,15 @@ export type ButtonDefaultProps = DetailedHTMLProps<
   HTMLButtonElement
 >;
 export type ButtonForwardedRef = ForwardedRef<HTMLButtonElement>;
+
+/**
+ * Types of HTML Quote tag
+ */
+export type QuoteDefaultProps = DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLQuoteElement>,
+  HTMLQuoteElement
+>;
+export type QuoteForwardedRef = ForwardedRef<HTMLQuoteElement>;
 
 /**
  * Types of HTML input tag

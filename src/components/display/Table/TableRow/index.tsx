@@ -1,8 +1,6 @@
 import { forwardRef } from "react";
-import {
-  TableRowDefaultProps,
-  TableRowForwardedRef,
-} from "../../../../types/props";
+import { TableRowDefaultProps, TableRowForwardedRef } from "types/props";
+import * as Styled from "../style";
 
 interface TableRowProps extends TableRowDefaultProps {}
 
@@ -12,7 +10,7 @@ const TableRow = forwardRef(
       ...props.style,
     };
 
-    return <tr {...props} ref={forwardedRef} style={style} />;
+    return <Styled.TableRow {...props} ref={forwardedRef} style={style} />;
   }
 );
 

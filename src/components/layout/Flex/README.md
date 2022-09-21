@@ -4,7 +4,7 @@
 
 This component extends the html div tag.
 So, you can use all the properties of the html div tag.
-For example onClick, style, etc...
+For example style, etc...
 
 | props                  | type                                  | desc         | default |
 | ---------------------- | ------------------------------------- | ------------ | ------- |

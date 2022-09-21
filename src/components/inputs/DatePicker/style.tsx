@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { ContainerProps } from "../../../types/props";
+import { ContainerPropsDeprecated } from "../../../types/props";
 import { ItemBase } from "../../base/ItemBase";
 import { VIRTUAL_ELEMENT, OUT_SHADOW } from "../../../constants/css";
 import { ContainerBase } from "../../base/ContainerBase";
 import { InputBase } from "../../base/InputBase";
 
-export interface DatePickerStyleProps extends ContainerProps {
+export interface DatePickerStyleProps extends ContainerPropsDeprecated {
   isOpen?: boolean;
   isSelected?: boolean;
 }

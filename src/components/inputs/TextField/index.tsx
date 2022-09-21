@@ -2,7 +2,7 @@ import {
   FontProps,
   InputDefaultProps,
   InputForwardedRef,
-  SizePropsT,
+  SizeProps,
   WhiteSpaceProps,
 } from "../../../types/props";
 import { Container, Input, Label } from "./style";
@@ -20,7 +20,7 @@ interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
 
 const TextField = forwardRef(
   (
-    props: TextFieldProps & SizePropsT & FontProps,
+    props: TextFieldProps & SizeProps & FontProps,
     forwardedRef: InputForwardedRef
   ) => {
     const { label, regex } = props;

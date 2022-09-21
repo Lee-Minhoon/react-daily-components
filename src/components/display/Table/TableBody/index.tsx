@@ -2,7 +2,8 @@ import { forwardRef } from "react";
 import {
   TableSectionDefaultProps,
   TableSectionForwardedRef,
-} from "../../../../types/props";
+} from "types/props";
+import * as Styled from "../style";
 
 interface TableBodyProps extends TableSectionDefaultProps {}
 
@@ -12,7 +13,7 @@ const TableBody = forwardRef(
       ...props.style,
     };
 
-    return <tbody {...props} ref={forwardedRef} style={style} />;
+    return <Styled.TableBody {...props} ref={forwardedRef} style={style} />;
   }
 );
 

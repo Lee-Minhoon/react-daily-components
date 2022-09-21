@@ -4,13 +4,11 @@
 
 This component extends the html h tag.
 So, you can use all the properties of the html h tag.
-For example onClick, style, etc...
+For example style, etc...
 
 | props                  | type                                  | desc         | default  |
 | ---------------------- | ------------------------------------- | ------------ | -------- |
 | level                  | 1 \| 2 \| 3 \| 4 \| 5 \| 6            | preparing... | required |
-| width? \| w?           | StandardProperties["width"]           | preparing... | -        |
-| height? \| h?          | StandardProperties["height"];         | preparing... | -        |
 | margin? \|m?           | StandardProperties["margin"];         | preparing... | -        |
 | padding? \| p?         | StandardProperties["padding"];        | preparing... | -        |
 | font?                  | StandardProperties["font"];           | preparing... | -        |

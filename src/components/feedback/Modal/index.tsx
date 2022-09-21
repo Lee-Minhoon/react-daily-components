@@ -1,11 +1,11 @@
-import { SizeProps } from "../../../types/props";
+import { SizePropsDeprecated } from "../../../types/props";
 import * as Style from "./style";
 import Background from "../../common/Background/index";
 import Button from "../../inputs/Button";
 import { useRef } from "react";
 import useClickOutside from "../../../hooks/useClickOutside";
 
-interface ModalProps extends SizeProps {
+interface ModalProps extends SizePropsDeprecated {
   title: string;
   children: JSX.Element | string;
   handleConfirmClick: () => void;

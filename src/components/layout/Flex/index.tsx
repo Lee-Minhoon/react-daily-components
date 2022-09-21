@@ -1,14 +1,10 @@
 import { forwardRef } from "react";
-import {
-  ContainerPropsT,
-  DivDefaultProps,
-  DivForwardedRef,
-} from "../../../types/props";
 import type { StandardProperties } from "csstype";
-import { getContainerProps } from "../../../utilities/props";
-import { Container } from "./style";
+import { ContainerProps, DivDefaultProps, DivForwardedRef } from "types/props";
+import { getContainerProps } from "utilities/props";
+import * as Styled from "./style";
 
-export interface FlexProps extends DivDefaultProps, ContainerPropsT {
+export interface FlexProps extends DivDefaultProps, ContainerProps {
   flex?: StandardProperties["flex"];
   direction?: StandardProperties["flexDirection"];
   d?: StandardProperties["flexDirection"];
@@ -28,7 +24,6 @@ export interface FlexProps extends DivDefaultProps, ContainerPropsT {
 
 const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
-    display: "flex",
     ...getContainerProps(props),
     flex: props.flex,
     flexDirection: props.direction ?? props.d,
@@ -42,7 +37,7 @@ const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
     ...props.style,
   };
 
-  return <Container {...props} ref={forwardedRef} style={style} />;
+  return <Styled.Flex {...props} ref={forwardedRef} style={style} />;
 });
 
 export default Flex;

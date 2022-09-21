@@ -1,12 +1,8 @@
 import { forwardRef, useRef } from "react";
-import {
-  DivDefaultProps,
-  DivForwardedRef,
-  WhiteSpaceProps,
-} from "../../../types/props";
 import type { StandardProperties } from "csstype";
-import { Container, Label } from "./style";
-import { getWhiteSpaceProps } from "../../../utilities/props";
+import { DivDefaultProps, DivForwardedRef, WhiteSpaceProps } from "types/props";
+import { getWhiteSpaceProps } from "utilities/props";
+import * as Styled from "./style";
 
 const DIRECTIONS = {
   horizontal: "horizontal",
@@ -65,12 +61,12 @@ const Divider = forwardRef(
     };
 
     return (
-      <Container height={labelRef.current?.clientHeight}>
+      <Styled.Container height={labelRef.current?.clientHeight}>
         <div {...props} ref={forwardedRef} style={style} />
-        <Label ref={labelRef} style={labelStyle}>
+        <Styled.Label ref={labelRef} style={labelStyle}>
           {label}
-        </Label>
-      </Container>
+        </Styled.Label>
+      </Styled.Container>
     );
   }
 );

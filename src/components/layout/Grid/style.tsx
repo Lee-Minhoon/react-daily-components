@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
 import { GridProps } from ".";
 
-export const Container = styled.div<GridProps>``;
+export const Grid = styled.div<GridProps>`
+  display: flex;
+`;

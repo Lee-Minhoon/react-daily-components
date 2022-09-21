@@ -12,7 +12,6 @@ export { TableRow } from "./components";
 export { TableCell } from "./components";
 export { Text } from "./components";
 export { View } from "./components";
-export { Word } from "./components";
 
 //inputs
 export { Button } from "./components";

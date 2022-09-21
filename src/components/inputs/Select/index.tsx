@@ -3,11 +3,11 @@ import React, { useCallback, useRef, useState } from "react";
 import useInput from "../../../hooks/useInput";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useModal from "../../../hooks/useModal";
-import { SizeProps } from "../../../types/props";
+import { SizePropsDeprecated } from "../../../types/props";
 import ArrowButton from "../../common/ArrowButton";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 
-interface SelectListProps extends SizeProps {
+interface SelectListProps extends SizePropsDeprecated {
   itemList: Array<string>;
   value: string;
   handleSelect: (value: string) => void;

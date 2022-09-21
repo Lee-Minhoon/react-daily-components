@@ -13,11 +13,11 @@ import { quotient } from "../../../utilities/math";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useCursor from "../../../hooks/useCursor";
 import useModal from "../../../hooks/useModal";
-import { ContainerProps } from "../../../types/props";
+import { ContainerPropsDeprecated } from "../../../types/props";
 import ArrowButton from "../../common/ArrowButton";
 import { useTheme } from "@emotion/react";
 
-interface DatePickerProps extends ContainerProps {
+interface DatePickerProps extends ContainerPropsDeprecated {
   handleSelect: (value: any) => void;
   isMondayFirst?: boolean;
   isWeekendColor?: boolean;

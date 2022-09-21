@@ -1,19 +1,19 @@
 import { useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
-import uesDebounce from "../../../hooks/useDebounce";
-import useThrottle from "../../../hooks/useThrottle";
+import uesDebounce from "hooks/useDebounce";
+import useThrottle from "hooks/useThrottle";
 import {
   ButtonDefaultProps,
   ButtonForwardedRef,
   ElementProps,
-} from "../../../types/props";
-import { getElementProps } from "../../../utilities/props";
-import { TextButton, ContainedButton, OutlinedButton } from "./style";
+} from "types/props";
+import { getElementProps } from "utilities/props";
+import * as Styled from "./style";
 
 const VARIANTS = {
-  text: TextButton,
-  contained: ContainedButton,
-  outlined: OutlinedButton,
+  text: Styled.TextButton,
+  contained: Styled.ContainedButton,
+  outlined: Styled.OutlinedButton,
 } as const;
 type Variants = keyof typeof VARIANTS;
 

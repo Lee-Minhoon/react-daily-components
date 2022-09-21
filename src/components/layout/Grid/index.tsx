@@ -1,14 +1,10 @@
 import { forwardRef } from "react";
-import {
-  ContainerPropsT,
-  DivDefaultProps,
-  DivForwardedRef,
-} from "../../../types/props";
 import type { StandardProperties } from "csstype";
-import { getContainerProps } from "../../../utilities/props";
-import { Container } from "./style";
+import { ContainerProps, DivDefaultProps, DivForwardedRef } from "types/props";
+import { getContainerProps } from "utilities/props";
+import * as Styled from "./style";
 
-export interface GridProps extends DivDefaultProps, ContainerPropsT {
+export interface GridProps extends DivDefaultProps, ContainerProps {
   autoColumns?: StandardProperties["gridAutoColumns"];
   gac?: StandardProperties["gridAutoColumns"];
   autoRows?: StandardProperties["gridAutoRows"];
@@ -36,7 +32,6 @@ export interface GridProps extends DivDefaultProps, ContainerPropsT {
 
 const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
-    display: "grid",
     ...getContainerProps(props),
     gridAutoColumns: props.autoColumns ?? props.gac,
     gridAutoRows: props.autoRows ?? props.gar,
@@ -53,7 +48,7 @@ const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
     ...props.style,
   };
 
-  return <Container {...props} ref={forwardedRef} style={style} />;
+  return <Styled.Grid {...props} ref={forwardedRef} style={style} />;
 });
 
 export default Grid;
