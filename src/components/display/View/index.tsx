@@ -5,6 +5,9 @@ import * as Styled from "./style";
 
 interface ViewProps extends DivDefaultProps, ElementProps {}
 
+/**
+ * View Component
+ */
 const View = forwardRef((props: ViewProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     ...getElementProps(props),

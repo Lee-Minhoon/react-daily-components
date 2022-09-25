@@ -23,7 +23,10 @@ interface ListProps extends ListTagProps, WhiteSpaceProps {
   lsp?: StandardProperties["listStylePosition"];
 }
 
-const Text = forwardRef((props: ListProps, forwardedRef: ListForwardedRef) => {
+/**
+ * List Component
+ */
+const List = forwardRef((props: ListProps, forwardedRef: ListForwardedRef) => {
   const { ordered } = props;
 
   const style: React.CSSProperties = {
@@ -41,4 +44,4 @@ const Text = forwardRef((props: ListProps, forwardedRef: ListForwardedRef) => {
   return <Tag {...props} ref={forwardedRef} style={style} />;
 });
 
-export default Text;
+export default List;

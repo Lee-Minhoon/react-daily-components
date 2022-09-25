@@ -23,7 +23,7 @@ const Seconds = ({
       {Array.from(new Array(60)).map((item, index) => (
         <Style.Item
           key={index}
-          isSelected={seconds === index}
+          active={seconds === index}
           height={height}
           onClick={() => setSeconds(index)}
           style={itemStyle}

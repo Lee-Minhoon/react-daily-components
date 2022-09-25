@@ -1,14 +1,22 @@
 import { ThemeProvider } from "@emotion/react";
 import { useCallback, useRef, useState } from "react";
-import { DatePicker, Grid, Pagination, Select, TimePicker } from "./components";
+import {
+  DatePicker,
+  Flex,
+  Grid,
+  Pagination,
+  Select,
+  SelectOR,
+  TimePicker,
+} from "./components";
 import Button from "./components/inputs/Button";
 import TextField from "./components/inputs/TextField";
 import Modal from "./components/feedback/Modal";
-import Flex from "./components/layout/Flex";
 import View from "./components/display/View";
 import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
+import Option from "components/inputs/Select copy/Option";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -22,9 +30,7 @@ function App() {
     console.log(page);
   };
 
-  const handle = (item: any) => {
-    console.log("hrere", item);
-  };
+  const handle = (item: any) => {};
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -36,21 +42,18 @@ function App() {
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
       <div style={{ padding: "20px" }}>
         <Select
-          itemList={[
-            "Appledddddddddddddddddddddddd🍎",
-            "Banana🍌",
-            "Orange🍊",
-            "Grape🍇",
-            "Kiwi🥝",
-            "Lemon🍋",
-            "Strawberry🍓",
-            "Watermelon🍉",
-          ]}
           value={value}
-          handleSelect={setValue}
-          maxItemCount={5}
+          onChange={(e) => console.log(e.target.value)}
+          showItemCount={5}
           isSearchable
-        />
+        >
+          <Option value="10">10</Option>
+          <Option value="20">20</Option>
+          <Option value="30">30</Option>
+          <Option value="40">40</Option>
+          <Option value="50">50</Option>
+          <Option value="60">60</Option>
+        </Select>
         <br />
         <br />
         <br />
@@ -101,11 +104,13 @@ function App() {
         <br />
         <br />
         <br />
+        <Flex flex={""}></Flex>
         <br />
         <TextField
+          width={"200px"}
           value={inputValue}
+          regex={/[0-9]/g}
           onChange={handleChange}
-          regex={/[^0-9]/g}
           label={"password"}
           placeholder={"put the password"}
         />
@@ -117,7 +122,9 @@ function App() {
         <Divider direction="horizontal" borderWidth="1px" label="?" />
 
         <View w="20px" h="20px" bs="1px 1px 1px 1px black" margin="20px" />
-        <Button onClick={() => {}}>{"Button"}</Button>
+        <Button variant="outlined" onClick={() => {}}>
+          {"Button"}
+        </Button>
         {isOpen && (
           <Modal
             title={"Auguries of Innocence"}

@@ -30,6 +30,9 @@ export interface GridProps extends DivDefaultProps, ContainerProps {
   rg?: StandardProperties["rowGap"];
 }
 
+/**
+ * Grid Component
+ */
 const Grid = forwardRef((props: GridProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     ...getContainerProps(props),

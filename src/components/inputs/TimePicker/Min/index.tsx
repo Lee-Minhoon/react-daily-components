@@ -23,7 +23,7 @@ const Min = ({
       {Array.from(new Array(60)).map((item, index) => (
         <Style.Item
           key={index}
-          isSelected={min === index}
+          active={min === index}
           height={height}
           onClick={() => setMin(index)}
           style={itemStyle}

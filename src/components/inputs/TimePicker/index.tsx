@@ -186,7 +186,7 @@ const TimePicker = ({
   return (
     <Style.Container
       ref={containerRef}
-      isActive={isOpen}
+      active={isOpen}
       maxItemCount={maxItemCount}
       width={width}
       height={height}

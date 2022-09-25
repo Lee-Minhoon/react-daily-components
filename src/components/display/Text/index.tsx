@@ -31,6 +31,9 @@ interface TextProps extends TextTagProps, WhiteSpaceProps {
   tag: Tags;
 }
 
+/**
+ * Text Component
+ */
 const Text = forwardRef(
   (props: TextProps, forwardedRef: TextTagForwardedRef) => {
     const { tag } = props;

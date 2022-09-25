@@ -22,6 +22,9 @@ interface HeadingProps extends HeadingDefaultProps, WhiteSpaceProps {
   level: Level;
 }
 
+/**
+ * Heading Component
+ */
 const Heading = forwardRef(
   (props: HeadingProps & FontProps, forwardedRef: HeadingForwardedRef) => {
     const { level } = props;

@@ -14,7 +14,7 @@ export const Container = styled(ContainerAbsoluteBase)<TimePickerStyleProps>`
   width: ${({ width = 200 }) => `${width}px`};
   position: relative;
   &::after {
-    height: ${({ isActive, height = 35, maxItemCount = 8 }) =>
+    height: ${({ active: isActive, height = 35, maxItemCount = 8 }) =>
       isActive ? `${height + 1 + maxItemCount * height}px` : "100%"};
   }
 `;

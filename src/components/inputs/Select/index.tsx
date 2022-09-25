@@ -1,4 +1,4 @@
-import * as Style from "./style";
+import * as Styled from "./style";
 import React, { useCallback, useRef, useState } from "react";
 import useInput from "../../../hooks/useInput";
 import useClickOutside from "../../../hooks/useClickOutside";
@@ -82,36 +82,36 @@ const Select = ({
     resultList.length > maxItemCount ? maxItemCount : resultList.length;
 
   return (
-    <Style.Container
+    <Styled.Container
       ref={ref}
-      isActive={isOpen}
+      active={isOpen}
       maxItemCount={maxItemCountValue}
       width={width}
       height={height}
       style={isOpen ? containerActiveStyle : containerInactiveStyle}
     >
-      <Style.SelectWrapper
+      <Styled.SelectWrapper
         isOpen={isOpen}
         height={height}
         style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
       >
         {isSearchable ? (
-          <Style.Input
+          <Styled.Input
             {...searchInput}
             placeholder={placeholder}
             onKeyUp={(e) => handleKeyDown(e)}
           />
         ) : (
-          <Style.Input value={value} placeholder={placeholder} readOnly />
+          <Styled.Input value={value} placeholder={placeholder} readOnly />
         )}
         <ArrowButton
           handleOpenClick={handleOpenClick}
           isOpen={isOpen}
           direction={isOpen ? "Up" : "Down"}
         />
-      </Style.SelectWrapper>
+      </Styled.SelectWrapper>
       {isOpen && (
-        <Style.List
+        <Styled.List
           ref={listRef}
           isOpen={isOpen}
           maxItemCount={maxItemCountValue}
@@ -119,19 +119,19 @@ const Select = ({
           style={listStyle}
         >
           {resultList.map((item, index) => (
-            <Style.Item
+            <Styled.Item
               key={index}
-              isSelected={value === item}
+              active={value === item}
               onClick={() => handleSelectClick(item)}
               height={height}
               style={itemStyle}
             >
               {item}
-            </Style.Item>
+            </Styled.Item>
           ))}
-        </Style.List>
+        </Styled.List>
       )}
-    </Style.Container>
+    </Styled.Container>
   );
 };
 

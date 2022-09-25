@@ -1,4 +1,4 @@
-import { useTheme } from "@emotion/react";
+import { Theme, useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
 import uesDebounce from "hooks/useDebounce";
 import useThrottle from "hooks/useThrottle";
@@ -9,6 +9,7 @@ import {
 } from "types/props";
 import { getElementProps } from "utilities/props";
 import * as Styled from "./style";
+import { getPrimaryColor } from "utilities/css";
 
 const VARIANTS = {
   text: Styled.TextButton,
@@ -23,57 +24,28 @@ export interface ButtonProps extends ButtonDefaultProps, ElementProps {
   throttle?: number;
 }
 
+/**
+ * Button Component
+ */
 const Button = forwardRef(
   (props: ButtonProps, forwardedRef: ButtonForwardedRef) => {
     const theme = useTheme();
     const {
       onClick = () => {},
-      variant = VARIANTS.contained,
+      variant = "contained",
       debounce = 0,
       throttle = 0,
     } = props;
-
-    const rippleEffect = useCallback(
-      (event: MouseEvent<HTMLButtonElement>) => {
-        const button = event.currentTarget;
-        const container = document.createElement("div");
-        container.style.width = `${button.offsetWidth}px`;
-        container.style.height = `${button.offsetHeight}px`;
-        container.style.borderRadius = "inherit";
-        container.classList.add("container");
-        const circle = document.createElement("span");
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.top = `${event.pageY - button.offsetTop - radius}px`;
-        circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
-        circle.style.backgroundColor =
-          variant === VARIANTS.contained
-            ? "#fff"
-            : theme.primaryColor ?? "gray";
-        circle.style.opacity = "1";
-        circle.classList.add("ripple");
-
-        const ripple = button.getElementsByClassName("container")[0];
-        if (ripple) {
-          ripple.remove();
-        }
-
-        container.appendChild(circle);
-        button.appendChild(container);
-      },
-      [variant]
-    );
 
     const throttledFunction = useThrottle(onClick, throttle);
     const debouncedFunction = uesDebounce(throttledFunction, debounce);
 
     const handleClick = useCallback(
       (event: MouseEvent<HTMLButtonElement>) => {
-        rippleEffect(event);
+        rippleEffect(event, theme, variant);
         debouncedFunction(event);
       },
-      [rippleEffect, onClick]
+      [onClick]
     );
 
     const style: React.CSSProperties = {
@@ -81,7 +53,7 @@ const Button = forwardRef(
       ...props.style,
     };
 
-    const Button = VARIANTS[props.variant ?? "contained"];
+    const Button = VARIANTS[variant];
 
     return (
       <Button
@@ -95,3 +67,42 @@ const Button = forwardRef(
 );
 
 export default Button;
+
+/**
+ * Generate Ripple Effect at Button Click
+ * @param event
+ * @param theme
+ * @param variant
+ */
+const rippleEffect = (
+  event: MouseEvent<HTMLButtonElement>,
+  theme: Theme,
+  variant: Variants
+) => {
+  const button = event.currentTarget;
+
+  const container = document.createElement("div");
+  container.style.width = `${button.offsetWidth}px`;
+  container.style.height = `${button.offsetHeight}px`;
+  container.style.borderRadius = "inherit";
+  container.classList.add("container");
+
+  const circle = document.createElement("span");
+  const diameter = Math.max(button.clientWidth, button.clientHeight);
+  const radius = diameter / 2;
+  circle.style.width = circle.style.height = `${diameter}px`;
+  circle.style.top = `${event.pageY - button.offsetTop - radius}px`;
+  circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
+  circle.style.backgroundColor =
+    variant === "contained" ? "#fff" : getPrimaryColor(theme);
+  circle.style.opacity = "1";
+  circle.classList.add("ripple");
+
+  const ripple = button.getElementsByClassName("container")[0];
+  if (ripple) {
+    ripple.remove();
+  }
+
+  container.appendChild(circle);
+  button.appendChild(container);
+};

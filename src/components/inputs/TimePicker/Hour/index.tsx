@@ -26,7 +26,7 @@ const Hour = ({
       {(is24Hour ? Array.from(new Array(24)) : HOURS).map((item, index) => (
         <Style.Item
           key={index}
-          isSelected={is24Hour ? hour === index : hour === item}
+          active={is24Hour ? hour === index : hour === item}
           height={height}
           onClick={() => setHour(is24Hour ? index : item)}
           style={itemStyle}

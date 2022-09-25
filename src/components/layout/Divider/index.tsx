@@ -34,6 +34,9 @@ interface DividerProps extends DivDefaultProps, WhiteSpaceProps {
     | StandardProperties["borderRightWidth"];
 }
 
+/**
+ * Divider Component
+ */
 const Divider = forwardRef(
   (props: DividerProps, forwardedRef: DivForwardedRef) => {
     const { direction, label, labelStyle } = props;

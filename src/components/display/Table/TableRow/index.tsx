@@ -4,6 +4,9 @@ import * as Styled from "../style";
 
 interface TableRowProps extends TableRowDefaultProps {}
 
+/**
+ * Table Row Component
+ */
 const TableRow = forwardRef(
   (props: TableRowProps, forwardedRef: TableRowForwardedRef) => {
     const style: React.CSSProperties = {

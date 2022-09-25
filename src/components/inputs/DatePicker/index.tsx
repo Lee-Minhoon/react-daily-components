@@ -141,7 +141,7 @@ const DatePicker = ({
       style={containerActiveStyle}
     >
       <Style.SelectWrapper
-        isActive={isOpen}
+        active={isOpen}
         height={height}
         style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
       >
@@ -213,7 +213,7 @@ const DatePicker = ({
             }).map((item, index) => (
               <Style.DateItem
                 key={index}
-                isSelected={date.isEqualDate(item)}
+                active={date.isEqualDate(item)}
                 onClick={() => handleSelectClick(item)}
                 width={itemWidth}
                 height={itemHeight}

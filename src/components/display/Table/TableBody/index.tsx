@@ -7,6 +7,9 @@ import * as Styled from "../style";
 
 interface TableBodyProps extends TableSectionDefaultProps {}
 
+/**
+ * Table Body Component
+ */
 const TableBody = forwardRef(
   (props: TableBodyProps, forwardedRef: TableSectionForwardedRef) => {
     const style: React.CSSProperties = {

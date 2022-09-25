@@ -4,6 +4,9 @@ import * as Styled from "./style";
 
 interface ListItemProps extends ListItemDefaultProps {}
 
+/**
+ * List Item Component
+ */
 const ListItem = forwardRef(
   (props: ListItemProps, forwardedRef: ListItemForwardedRef) => {
     const style: React.CSSProperties = {

@@ -7,11 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -29,6 +24,12 @@ span.ripple {
   border-radius: 50%;
   transform: scale(0);
   animation: ripple 600ms linear;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 @keyframes ripple {

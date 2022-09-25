@@ -23,7 +23,7 @@ const TimeType = ({
       {Object.values(TIME_TYPE).map((item, index) => (
         <Style.Item
           key={index}
-          isSelected={timeType === item}
+          active={timeType === item}
           height={height}
           onClick={() => setTimeType(item)}
           style={itemStyle}

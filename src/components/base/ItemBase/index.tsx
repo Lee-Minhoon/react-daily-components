@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { getColorByStatus } from "utilities/css";
 import { INSET_SHADOW } from "../../../constants/css";
 
 export interface ItemBaseStyleProps {
-  isSelected: boolean;
+  active: boolean;
 }
 
 export const ItemBase = styled.li<ItemBaseStyleProps>`
@@ -11,6 +12,5 @@ export const ItemBase = styled.li<ItemBaseStyleProps>`
     background-color: rgba(0, 0, 0, 0.1);
     box-shadow: ${INSET_SHADOW};
   }
-  color: ${({ isSelected, theme }) =>
-    isSelected ? theme.primaryColor ?? "gray" : theme.defaultColor ?? "gray"};
+  color: ${(props) => getColorByStatus(props)};
 `;

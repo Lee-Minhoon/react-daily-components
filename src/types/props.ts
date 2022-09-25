@@ -240,3 +240,12 @@ export type InputDefaultProps = DetailedHTMLProps<
   HTMLInputElement
 >;
 export type InputForwardedRef = ForwardedRef<HTMLInputElement>;
+
+/**
+ * Types of HTML option tag
+ */
+export type OptionDefaultProps = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLOptionElement>,
+  HTMLOptionElement
+>;
+export type OptionsForwardedRef = ForwardedRef<HTMLOptionElement>;

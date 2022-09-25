@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import type { StandardProperties } from "csstype";
+import type { StandardProperties, Property } from "csstype";
 import { ContainerProps, DivDefaultProps, DivForwardedRef } from "types/props";
 import { getContainerProps } from "utilities/props";
 import * as Styled from "./style";
@@ -22,6 +22,9 @@ export interface FlexProps extends DivDefaultProps, ContainerProps {
   gap?: StandardProperties["gap"];
 }
 
+/**
+ * Flex Component
+ */
 const Flex = forwardRef((props: FlexProps, forwardedRef: DivForwardedRef) => {
   const style: React.CSSProperties = {
     ...getContainerProps(props),
