@@ -125,6 +125,33 @@ export type DivDefaultProps = DetailedHTMLProps<
 export type DivForwardedRef = ForwardedRef<HTMLDivElement>;
 
 /**
+ * Types of HTML ul tag
+ */
+export type UnorderedListDefaultProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLUListElement>,
+  HTMLUListElement
+>;
+export type UnorderedListForwardedRef = ForwardedRef<HTMLUListElement>;
+
+/**
+ * Types of HTML ol tag
+ */
+export type OrderedListDefaultProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLOListElement>,
+  HTMLOListElement
+>;
+export type OrderedListForwardedRef = ForwardedRef<HTMLOListElement>;
+
+/**
+ * Types of HTML li list tag
+ */
+export type ListItemDefaultProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLLIElement>,
+  HTMLLIElement
+>;
+export type ListItemForwardedRef = ForwardedRef<HTMLLIElement>;
+
+/**
  * Types of HTML table tag
  */
 export type TableDefaultProps = DetailedHTMLProps<
@@ -188,15 +215,6 @@ export type SpanDefaultProps = DetailedHTMLProps<
 export type SpanForwardedRef = ForwardedRef<HTMLSpanElement>;
 
 /**
- * Types of HTML button tag
- */
-export type ButtonDefaultProps = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
-export type ButtonForwardedRef = ForwardedRef<HTMLButtonElement>;
-
-/**
  * Types of HTML Quote tag
  */
 export type QuoteDefaultProps = DetailedHTMLProps<
@@ -204,6 +222,15 @@ export type QuoteDefaultProps = DetailedHTMLProps<
   HTMLQuoteElement
 >;
 export type QuoteForwardedRef = ForwardedRef<HTMLQuoteElement>;
+
+/**
+ * Types of HTML button tag
+ */
+export type ButtonDefaultProps = DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+export type ButtonForwardedRef = ForwardedRef<HTMLButtonElement>;
 
 /**
  * Types of HTML input tag

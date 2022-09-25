@@ -7,7 +7,6 @@ import Modal from "./components/feedback/Modal";
 import Flex from "./components/layout/Flex";
 import View from "./components/display/View";
 import Text from "./components/display/Text";
-import Word from "./components/display/Word";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
 
@@ -54,7 +53,6 @@ function App() {
         />
         <br />
         <br />
-        <Text></Text>
         <br />
         <br />
         <Heading level={1} color="red">
@@ -117,8 +115,7 @@ function App() {
         <Text tag="p">df</Text>
         <Text tag="span">df</Text>
         <Divider direction="horizontal" borderWidth="1px" label="?" />
-        <Word>df</Word>
-        <Word>df</Word>
+
         <View w="20px" h="20px" bs="1px 1px 1px 1px black" margin="20px" />
         <Button onClick={() => {}}>{"Button"}</Button>
         {isOpen && (
@@ -135,6 +132,10 @@ function App() {
         )}
       </div>
       <br />
+      <ul>
+        <li></li>
+        <datalist></datalist>
+      </ul>
       <br />
       <br />
       <br />

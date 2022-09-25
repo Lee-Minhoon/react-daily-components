@@ -9,13 +9,13 @@ import { getFontProps, getWhiteSpaceProps } from "utilities/props";
 import * as Styled from "./style";
 
 const TAGS = {
-  p: Styled.P,
+  p: Styled.Paragraph,
   span: Styled.Span,
   strong: Styled.Strong,
-  b: Styled.B,
-  em: Styled.Em,
-  i: Styled.I,
-  q: Styled.Q,
+  b: Styled.Bold,
+  em: Styled.Emphasis,
+  i: Styled.Italic,
+  q: Styled.Quote,
   mark: Styled.Mark,
 } as const;
 type Tags = keyof typeof TAGS;
