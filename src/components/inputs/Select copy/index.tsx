@@ -1,31 +1,31 @@
-import * as Styled from "./style";
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import useInput from "../../../hooks/useInput";
-import useClickOutside from "../../../hooks/useClickOutside";
-import useModal from "../../../hooks/useModal";
-import { SizeProps } from "../../../types/props";
-import ArrowButton from "../../common/ArrowButton";
-import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
+import React, { ReactElement, useCallback, useRef, useState } from "react";
+import useClickOutside from "hooks/useClickOutside";
+import {
+  InputOnchangeProperty,
+  InputPlaceholderProperty,
+  InputValueProperty,
+  SizeProps,
+} from "types/props";
+import ArrowButton from "components/common/ArrowButton";
+import useSetScrollPosition from "hooks/useSetScrollPosition";
 import { getSizeProps } from "utilities/props";
 import useActive from "hooks/useActive";
 import _ from "lodash";
+import * as Styled from "./style";
+import { OptionProps } from "./Option";
+
+type Children = ReactElement<OptionProps>;
 
 interface SelectListProps extends SizeProps {
-  children?: ReactNode;
-  value: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  children?: Children | Array<Children>;
+  value: InputValueProperty;
+  placeholder?: InputPlaceholderProperty;
+  onChange: InputOnchangeProperty;
   isSearchable?: boolean;
   showItemCount?: number;
-  style?: React.CSSProperties;
-  listStyle?: React.CSSProperties;
-  itemStyle?: React.CSSProperties;
+  style?: Pick<React.InputHTMLAttributes<HTMLInputElement>, "style">;
+  listStyle?: Pick<React.HTMLAttributes<HTMLUListElement>, "style">;
+  itemStyle?: Pick<React.HTMLAttributes<HTMLLIElement>, "style">;
 }
 
 const Select = (props: SelectListProps) => {
@@ -41,35 +41,36 @@ const Select = (props: SelectListProps) => {
   } = props;
   const childrens = _.isArray(children) ? children : [children];
   const { active, setActive, handleActive } = useActive();
-  const [resultList, setResultList] = useState<Array<any>>(childrens);
   const [search, setSearch] = useState<string>("");
+  const [result, setResult] = useState<Array<any>>(childrens);
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const itemRef = useRef<HTMLLIElement>(null);
 
   useClickOutside(containerRef, setActive);
   useSetScrollPosition(
     listRef,
-    resultList.findIndex((item) => item === value) * props.itemStyle?.height,
+    result.findIndex((item) => item === value) *
+      (itemRef.current?.clientHeight ?? 0),
     active
   );
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.nativeEvent.key === "Enter") {
-        childrens.map((item) => {
-          if (item.props.value === search) onChange(item);
-        });
-
-        setActive(false);
-      } else if (e.nativeEvent.key === "Escape") {
-        setActive(false);
-      } else {
-        setResultList(
-          childrens.filter((item) => {
-            if (item.props.value.indexOf(search) !== -1) return item;
-          })
-        );
-        setActive(true);
+      switch (e.nativeEvent.key) {
+        case "Enter":
+          const find = childrens.find((item) => item?.props.value === search);
+          find && dispatchInput(find.props.value + "");
+          break;
+        case "Escape":
+          setActive(false);
+          break;
+        default:
+          const filter = childrens.filter((item) =>
+            (item?.props.value + "").includes(search)
+          );
+          setResult(filter);
+          setActive(true);
       }
     },
     [search]
@@ -80,7 +81,15 @@ const Select = (props: SelectListProps) => {
     setSearch(e.target.value);
   }, []);
 
-  const handleItemClick = useCallback((value: string) => {
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLInputElement, Element>) => {
+      setActive(true);
+      // props.onFocus && props.onFocus(e);
+    },
+    []
+  );
+
+  const dispatchInput = useCallback((value: string) => {
     const input: any = containerRef.current?.getElementsByTagName("input")[0];
     if (input) {
       const lastValue = input.value;
@@ -96,16 +105,7 @@ const Select = (props: SelectListProps) => {
     setActive(false);
   }, []);
 
-  const handleFocus = useCallback(
-    (e: React.FocusEvent<HTMLInputElement, Element>) => {
-      setActive(true);
-      // props.onFocus && props.onFocus(e);
-    },
-    []
-  );
-
-  const showItemCountValue =
-    childrens.length > showItemCount ? showItemCount : childrens.length;
+  const showItemCountValue = Math.max(childrens.length, showItemCount);
 
   const style: React.CSSProperties = {
     ...getSizeProps(props),
@@ -143,11 +143,12 @@ const Select = (props: SelectListProps) => {
           showItemCount={showItemCountValue}
           style={listStyle}
         >
-          {resultList.map((item, index) => (
+          {result.map((item, index) => (
             <Styled.Item
               key={index}
+              ref={itemRef}
               active={value === item.props.value}
-              onClick={() => handleItemClick(item.props.value)}
+              onClick={() => dispatchInput(item.props.value)}
               style={itemStyle}
             >
               {item.props.children}
