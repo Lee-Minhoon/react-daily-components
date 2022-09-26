@@ -46,6 +46,7 @@ export type {
   SizePropsDeprecated,
   MaxSizeProps,
   WhiteSpaceProps,
+  BackgroundProps,
   FontProps,
   BorderProps,
 } from "./style";

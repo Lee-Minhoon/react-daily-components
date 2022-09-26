@@ -6,7 +6,6 @@ import {
   Grid,
   Pagination,
   Select,
-  SelectOR,
   TimePicker,
 } from "./components";
 import Button from "./components/inputs/Button";
@@ -16,7 +15,7 @@ import View from "./components/display/View";
 import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
-import Option from "components/inputs/Select copy/Option";
+import Option from "components/inputs/Select/Option";
 
 function App() {
   const [value, setValue] = useState<string>("");

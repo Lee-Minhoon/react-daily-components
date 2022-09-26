@@ -6,15 +6,6 @@ export type InputDefaultProps = DetailedHTMLProps<
 >;
 export type InputForwardedRef = ForwardedRef<HTMLInputElement>;
 
-export type InputValueProperty = Pick<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "value"
->;
-export type InputPlaceholderProperty = Pick<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "placeholder"
->;
-export type InputOnchangeProperty = Pick<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange"
->;
+export type InputValueProperty = string | number | readonly string[];
+export type InputPlaceholderProperty = string;
+export type InputOnchangeProperty = React.ChangeEventHandler<HTMLInputElement>;

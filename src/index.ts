@@ -1,3 +1,5 @@
+import "./index.css";
+
 //layout
 export { Flex } from "./components";
 export { Grid } from "./components";

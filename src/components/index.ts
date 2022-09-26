@@ -18,7 +18,7 @@ export { default as View } from "./display/View";
 //inputs
 export { default as Button } from "./inputs/Button";
 export { default as TextField } from "./inputs/TextField";
-export { default as Select } from "./inputs/Select copy";
+export { default as Select } from "./inputs/Select";
 export { default as TimePicker } from "./inputs/TimePicker";
 export { default as DatePicker } from "./inputs/DatePicker";
 

@@ -1,132 +1,158 @@
+import React, { ReactElement, useCallback, useRef, useState } from "react";
+import useClickOutside from "hooks/useClickOutside";
+import {
+  InputDefaultProps,
+  InputOnchangeProperty,
+  InputPlaceholderProperty,
+  InputValueProperty,
+  SizeProps,
+} from "types/props";
+import ArrowButton from "components/common/ArrowButton";
+import useSetScrollPosition from "hooks/useSetScrollPosition";
+import { getSizeProps } from "utilities/props";
+import useActive from "hooks/useActive";
+import _ from "lodash";
 import * as Styled from "./style";
-import React, { useCallback, useRef, useState } from "react";
-import useInput from "../../../hooks/useInput";
-import useClickOutside from "../../../hooks/useClickOutside";
-import useModal from "../../../hooks/useModal";
-import { SizePropsDeprecated } from "../../../types/props";
-import ArrowButton from "../../common/ArrowButton";
-import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
+import { OptionProps } from "./Option";
 
-interface SelectListProps extends SizePropsDeprecated {
-  itemList: Array<string>;
-  value: string;
-  handleSelect: (value: string) => void;
+type Children = ReactElement<OptionProps>;
+
+interface SelectListProps extends SizeProps {
+  children?: Children | Array<Children>;
+  value: InputValueProperty;
+  placeholder: InputPlaceholderProperty;
+  onChange: InputOnchangeProperty;
   isSearchable?: boolean;
-  placeholder?: string;
-  maxItemCount?: number;
-  containerActiveStyle?: React.CSSProperties;
-  containerInactiveStyle?: React.CSSProperties;
-  selectWrapperActiveStyle?: React.CSSProperties;
-  selectWrapperInactiveStyle?: React.CSSProperties;
+  showItemCount?: number;
+  style?: React.CSSProperties;
   listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const Select = ({
-  itemList,
-  value,
-  handleSelect,
-  isSearchable = false,
-  placeholder,
-  maxItemCount = 8,
-  width = 200,
-  height = 35,
-  containerActiveStyle,
-  containerInactiveStyle,
-  selectWrapperActiveStyle,
-  selectWrapperInactiveStyle,
-  listStyle,
-  itemStyle,
-}: SelectListProps) => {
-  const { isOpen, setIsOpen, handleOpenClick } = useModal();
-  const [resultList, setResultList] = useState<Array<string>>(itemList);
-  const searchInput = useInput("");
-  const ref = useRef<HTMLDivElement>(null);
+const Select = (props: SelectListProps) => {
+  const {
+    children,
+    value,
+    placeholder,
+    onChange,
+    isSearchable = false,
+    showItemCount = 8,
+    listStyle,
+    itemStyle,
+  } = props;
+  const childrens = _.isArray(children) ? children : [children];
+  const { active, setActive, handleActive } = useActive();
+  const [search, setSearch] = useState<string>("");
+  const [result, setResult] = useState<Array<any>>(childrens);
+  const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const itemRef = useRef<HTMLLIElement>(null);
 
-  useClickOutside(ref, setIsOpen);
+  useClickOutside(containerRef, setActive);
   useSetScrollPosition(
     listRef,
-    resultList.findIndex((item) => item === value) * height,
-    isOpen
+    result.findIndex((item) => item === value) *
+      (itemRef.current?.clientHeight ?? 0),
+    active
   );
-
-  const handleSelectClick = useCallback((item: any) => {
-    setIsOpen(false);
-    handleSelect(item);
-    searchInput.setValue(item);
-  }, []);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.nativeEvent.key === "Enter") {
-        itemList.map((item) => {
-          if (item === searchInput.value) handleSelect(item);
-        });
-        setIsOpen(false);
-      } else if (e.nativeEvent.key === "Escape") {
-        setIsOpen(false);
-      } else {
-        setResultList(
-          itemList.filter((item) => {
-            if (item.indexOf(searchInput.value) !== -1) return item;
-          })
-        );
-        setIsOpen(true);
+      switch (e.nativeEvent.key) {
+        case "Enter":
+          const find = childrens.find((item) => item?.props.value === search);
+          find && dispatchInput(find.props.value + "");
+          break;
+        case "Escape":
+          setActive(false);
+          break;
+        default:
+          const filter = childrens.filter((item) =>
+            (item?.props.value + "").includes(search)
+          );
+          setResult(filter);
+          setActive(true);
       }
     },
-    [searchInput.value]
+    [search]
   );
 
-  const maxItemCountValue =
-    resultList.length > maxItemCount ? maxItemCount : resultList.length;
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    setSearch(e.target.value);
+  }, []);
+
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLInputElement, Element>) => {
+      setActive(true);
+      // props.onFocus && props.onFocus(e);
+    },
+    []
+  );
+
+  const dispatchInput = useCallback((value: string) => {
+    const input: any = containerRef.current?.getElementsByTagName("input")[0];
+    if (input) {
+      const lastValue = input.value;
+      input.value = value;
+      setSearch(value);
+      const event = new Event("input", { bubbles: true });
+      const tracker = input._valueTracker;
+      if (tracker) {
+        tracker.setValue(lastValue);
+      }
+      input.dispatchEvent(event);
+    }
+    setActive(false);
+  }, []);
+
+  const showItemCountValue = Math.max(childrens.length, showItemCount);
+
+  const style: React.CSSProperties = {
+    ...getSizeProps(props),
+    ...props.style,
+  };
 
   return (
-    <Styled.Container
-      ref={ref}
-      active={isOpen}
-      maxItemCount={maxItemCountValue}
-      width={width}
-      height={height}
-      style={isOpen ? containerActiveStyle : containerInactiveStyle}
-    >
-      <Styled.SelectWrapper
-        isOpen={isOpen}
-        height={height}
-        style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
-      >
-        {isSearchable ? (
-          <Styled.Input
-            {...searchInput}
-            placeholder={placeholder}
-            onKeyUp={(e) => handleKeyDown(e)}
-          />
-        ) : (
-          <Styled.Input value={value} placeholder={placeholder} readOnly />
-        )}
-        <ArrowButton
-          handleOpenClick={handleOpenClick}
-          isOpen={isOpen}
-          direction={isOpen ? "Up" : "Down"}
+    <Styled.Container ref={containerRef} active={active} style={style}>
+      {isSearchable ? (
+        <Styled.Input
+          value={search}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onKeyUp={(e) => handleKeyDown(e)}
         />
-      </Styled.SelectWrapper>
-      {isOpen && (
+      ) : (
+        <Styled.Input
+          value={value}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          readOnly
+        />
+      )}
+      <ArrowButton
+        handleOpenClick={handleActive}
+        isOpen={active}
+        direction={active ? "Up" : "Down"}
+      />
+      {active && (
         <Styled.List
           ref={listRef}
-          isOpen={isOpen}
-          maxItemCount={maxItemCountValue}
-          height={height}
+          itemHeight={itemStyle?.height ?? "35px"}
+          showItemCount={showItemCountValue}
           style={listStyle}
         >
-          {resultList.map((item, index) => (
+          {result.map((item, index) => (
             <Styled.Item
               key={index}
-              active={value === item}
-              onClick={() => handleSelectClick(item)}
-              height={height}
+              ref={itemRef}
+              active={value === item.props.value}
+              onClick={() => dispatchInput(item.props.value)}
               style={itemStyle}
             >
-              {item}
+              {item.props.children}
             </Styled.Item>
           ))}
         </Styled.List>
