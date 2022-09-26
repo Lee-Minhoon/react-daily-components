@@ -20,7 +20,7 @@
     "declaration": true,
     "typeRoots": ["index.d.ts", "node_modules/@types"]
   },
-  "files": ["src/index.ts", "src/index.d.ts"], // 포함할 파일들
+  "files": ["src/index.ts"], // 포함할 파일들
   "include": ["src/components"], // 포함할 파일들
   "exclude": ["node_modules"], // 제외할 파일들
   "references": [{ "path": "./tsconfig.node.json" }]
