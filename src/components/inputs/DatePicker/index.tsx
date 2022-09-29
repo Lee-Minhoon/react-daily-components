@@ -13,50 +13,42 @@ import { quotient } from "../../../utilities/math";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useCursor from "../../../hooks/useCursor";
 import useModal from "../../../hooks/useModal";
-import { ContainerPropsDeprecated } from "../../../types/props";
+import { SizeProps } from "../../../types/props";
 import ArrowButton from "../../common/ArrowButton";
 import { useTheme } from "@emotion/react";
+import { getSizeProps } from "../../../utilities/props";
+import useActive from "../../../hooks/useActive";
 
-interface DatePickerProps extends ContainerPropsDeprecated {
+interface DatePickerProps extends SizeProps {
   handleSelect: (value: any) => void;
   isMondayFirst?: boolean;
   isWeekendColor?: boolean;
-  itemWidth?: number;
-  itemHeight?: number;
-  containerStyle?: React.CSSProperties;
-  selectWrapperActiveStyle?: React.CSSProperties;
-  selectWrapperInactiveStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
   listContainerStyle?: React.CSSProperties;
   listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const DatePicker = ({
-  handleSelect,
-  isMondayFirst = true,
-  isWeekendColor = true,
-  width = 200,
-  height = 35,
-  itemWidth = 40,
-  itemHeight = 30,
-  containerStyle: containerActiveStyle,
-  selectWrapperActiveStyle,
-  selectWrapperInactiveStyle,
-  listContainerStyle,
-  listStyle,
-  itemStyle,
-}: DatePickerProps) => {
+const DatePicker = (props: DatePickerProps) => {
+  const {
+    handleSelect,
+    isMondayFirst = true,
+    isWeekendColor = true,
+    listContainerStyle,
+    listStyle,
+    itemStyle,
+  } = props;
   const theme = useTheme();
-  const { isOpen, setIsOpen, handleOpenClick } = useModal();
+  const { active, setActive, handleActive } = useActive();
   const [date, setDate] = useState<Date>(new Date(DateTime.now()));
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { cursor, setCursor } = useCursor(inputRef, date);
 
-  useClickOutside(containerRef, setIsOpen);
+  useClickOutside(containerRef, setActive);
 
   const handleSelectClick = useCallback((item: any) => {
-    setIsOpen(false);
+    setActive(false);
     setDate(item);
     handleSelect(item);
   }, []);
@@ -128,37 +120,41 @@ const DatePicker = ({
     [date]
   );
 
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLInputElement, Element>) => {
+      setActive(true);
+      // props.onFocus && props.onFocus(e);
+    },
+    []
+  );
+
   const WEEK_DAYS = _.cloneDeep(WEEK_DAY_ABBR);
   if (!isMondayFirst) {
     const LAST = WEEK_DAYS.pop();
     LAST && WEEK_DAYS.unshift(LAST);
   }
 
+  const style: React.CSSProperties = {
+    ...getSizeProps(props),
+    ...props.style,
+  };
+
   return (
-    <Style.Container
-      ref={containerRef}
-      width={width}
-      style={containerActiveStyle}
-    >
-      <Style.SelectWrapper
-        active={isOpen}
-        height={height}
-        style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
-      >
-        <Style.Input
-          ref={inputRef}
-          value={date.getFullString({ DateFormat: DATE_FORMAT.DASH })}
-          onChange={(e) => handleChange(e)}
-        />
-        <ArrowButton
-          handleOpenClick={handleOpenClick}
-          isOpen={isOpen}
-          direction={isOpen ? "Up" : "Down"}
-        />
-      </Style.SelectWrapper>
-      {isOpen && (
-        <Style.ListContainer isOpen={isOpen} style={listContainerStyle}>
-          <Style.YearMonth height={itemHeight}>
+    <Style.Container ref={containerRef} active={active} style={style}>
+      <Style.Input
+        ref={inputRef}
+        value={date.getFullString({ DateFormat: DATE_FORMAT.DASH })}
+        onChange={handleChange}
+        onFocus={handleFocus}
+      />
+      <ArrowButton
+        handleOpenClick={handleActive}
+        isOpen={active}
+        direction={active ? "Up" : "Down"}
+      />
+      {active && (
+        <Style.ListContainer style={listContainerStyle}>
+          <Style.YearMonth>
             <ArrowButton
               handleOpenClick={() =>
                 setDate((date) => {
@@ -167,7 +163,7 @@ const DatePicker = ({
                   return newDate;
                 })
               }
-              isOpen={isOpen}
+              isOpen={active}
               direction="Left"
             />
             {date.getYearMonthString({ DateFormat: DATE_FORMAT.DASH })}
@@ -179,7 +175,7 @@ const DatePicker = ({
                   return newDate;
                 })
               }
-              isOpen={isOpen}
+              isOpen={active}
               direction="Right"
             />
           </Style.YearMonth>
@@ -193,8 +189,6 @@ const DatePicker = ({
               return (
                 <Style.WeekdayItem
                   key={index}
-                  width={itemWidth}
-                  height={itemHeight}
                   style={{
                     color: isWeekendColor
                       ? weekendColor
@@ -215,8 +209,6 @@ const DatePicker = ({
                 key={index}
                 active={date.isEqualDate(item)}
                 onClick={() => handleSelectClick(item)}
-                width={itemWidth}
-                height={itemHeight}
                 style={itemStyle}
               >
                 {item.getDay()}

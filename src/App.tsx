@@ -15,7 +15,8 @@ import View from "./components/display/View";
 import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
-import Option from "components/inputs/Select/Option";
+import Option from "./components/inputs/Select/Option";
+import DatePickers from "./components/inputs/DatePicker copy";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -70,7 +71,7 @@ function App() {
         <br />
         <br />
         <br />
-        <TimePicker handleSelect={handle} is24Hour={false} />
+        <TimePicker onChange={handle} is24Hour={false} />
         <br />
         <br />
         <br />

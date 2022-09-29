@@ -1,4 +1,4 @@
-import { OptionDefaultProps } from "types/props";
+import { OptionDefaultProps } from "../../../../types/props";
 import * as Styled from "../style";
 
 export interface OptionProps extends OptionDefaultProps {}

@@ -18,8 +18,7 @@
     "jsx": "react-jsx", // JSX코드를 어떻게 컴파일 할 것인지
     "jsxImportSource": "@emotion/react",
     "declaration": true,
-    "typeRoots": ["index.d.ts", "node_modules/@types"],
-    "baseUrl": "src"
+    "typeRoots": ["index.d.ts", "node_modules/@types"]
   },
   "files": ["src/index.ts"], // 포함할 파일들
   "include": ["src/components"], // 포함할 파일들

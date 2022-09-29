@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { InputBase } from "components/base/InputBase";
+import { InputBase } from "../../../components/base/InputBase";
 import { TRANSITION_FAST, TRANSITION_NORMAL } from "../../../constants/css";
-import { getDefaultColor, getPrimaryColor } from "utilities/css";
-import { ContainerBase } from "components/base/ContainerBase";
+import { getDefaultColor, getPrimaryColor } from "../../../utilities/css";
+import { ContainerBase } from "../../../components/base/ContainerBase";
 
 export const Container = styled(ContainerBase)``;
 
@@ -19,8 +19,14 @@ export const Input = styled(InputBase)`
   }
   // label style
   + label {
-    font-size: ${(props) => (props.value === "" ? "1rem" : "0.8rem")};
-    top: ${(props) => (props.value === "" ? "50%" : "0%")};
+    font-size: ${(props) => {
+      if (props.value || props.defaultValue) return "0.8rem";
+      else return "1rem";
+    }};
+    top: ${(props) => {
+      if (props.value || props.defaultValue) return "0%";
+      else return "50%";
+    }};
   }
   &:focus + label {
     font-size: 0.8rem;

@@ -1,6 +1,6 @@
 {
   "name": "react-daily-components",
-  "version": "0.3.9",
+  "version": "0.5.2",
   "description": "react-daily-components",
   "module": "./lib/esm/index.js",
   "main": "./lib/cjs/index.js",
@@ -14,10 +14,9 @@
   "scripts": {
     "test": "jest",
     "dev": "vite",
-    "build": "tsc && vite build",
     "preview": "vite preview",
     "clean": "rimraf lib",
-    "copy-files": "copyfiles README.md lib",
+    "copy-files": "copyfiles README.md lib && copyfiles -f src/index.css lib/cjs && copyfiles -f src/index.css lib/esm",
     "tsc-build": "npm run clean && tsc -p tsconfig-esm.json && tsc -p tsconfig-cjs.json && npm run copy-files",
     "publish:npm": "npm run tsc-build && npm publish"
   },

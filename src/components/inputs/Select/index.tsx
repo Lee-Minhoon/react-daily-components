@@ -1,16 +1,15 @@
 import React, { ReactElement, useCallback, useRef, useState } from "react";
-import useClickOutside from "hooks/useClickOutside";
+import useClickOutside from "../../../hooks/useClickOutside";
 import {
-  InputDefaultProps,
   InputOnchangeProperty,
   InputPlaceholderProperty,
   InputValueProperty,
   SizeProps,
-} from "types/props";
-import ArrowButton from "components/common/ArrowButton";
-import useSetScrollPosition from "hooks/useSetScrollPosition";
-import { getSizeProps } from "utilities/props";
-import useActive from "hooks/useActive";
+} from "../../../types/props";
+import ArrowButton from "../../../components/common/ArrowButton";
+import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
+import { getSizeProps } from "../../../utilities/props";
+import useActive from "../../../hooks/useActive";
 import _ from "lodash";
 import * as Styled from "./style";
 import { OptionProps } from "./Option";
@@ -20,8 +19,8 @@ type Children = ReactElement<OptionProps>;
 interface SelectListProps extends SizeProps {
   children?: Children | Array<Children>;
   value: InputValueProperty;
-  placeholder: InputPlaceholderProperty;
   onChange: InputOnchangeProperty;
+  placeholder?: InputPlaceholderProperty;
   isSearchable?: boolean;
   showItemCount?: number;
   style?: React.CSSProperties;

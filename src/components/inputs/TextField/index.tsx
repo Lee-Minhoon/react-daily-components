@@ -4,14 +4,14 @@ import {
   InputForwardedRef,
   SizeProps,
   WhiteSpaceProps,
-} from "types/props";
+} from "../../../types/props";
 import * as Styled from "./style";
 import React, { forwardRef, useCallback, useState } from "react";
 import {
   getFontProps,
   getSizeProps,
   getWhiteSpaceProps,
-} from "utilities/props";
+} from "../../../utilities/props";
 import _ from "lodash";
 
 interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getColorByStatus } from "utilities/css";
+import { getColorByStatus } from "../../../utilities/css";
 import { INSET_SHADOW } from "../../../constants/css";
 
 export interface ItemBaseStyleProps {
@@ -13,4 +13,7 @@ export const ItemBase = styled.li<ItemBaseStyleProps>`
     box-shadow: ${INSET_SHADOW};
   }
   color: ${(props) => getColorByStatus(props)};
+  height: 35px;
+  line-height: 35px;
+  padding: 0 10px;
 `;

@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { TableDefaultProps, TableForwardedRef } from "types/props";
+import { TableDefaultProps, TableForwardedRef } from "../../../types/props";
 import * as Styled from "./style";
 
 interface TableProps extends TableDefaultProps {}

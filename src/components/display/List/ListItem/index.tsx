@@ -1,5 +1,8 @@
 import { forwardRef } from "react";
-import { ListItemDefaultProps, ListItemForwardedRef } from "types/props";
+import {
+  ListItemDefaultProps,
+  ListItemForwardedRef,
+} from "../../../../types/props";
 import * as Styled from "./style";
 
 interface ListItemProps extends ListItemDefaultProps {}

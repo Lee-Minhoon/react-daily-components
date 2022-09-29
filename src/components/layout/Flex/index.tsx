@@ -1,7 +1,11 @@
 import { forwardRef } from "react";
 import type { StandardProperties, Property } from "csstype";
-import { ContainerProps, DivDefaultProps, DivForwardedRef } from "types/props";
-import { getContainerProps } from "utilities/props";
+import {
+  ContainerProps,
+  DivDefaultProps,
+  DivForwardedRef,
+} from "../../../types/props";
+import { getContainerProps } from "../../../utilities/props";
 import * as Styled from "./style";
 
 export interface FlexProps extends DivDefaultProps, ContainerProps {

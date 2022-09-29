@@ -1,7 +1,11 @@
 import { forwardRef, useRef } from "react";
 import type { StandardProperties } from "csstype";
-import { DivDefaultProps, DivForwardedRef, WhiteSpaceProps } from "types/props";
-import { getWhiteSpaceProps } from "utilities/props";
+import {
+  DivDefaultProps,
+  DivForwardedRef,
+  WhiteSpaceProps,
+} from "../../../types/props";
+import { getWhiteSpaceProps } from "../../../utilities/props";
 import * as Styled from "./style";
 
 const DIRECTIONS = {

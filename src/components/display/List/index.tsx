@@ -4,8 +4,8 @@ import {
   OrderedListDefaultProps,
   UnorderedListDefaultProps,
   WhiteSpaceProps,
-} from "types/props";
-import { getFontProps, getWhiteSpaceProps } from "utilities/props";
+} from "../../../types/props";
+import { getFontProps, getWhiteSpaceProps } from "../../../utilities/props";
 import * as Styled from "./style";
 
 type ListTagProps = UnorderedListDefaultProps & OrderedListDefaultProps;

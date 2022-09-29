@@ -5,47 +5,39 @@ import useClickOutside from "../../../hooks/useClickOutside";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 import useModal from "../../../hooks/useModal";
 import useCursor from "../../../hooks/useCursor";
-import { SizePropsDeprecated } from "../../../types/props";
+import { SizeProps } from "../../../types/props";
 import TimeType from "./TimeType";
 import Hour from "./Hour";
 import Min from "./Min";
 import Seconds from "./Seconds";
 import ArrowButton from "../../common/ArrowButton";
+import { getSizeProps } from "../../../utilities/props";
+import useActive from "../../../hooks/useActive";
 
-interface TimePickerProps extends SizePropsDeprecated {
-  handleSelect: (value: any) => void;
+interface TimePickerProps extends SizeProps {
+  onChange: (value: any) => void;
   is24Hour?: boolean;
   isSelectHour?: boolean;
   isSelectMin?: boolean;
   isSelectSeconds?: boolean;
-  maxItemCount?: number;
-  containerActiveStyle?: React.CSSProperties;
-  containerInactiveStyle?: React.CSSProperties;
-  selectWrapperActiveStyle?: React.CSSProperties;
-  selectWrapperInactiveStyle?: React.CSSProperties;
-  listContainerStyle?: React.CSSProperties;
+  showItemCount?: number;
+  style?: React.CSSProperties;
   listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const TimePicker = ({
-  handleSelect,
-  is24Hour = false,
-  isSelectHour = true,
-  isSelectMin = true,
-  isSelectSeconds = false,
-  maxItemCount = 6,
-  width = 200,
-  height = 35,
-  containerActiveStyle,
-  containerInactiveStyle,
-  selectWrapperActiveStyle,
-  selectWrapperInactiveStyle,
-  listContainerStyle,
-  listStyle,
-  itemStyle,
-}: TimePickerProps) => {
-  const { isOpen, setIsOpen, handleOpenClick } = useModal();
+const TimePicker = (props: TimePickerProps) => {
+  const {
+    onChange,
+    is24Hour = false,
+    isSelectHour = true,
+    isSelectMin = true,
+    isSelectSeconds = false,
+    showItemCount = 8,
+    listStyle,
+    itemStyle,
+  } = props;
+  const { active, setActive, handleActive } = useActive();
   const [time, setTime] = useState<Time>(
     new Time({ hour: 0, min: 0, seconds: 0 })
   );
@@ -62,14 +54,24 @@ const TimePicker = ({
   const secondsRef = useRef<HTMLUListElement>(null);
   const { cursor, setCursor } = useCursor(inputRef, time);
 
-  useClickOutside(containerRef, setIsOpen);
+  useClickOutside(containerRef, setActive);
   useSetScrollPosition(
     hourRef,
-    is24Hour ? hour * height : (hour % 12) * height,
-    isOpen
+    is24Hour
+      ? hour * (hourRef.current?.clientHeight ?? 0)
+      : (hour % 12) * (hourRef.current?.clientHeight ?? 0),
+    active
   );
-  useSetScrollPosition(minRef, min * height, isOpen);
-  useSetScrollPosition(secondsRef, seconds * height, isOpen);
+  useSetScrollPosition(
+    minRef,
+    min * (minRef.current?.clientHeight ?? 0),
+    active
+  );
+  useSetScrollPosition(
+    secondsRef,
+    seconds * (secondsRef.current?.clientHeight ?? 0),
+    active
+  );
 
   useEffect(() => {
     const newTime = new Time({
@@ -86,7 +88,7 @@ const TimePicker = ({
       seconds,
     });
     setTime(newTime);
-    handleSelect(newTime);
+    onChange(newTime);
   }, [timeType, hour, min, seconds]);
 
   const handleChange = useCallback(
@@ -183,56 +185,56 @@ const TimePicker = ({
     [is24Hour, isSelectHour, isSelectMin, isSelectSeconds]
   );
 
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLInputElement, Element>) => {
+      setActive(true);
+      // props.onFocus && props.onFocus(e);
+    },
+    []
+  );
+
+  const style: React.CSSProperties = {
+    ...getSizeProps(props),
+    ...props.style,
+  };
+
   return (
-    <Style.Container
-      ref={containerRef}
-      active={isOpen}
-      maxItemCount={maxItemCount}
-      width={width}
-      height={height}
-      style={isOpen ? containerActiveStyle : containerInactiveStyle}
-    >
-      <Style.SelectWrapper
-        isOpen={isOpen}
-        height={height}
-        style={isOpen ? selectWrapperActiveStyle : selectWrapperInactiveStyle}
-      >
-        <Style.Input
-          ref={inputRef}
-          value={
-            !is24Hour
-              ? time.getString({
-                  isPrintTimeType: true,
-                  isPrintHour: isSelectHour,
-                  isPrintMin: isSelectMin,
-                  isPrintSeconds: isSelectSeconds,
-                })
-              : time.getString24Hour({
-                  isPrintHour: isSelectHour,
-                  isPrintMin: isSelectMin,
-                  isPrintSeconds: isSelectSeconds,
-                })
-          }
-          onChange={(e) => handleChange(e)}
-        />
-        <ArrowButton
-          handleOpenClick={handleOpenClick}
-          isOpen={isOpen}
-          direction={isOpen ? "Up" : "Down"}
-        />
-      </Style.SelectWrapper>
-      {isOpen && (
+    <Style.Container ref={containerRef} active={active} style={style}>
+      <Style.Input
+        ref={inputRef}
+        value={
+          !is24Hour
+            ? time.getString({
+                isPrintTimeType: true,
+                isPrintHour: isSelectHour,
+                isPrintMin: isSelectMin,
+                isPrintSeconds: isSelectSeconds,
+              })
+            : time.getString24Hour({
+                isPrintHour: isSelectHour,
+                isPrintMin: isSelectMin,
+                isPrintSeconds: isSelectSeconds,
+              })
+        }
+        onChange={handleChange}
+        onFocus={handleFocus}
+      />
+      <ArrowButton
+        handleOpenClick={handleActive}
+        isOpen={active}
+        direction={active ? "Up" : "Down"}
+      />
+      {active && (
         <Style.ListContainer
-          maxItemCount={maxItemCount}
-          height={height}
-          style={listContainerStyle}
+          itemHeight={itemStyle?.height ?? "35px"}
+          showItemCount={showItemCount}
+          style={listStyle}
         >
           {!is24Hour && (
             <TimeType
               timeTypeRef={timeTypeRef}
               timeType={timeType}
               setTimeType={setTimeType}
-              height={height}
               listStyle={listStyle}
               itemStyle={itemStyle}
             />
@@ -243,7 +245,6 @@ const TimePicker = ({
               hour={hour}
               setHour={setHour}
               is24Hour={is24Hour}
-              height={height}
               listStyle={listStyle}
               itemStyle={itemStyle}
             />
@@ -253,7 +254,6 @@ const TimePicker = ({
               minRef={minRef}
               min={min}
               setMin={setMin}
-              height={height}
               listStyle={listStyle}
               itemStyle={itemStyle}
             />
@@ -263,7 +263,6 @@ const TimePicker = ({
               secondsRef={secondsRef}
               seconds={seconds}
               setSeconds={setSeconds}
-              height={height}
               listStyle={listStyle}
               itemStyle={itemStyle}
             />

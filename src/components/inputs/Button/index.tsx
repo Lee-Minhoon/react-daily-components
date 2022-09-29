@@ -1,15 +1,15 @@
 import { Theme, useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
-import uesDebounce from "hooks/useDebounce";
-import useThrottle from "hooks/useThrottle";
+import uesDebounce from "../../../hooks/useDebounce";
+import useThrottle from "../../../hooks/useThrottle";
 import {
   ButtonDefaultProps,
   ButtonForwardedRef,
   ElementProps,
-} from "types/props";
-import { getElementProps } from "utilities/props";
+} from "../../../types/props";
+import { getElementProps } from "../../../utilities/props";
 import * as Styled from "./style";
-import { getPrimaryColor } from "utilities/css";
+import { getPrimaryColor } from "../../../utilities/css";
 
 const VARIANTS = {
   text: Styled.TextButton,
@@ -81,12 +81,14 @@ const rippleEffect = (
 ) => {
   const button = event.currentTarget;
 
+  // create container for circle
   const container = document.createElement("div");
   container.style.width = `${button.offsetWidth}px`;
   container.style.height = `${button.offsetHeight}px`;
   container.style.borderRadius = "inherit";
   container.classList.add("container");
 
+  // create circle
   const circle = document.createElement("span");
   const diameter = Math.max(button.clientWidth, button.clientHeight);
   const radius = diameter / 2;
@@ -95,14 +97,16 @@ const rippleEffect = (
   circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
   circle.style.backgroundColor =
     variant === "contained" ? "#fff" : getPrimaryColor(theme);
-  circle.style.opacity = "1";
+  circle.style.opacity = variant === "contained" ? "1" : "0.3";
   circle.classList.add("ripple");
 
+  // remove container, if already exist ripple
   const ripple = button.getElementsByClassName("container")[0];
   if (ripple) {
     ripple.remove();
   }
 
+  // append ripple to button inside
   container.appendChild(circle);
   button.appendChild(container);
 };

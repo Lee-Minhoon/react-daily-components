@@ -1,6 +1,10 @@
 import { forwardRef } from "react";
-import { DivDefaultProps, DivForwardedRef, ElementProps } from "types/props";
-import { getElementProps } from "utilities/props";
+import {
+  DivDefaultProps,
+  DivForwardedRef,
+  ElementProps,
+} from "../../../types/props";
+import { getElementProps } from "../../../utilities/props";
 import * as Styled from "./style";
 
 interface ViewProps extends DivDefaultProps, ElementProps {}

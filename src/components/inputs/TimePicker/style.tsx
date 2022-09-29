@@ -1,68 +1,27 @@
 import styled from "@emotion/styled";
-import { SizePropsDeprecated } from "../../../types/props";
-import { VIRTUAL_ELEMENT } from "../../../constants/css";
-import { ContainerAbsoluteBase } from "../../base/ContainerBase";
+import { ContainerBase } from "../../base/ContainerBase";
 import { ItemBase } from "../../base/ItemBase";
+import { ListBase } from "../../base/ListBase";
+import { InputBase } from "../../base/InputBase";
+import type { Property } from "csstype";
 
-export interface TimePickerStyleProps extends SizePropsDeprecated {
-  isOpen?: boolean;
-  isSelected?: boolean;
-  maxItemCount?: number;
+export const Container = styled(ContainerBase)``;
+
+export const Input = styled(InputBase)``;
+
+interface ListContainerStyleProps {
+  itemHeight: Property.Height<string | number> | undefined;
+  showItemCount: number;
 }
 
-export const Container = styled(ContainerAbsoluteBase)<TimePickerStyleProps>`
-  width: ${({ width = 200 }) => `${width}px`};
-  position: relative;
-  &::after {
-    height: ${({ active: isActive, height = 35, maxItemCount = 8 }) =>
-      isActive ? `${height + 1 + maxItemCount * height}px` : "100%"};
-  }
-`;
-
-export const SelectWrapper = styled.div<TimePickerStyleProps>`
+export const ListContainer = styled(ListBase)<ListContainerStyleProps>`
   display: flex;
-  position: relative;
-  align-items: center;
-  height: ${({ height }) => `${height}px`};
-  &::after {
-    ${VIRTUAL_ELEMENT};
-    border-bottom: ${({ isOpen, theme }) =>
-      isOpen ? `1px solid ${theme.primaryColor}` ?? "gray" : "initial"};
-  }
-  padding: 0 10px;
+  max-height: ${({ itemHeight, showItemCount }) =>
+    `calc(${itemHeight} * ${showItemCount})`};
+  top: 55px;
 `;
 
-export const Input = styled.input<TimePickerStyleProps>`
-  z-index: 1;
-  flex: 1;
-  min-width: 0;
-
-  font-size: 1rem;
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
-
-  border: none;
-  outline: none;
-`;
-
-export const ListContainer = styled.div<TimePickerStyleProps>`
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
-  max-height: ${({ height = 35, maxItemCount = 8 }) =>
-    `${height * maxItemCount}px`};
-  position: absolute;
-  overflow: hidden;
-  display: flex;
-  background-color: white;
-  width: calc(100% - 2px);
-  left: 1px;
-  font-size: 1rem;
-  z-index: 2;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-`;
-
-export const List = styled.ul<TimePickerStyleProps>`
-  padding: 0;
-  margin: 0;
+export const List = styled.ul`
   flex: 1;
   overflow-y: auto;
   list-style-type: none;
@@ -71,8 +30,4 @@ export const List = styled.ul<TimePickerStyleProps>`
   }
 `;
 
-export const Item = styled(ItemBase)<TimePickerStyleProps>`
-  height: ${({ height }) => `${height}px`};
-  padding: 0 10px;
-  line-height: ${({ height }) => `${height}px`};
-`;
+export const Item = styled(ItemBase)``;

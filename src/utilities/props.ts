@@ -7,7 +7,7 @@ import {
   MaxSizeProps,
   SizeProps,
   WhiteSpaceProps,
-} from "types/props";
+} from "../types/props";
 
 export const getContainerProps = (props: ContainerProps) => {
   return {

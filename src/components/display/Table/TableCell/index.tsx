@@ -1,5 +1,8 @@
 import { forwardRef } from "react";
-import { TableCellDefaultProps, TableCellForwardedRef } from "types/props";
+import {
+  TableCellDefaultProps,
+  TableCellForwardedRef,
+} from "../../../../types/props";
 import * as Styled from "../style";
 
 interface TableRowProps extends TableCellDefaultProps {}
