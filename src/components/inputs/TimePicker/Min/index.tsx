@@ -24,7 +24,6 @@ const Min = ({
         <Style.Item
           key={index}
           active={min === index}
-          height={height}
           onClick={() => setMin(index)}
           style={itemStyle}
         >

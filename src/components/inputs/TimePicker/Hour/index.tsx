@@ -27,7 +27,6 @@ const Hour = ({
         <Style.Item
           key={index}
           active={is24Hour ? hour === index : hour === item}
-          height={height}
           onClick={() => setHour(is24Hour ? index : item)}
           style={itemStyle}
         >

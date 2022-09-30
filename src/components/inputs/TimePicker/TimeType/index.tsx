@@ -24,7 +24,6 @@ const TimeType = ({
         <Style.Item
           key={index}
           active={timeType === item}
-          height={height}
           onClick={() => setTimeType(item)}
           style={itemStyle}
         >

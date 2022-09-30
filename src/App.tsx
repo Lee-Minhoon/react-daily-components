@@ -16,7 +16,6 @@ import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
 import Option from "./components/inputs/Select/Option";
-import DatePickers from "./components/inputs/DatePicker copy";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -40,7 +39,7 @@ function App() {
 
   return (
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
-      <div style={{ padding: "20px" }}>
+      <Flex d="column" width={"500px"} style={{ padding: "20px" }}>
         <Select
           value={value}
           onChange={(e) => console.log(e.target.value)}
@@ -137,17 +136,7 @@ function App() {
           And Eternity in an hour...`}
           </Modal>
         )}
-      </div>
-      <br />
-      <ul>
-        <li></li>
-        <datalist></datalist>
-      </ul>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      </Flex>
     </ThemeProvider>
   );
 }

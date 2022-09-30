@@ -93,8 +93,8 @@ const rippleEffect = (
   const diameter = Math.max(button.clientWidth, button.clientHeight);
   const radius = diameter / 2;
   circle.style.width = circle.style.height = `${diameter}px`;
-  circle.style.top = `${event.pageY - button.offsetTop - radius}px`;
-  circle.style.left = `${event.pageX - button.offsetLeft - radius}px`;
+  circle.style.top = `${event.nativeEvent.offsetY - radius}px`;
+  circle.style.left = `${event.nativeEvent.offsetX - radius}px`;
   circle.style.backgroundColor =
     variant === "contained" ? "#fff" : getPrimaryColor(theme);
   circle.style.opacity = variant === "contained" ? "1" : "0.3";

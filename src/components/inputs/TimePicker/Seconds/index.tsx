@@ -24,7 +24,6 @@ const Seconds = ({
         <Style.Item
           key={index}
           active={seconds === index}
-          height={height}
           onClick={() => setSeconds(index)}
           style={itemStyle}
         >
