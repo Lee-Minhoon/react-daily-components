@@ -9,7 +9,7 @@ import {
 import { DateTime } from "luxon";
 import _ from "lodash";
 import { replaceAt } from "../../../utilities/string";
-import { quotient } from "../../../utilities/math";
+import { quotient } from "../../../utilities/number";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useCursor from "../../../hooks/useCursor";
 import useModal from "../../../hooks/useModal";

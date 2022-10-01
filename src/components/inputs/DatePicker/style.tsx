@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ItemBase } from "../../base/ItemBase";
+import { EffectedItemBase, ItemBase } from "../../base/ItemBase";
 import { ContainerBase } from "../../base/ContainerBase";
 import { InputBase } from "../../base/InputBase";
 import { ListBase } from "../../base/ListBase";
@@ -44,6 +44,6 @@ export const DateList = styled.ul`
   list-style-type: none;
 `;
 
-export const DateItem = styled(ItemBase)`
+export const DateItem = styled(EffectedItemBase)`
   z-index: 1;
 `;

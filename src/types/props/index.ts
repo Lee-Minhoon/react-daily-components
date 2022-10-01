@@ -5,7 +5,7 @@ export type { HTMLDefaultProps, HTMLForwardedRef } from "./tags/html";
 export type {
   InputDefaultProps,
   InputForwardedRef,
-  InputOnchangeProperty,
+  InputOnChangeProperty as InputOnchangeProperty,
   InputPlaceholderProperty,
   InputValueProperty,
 } from "./tags/input";

@@ -1,36 +1,26 @@
 import * as Style from "../style";
 import React from "react";
 import { HOURS } from "../../../../types/time";
+import { fillZero } from "../../../../utilities/number";
 
 interface HourProps {
   hourRef: React.RefObject<HTMLUListElement>;
   hour: number;
   setHour: React.Dispatch<React.SetStateAction<number>>;
-  is24Hour: boolean;
-  height?: number;
-  listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const Hour = ({
-  hourRef,
-  hour,
-  setHour,
-  is24Hour,
-  height,
-  listStyle,
-  itemStyle,
-}: HourProps) => {
+const Hour = ({ hourRef, hour, setHour, itemStyle }: HourProps) => {
   return (
-    <Style.List ref={hourRef} style={listStyle}>
-      {(is24Hour ? Array.from(new Array(24)) : HOURS).map((item, index) => (
+    <Style.List ref={hourRef}>
+      {HOURS.map((item, index) => (
         <Style.Item
           key={index}
-          active={is24Hour ? hour === index : hour === item}
-          onClick={() => setHour(is24Hour ? index : item)}
+          active={hour === item % 12}
+          onClick={() => setHour(item % 12)}
           style={itemStyle}
         >
-          {is24Hour ? index : item}
+          {fillZero(item)}
         </Style.Item>
       ))}
     </Style.List>

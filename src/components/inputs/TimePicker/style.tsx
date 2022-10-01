@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import { ContainerBase } from "../../base/ContainerBase";
-import { ItemBase } from "../../base/ItemBase";
+import { EffectedItemBase } from "../../base/ItemBase";
 import { ListBase } from "../../base/ListBase";
 import { InputBase } from "../../base/InputBase";
 import type { Property } from "csstype";
 
-export const Container = styled(ContainerBase)``;
+export const Container = styled(ContainerBase)`
+  width: fit-content;
+`;
 
 export const Input = styled(InputBase)``;
 
@@ -30,4 +32,6 @@ export const List = styled.ul`
   }
 `;
 
-export const Item = styled(ItemBase)``;
+export const Item = styled(EffectedItemBase)`
+  text-align: center;
+`;

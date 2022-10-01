@@ -1,36 +1,17 @@
+import { useTheme } from "@emotion/react";
 import { MouseEvent } from "react";
-import { Theme } from "@emotion/react";
-
-interface Props {
-  theme: Theme;
-  active?: boolean;
-}
-
-export const getColorByStatus = (props: Props) => {
-  return props.active ? getPrimaryColor(props) : getDefaultColor(props);
-};
-
-export const getPrimaryColor = (props: Props | Theme) => {
-  if ("primaryColor" in props) return props.primaryColor ?? "gray";
-  return props.theme.primaryColor ?? "gray";
-};
-
-export const getDefaultColor = (props: Props | Theme) => {
-  if ("defaultColor" in props) return props.defaultColor ?? "gray";
-  return props.theme.defaultColor ?? "gray";
-};
+import { getPrimaryColor } from "../utilities/css";
 
 /**
  * Generate Ripple Effect at Button Click
  * @param event
- * @param theme
  * @param primary
  */
-export const rippleEffect = (
+export const useRippleEffect = (
   event: MouseEvent<HTMLElement>,
-  theme: Theme,
   primary: boolean
 ) => {
+  const theme = useTheme();
   const button = event.currentTarget;
 
   // create container for circle

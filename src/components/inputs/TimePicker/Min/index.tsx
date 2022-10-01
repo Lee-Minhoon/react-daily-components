@@ -5,21 +5,12 @@ interface MinProps {
   minRef: React.RefObject<HTMLUListElement>;
   min: number;
   setMin: React.Dispatch<React.SetStateAction<number>>;
-  height?: number;
-  listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const Min = ({
-  minRef,
-  min,
-  setMin,
-  height,
-  listStyle,
-  itemStyle,
-}: MinProps) => {
+const Min = ({ minRef, min, setMin, itemStyle }: MinProps) => {
   return (
-    <Style.List ref={minRef} style={listStyle}>
+    <Style.List ref={minRef}>
       {Array.from(new Array(60)).map((item, index) => (
         <Style.Item
           key={index}

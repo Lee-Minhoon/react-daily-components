@@ -16,9 +16,11 @@ import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
 import Option from "./components/inputs/Select/Option";
+import { Time } from "./types/time";
 
 function App() {
   const [value, setValue] = useState<string>("");
+  const [time, setTime] = useState<string>("16:00:00");
   const [inputValue, setInputValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef(null);
@@ -29,32 +31,37 @@ function App() {
     console.log(page);
   };
 
-  const handle = (item: any) => {};
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
-
-  console.log(ref.current);
 
   return (
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
       <Flex d="column" width={"500px"} style={{ padding: "20px" }}>
         <Select
+          ref={ref}
           value={value}
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setValue(e.target.value);
+          }}
           showItemCount={5}
-          isSearchable
+          searchable
         >
-          <Option value="10">10</Option>
-          <Option value="20">20</Option>
-          <Option value="30">30</Option>
-          <Option value="40">40</Option>
-          <Option value="50">50</Option>
-          <Option value="60">60</Option>
+          <Option value="10">열</Option>
+          <Option value="20">스무</Option>
+          <Option value="30">서른</Option>
+          <Option value="40">마흔</Option>
+          <Option value="50">쉰</Option>
+          <Option value="60">열</Option>
+          <Option value="70">스무</Option>
+          <Option value="80">서른</Option>
+          <Option value="90">마흔</Option>
+          <Option value="100">쉰</Option>
         </Select>
         <br />
         <br />
+        <input type="time" onChange={(e) => console.log(e)} />
         <br />
         <br />
         <Heading level={1} color="red">
@@ -70,18 +77,21 @@ function App() {
         <br />
         <br />
         <br />
-        <TimePicker onChange={handle} is24Hour={false} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <DatePicker
-          handleSelect={handle}
-          isWeekendColor
-          isMondayFirst={false}
+        <TimePicker
+          value={time}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setTime(e.target.value);
+          }}
+          showSeconds
+          show24Hour
         />
+        <br />
+        <input type="time" value={"09:00"} onChange={(e) => console.log(e)} />
+        <br />
+        <br />
+        <br />
+        <br />
         <Grid
           w={"200px"}
           h={"200px"}

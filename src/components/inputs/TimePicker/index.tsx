@@ -1,9 +1,8 @@
 import * as Style from "./style";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { HOURS, Time, TIME_TYPE } from "../../../types/time";
+import { Time, TIME_TYPE } from "../../../types/time";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
-import useModal from "../../../hooks/useModal";
 import useCursor from "../../../hooks/useCursor";
 import { SizeProps } from "../../../types/props";
 import TimeType from "./TimeType";
@@ -13,13 +12,13 @@ import Seconds from "./Seconds";
 import ArrowButton from "../../common/ArrowButton";
 import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
+import { quotient } from "../../../utilities/number";
 
 interface TimePickerProps extends SizeProps {
+  value: string;
   onChange: (value: any) => void;
-  is24Hour?: boolean;
-  isSelectHour?: boolean;
-  isSelectMin?: boolean;
-  isSelectSeconds?: boolean;
+  show24Hour?: boolean;
+  showSeconds?: boolean;
   showItemCount?: number;
   style?: React.CSSProperties;
   listStyle?: React.CSSProperties;
@@ -28,23 +27,20 @@ interface TimePickerProps extends SizeProps {
 
 const TimePicker = (props: TimePickerProps) => {
   const {
+    value,
     onChange,
-    is24Hour = false,
-    isSelectHour = true,
-    isSelectMin = true,
-    isSelectSeconds = false,
+    show24Hour = false,
+    showSeconds = false,
     showItemCount = 8,
     listStyle,
     itemStyle,
   } = props;
   const { active, setActive, handleActive } = useActive();
-  const [time, setTime] = useState<Time>(
-    new Time({ hour: 0, min: 0, seconds: 0 })
-  );
-  const [timeType, setTimeType] = useState<TIME_TYPE>(TIME_TYPE.AM);
-  const [hour, setHour] = useState<number>(12);
-  const [min, setMin] = useState<number>(0);
-  const [seconds, setSeconds] = useState<number>(0);
+  const [time, setTime] = useState<Time>(Time.string("" + value));
+  const [timeType, setTimeType] = useState<TIME_TYPE>(time.getTimeType());
+  const [hour, setHour] = useState<number>(time.getHour() % 12);
+  const [min, setMin] = useState<number>(time.getMin());
+  const [seconds, setSeconds] = useState<number>(time.getSeconds());
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,12 +48,11 @@ const TimePicker = (props: TimePickerProps) => {
   const hourRef = useRef<HTMLUListElement>(null);
   const minRef = useRef<HTMLUListElement>(null);
   const secondsRef = useRef<HTMLUListElement>(null);
-  const { cursor, setCursor } = useCursor(inputRef, time);
 
   useClickOutside(containerRef, setActive);
   useSetScrollPosition(
     hourRef,
-    is24Hour
+    show24Hour
       ? hour * (hourRef.current?.clientHeight ?? 0)
       : (hour % 12) * (hourRef.current?.clientHeight ?? 0),
     active
@@ -75,115 +70,20 @@ const TimePicker = (props: TimePickerProps) => {
 
   useEffect(() => {
     const newTime = new Time({
-      hour: !is24Hour
-        ? timeType === TIME_TYPE.PM
-          ? hour + 12 === 24
-            ? 12
-            : hour + 12
-          : hour === 12
-          ? 0
-          : hour
-        : hour,
+      hour: hour + (timeType === TIME_TYPE.PM ? 12 : 0),
       min,
       seconds,
     });
     setTime(newTime);
-    onChange(newTime);
   }, [timeType, hour, min, seconds]);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const event: any = e.nativeEvent;
-      if (!inputRef.current?.selectionStart || !event.data) return;
-      const data = +event.data;
-      const cursor = inputRef.current?.selectionStart - 1;
+  useEffect(() => {
+    handleDispatchChange(time.getString({ show24Hour: true, showSeconds }));
+  }, [time]);
 
-      let standardPoint = 0;
-      if (!is24Hour) {
-        const isCursorInsideTimeType =
-          cursor >= standardPoint && cursor <= standardPoint + 1;
-        if (isCursorInsideTimeType) {
-          setTimeType(data === 1 ? TIME_TYPE.AM : TIME_TYPE.PM);
-          setCursor(standardPoint + 2);
-        }
-        standardPoint += 2;
-      } else {
-        standardPoint -= 1;
-      }
-
-      if (isSelectHour) {
-        const isCursorInsideHourFirstDigit =
-          cursor >= standardPoint && cursor <= standardPoint + 1;
-        if (isCursorInsideHourFirstDigit) {
-          if (data >= 0 && data <= 1) {
-            setHour(data * 10);
-            setCursor(standardPoint + 2);
-          } else {
-            setHour(data);
-            setCursor(standardPoint + 4);
-          }
-        }
-
-        const isCursorInsideHourSecondDigit = cursor === standardPoint + 2;
-        if (isCursorInsideHourSecondDigit) {
-          if (data >= 0 && data <= 2) {
-            setHour((prev) => Math.floor(prev / 10) * 10 + data);
-          } else {
-            setHour(data);
-          }
-          setCursor(standardPoint + 4);
-        }
-        standardPoint += 3;
-      }
-
-      if (isSelectMin) {
-        const isCursorInsideMinFirstDigit =
-          cursor >= standardPoint && cursor <= standardPoint + 1;
-        if (isCursorInsideMinFirstDigit) {
-          if (data >= 0 && data <= 5) {
-            setMin(data * 10);
-            setCursor(standardPoint + 2);
-          } else {
-            setMin(data);
-            setCursor(standardPoint + 4);
-          }
-        }
-
-        const isCursorInsideMinSecondDigit = cursor === standardPoint + 2;
-        if (isCursorInsideMinSecondDigit) {
-          setMin((prev) => Math.floor(prev / 10) * 10 + data);
-          setCursor(standardPoint + 4);
-        }
-        standardPoint += 3;
-      }
-
-      if (isSelectSeconds) {
-        const isCursorInsideSecondsFirstDigit =
-          cursor >= standardPoint && cursor <= standardPoint + 1;
-        if (isCursorInsideSecondsFirstDigit) {
-          if (data >= 0 && data <= 5) {
-            setSeconds(data * 10);
-            setCursor(standardPoint + 2);
-          } else {
-            setSeconds(data);
-            setCursor(standardPoint + 3);
-          }
-        }
-
-        const isCursorInsideSecondsSecondDigit = cursor === standardPoint + 2;
-        if (isCursorInsideSecondsSecondDigit) {
-          setSeconds((prev) => Math.floor(prev / 10) * 10 + data);
-          setCursor(standardPoint + 3);
-        }
-        standardPoint += 2;
-      }
-
-      if (cursor === standardPoint) {
-        setCursor(0);
-      }
-    },
-    [is24Hour, isSelectHour, isSelectMin, isSelectSeconds]
-  );
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+  }, []);
 
   const handleFocus = useCallback(
     (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -192,6 +92,20 @@ const TimePicker = (props: TimePickerProps) => {
     },
     []
   );
+
+  const handleDispatchChange = useCallback((value: string) => {
+    const input: any = containerRef.current?.getElementsByTagName("input")[0];
+    if (input) {
+      const lastValue = input.value;
+      input.value = value;
+      const event = new Event("input", { bubbles: true });
+      const tracker = input._valueTracker;
+      if (tracker) {
+        tracker.setValue(lastValue);
+      }
+      input.dispatchEvent(event);
+    }
+  }, []);
 
   const style: React.CSSProperties = {
     ...getSizeProps(props),
@@ -202,20 +116,7 @@ const TimePicker = (props: TimePickerProps) => {
     <Style.Container ref={containerRef} active={active} style={style}>
       <Style.Input
         ref={inputRef}
-        value={
-          !is24Hour
-            ? time.getString({
-                isPrintTimeType: true,
-                isPrintHour: isSelectHour,
-                isPrintMin: isSelectMin,
-                isPrintSeconds: isSelectSeconds,
-              })
-            : time.getString24Hour({
-                isPrintHour: isSelectHour,
-                isPrintMin: isSelectMin,
-                isPrintSeconds: isSelectSeconds,
-              })
-        }
+        value={Time.string("" + value).getString({ show24Hour, showSeconds })}
         onChange={handleChange}
         onFocus={handleFocus}
       />
@@ -230,40 +131,29 @@ const TimePicker = (props: TimePickerProps) => {
           showItemCount={showItemCount}
           style={listStyle}
         >
-          {!is24Hour && (
-            <TimeType
-              timeTypeRef={timeTypeRef}
-              timeType={timeType}
-              setTimeType={setTimeType}
-              listStyle={listStyle}
-              itemStyle={itemStyle}
-            />
-          )}
-          {isSelectHour && (
-            <Hour
-              hourRef={hourRef}
-              hour={hour}
-              setHour={setHour}
-              is24Hour={is24Hour}
-              listStyle={listStyle}
-              itemStyle={itemStyle}
-            />
-          )}
-          {isSelectMin && (
-            <Min
-              minRef={minRef}
-              min={min}
-              setMin={setMin}
-              listStyle={listStyle}
-              itemStyle={itemStyle}
-            />
-          )}
-          {isSelectSeconds && (
+          <TimeType
+            timeTypeRef={timeTypeRef}
+            timeType={timeType}
+            setTimeType={setTimeType}
+            itemStyle={itemStyle}
+          />
+          <Hour
+            hourRef={hourRef}
+            hour={hour}
+            setHour={setHour}
+            itemStyle={itemStyle}
+          />
+          <Min
+            minRef={minRef}
+            min={min}
+            setMin={setMin}
+            itemStyle={itemStyle}
+          />
+          {showSeconds && (
             <Seconds
               secondsRef={secondsRef}
               seconds={seconds}
               setSeconds={setSeconds}
-              listStyle={listStyle}
               itemStyle={itemStyle}
             />
           )}
@@ -274,3 +164,55 @@ const TimePicker = (props: TimePickerProps) => {
 };
 
 export default TimePicker;
+
+const handleChangeHour = (
+  firstDigit: boolean,
+  data: number,
+  dispatchData: React.Dispatch<React.SetStateAction<number>>
+) => {
+  if (firstDigit) {
+    if (0 <= data && data < 2) {
+      dispatchData(data * 10);
+    } else {
+      dispatchData(data);
+    }
+  } else {
+    if (0 <= data && data < 3) {
+      dispatchData((prev) => quotient(prev, 10) * 10 + data);
+    } else {
+      dispatchData(data);
+    }
+  }
+};
+
+const handleChangeMin = (
+  firstDigit: boolean,
+  data: number,
+  dispatchData: React.Dispatch<React.SetStateAction<number>>
+) => {
+  if (firstDigit) {
+    if (0 <= data && data <= 5) {
+      dispatchData(data * 10);
+    } else {
+      dispatchData(data);
+    }
+  } else {
+    dispatchData((prev) => quotient(prev, 10) * 10 + data);
+  }
+};
+
+const handleChangeSeconds = (
+  firstDigit: boolean,
+  data: number,
+  dispatchData: React.Dispatch<React.SetStateAction<number>>
+) => {
+  if (firstDigit) {
+    if (0 <= data && data <= 5) {
+      dispatchData(data * 10);
+    } else {
+      dispatchData(data);
+    }
+  } else {
+    dispatchData((prev) => quotient(prev, 10) * 10 + data);
+  }
+};

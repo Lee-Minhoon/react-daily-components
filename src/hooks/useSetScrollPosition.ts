@@ -12,7 +12,10 @@ const useSetScrollPosition = (
   dependency: any
 ) => {
   useEffect(() => {
-    if (ref.current) ref.current.scrollTop = position;
+    console.log("asdfasdf", ref);
+    if (ref.current) {
+      ref.current.scrollTop = position;
+    }
   }, [dependency]);
 };
 

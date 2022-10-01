@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { getColorByStatus } from "../../../utilities/css";
-import { TRANSITION_NORMAL } from "../../../constants/css";
 import { OUT_SHADOW, VIRTUAL_ELEMENT } from "../../../constants/css";
 
 export interface ListBaseStyleProps {}
