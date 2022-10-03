@@ -16,11 +16,12 @@ import Text from "./components/display/Text";
 import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
 import Option from "./components/inputs/Select/Option";
-import { Time } from "./types/time";
+import { DateTime } from "luxon";
 
 function App() {
   const [value, setValue] = useState<string>("");
   const [time, setTime] = useState<string>("16:00:00");
+  const [date, setDate] = useState<string>("1-05-06");
   const [inputValue, setInputValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef(null);
@@ -61,7 +62,6 @@ function App() {
         </Select>
         <br />
         <br />
-        <input type="time" onChange={(e) => console.log(e)} />
         <br />
         <br />
         <Heading level={1} color="red">
@@ -80,16 +80,21 @@ function App() {
         <TimePicker
           value={time}
           onChange={(e) => {
-            console.log(e.target.value);
             setTime(e.target.value);
           }}
           showSeconds
-          show24Hour
         />
         <br />
-        <input type="time" value={"09:00"} onChange={(e) => console.log(e)} />
         <br />
         <br />
+        <DatePicker
+          w={"300px"}
+          value={date}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setDate(e.target.value);
+          }}
+        />
         <br />
         <br />
         <Grid

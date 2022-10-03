@@ -4,19 +4,18 @@ import { useEffect } from "react";
  * Moves the scroll to the position
  * @param ref dom with scroll
  * @param position scroll position
- * @param dependency dependency
+ * @param active active
  */
 const useSetScrollPosition = (
   ref: React.RefObject<HTMLElement>,
   position: number,
-  dependency: any
+  active: boolean
 ) => {
   useEffect(() => {
-    console.log("asdfasdf", ref);
-    if (ref.current) {
+    if (ref.current && active) {
       ref.current.scrollTop = position;
     }
-  }, [dependency]);
+  }, [active]);
 };
 
 export default useSetScrollPosition;

@@ -1,32 +1,29 @@
-import * as Style from "../style";
+import * as Styled from "../style";
 import React from "react";
+import { UNIT } from "../../../../types/time";
+import { ListItemMouseEvent } from "../../../../types/props/tags/listItem";
 
 interface SecondsProps {
   secondsRef: React.RefObject<HTMLUListElement>;
   seconds: number;
-  setSeconds: React.Dispatch<React.SetStateAction<number>>;
+  onClick: (e: ListItemMouseEvent, value: number, unit: UNIT) => void;
   itemStyle?: React.CSSProperties;
 }
 
-const Seconds = ({
-  secondsRef,
-  seconds,
-  setSeconds,
-  itemStyle,
-}: SecondsProps) => {
+const Seconds = ({ secondsRef, seconds, onClick, itemStyle }: SecondsProps) => {
   return (
-    <Style.List ref={secondsRef}>
+    <Styled.List ref={secondsRef}>
       {Array.from(new Array(60)).map((item, index) => (
-        <Style.Item
+        <Styled.Item
           key={index}
           active={seconds === index}
-          onClick={() => setSeconds(index)}
+          onClick={(e) => onClick(e, index, UNIT.SECONDS)}
           style={itemStyle}
         >
           {index}
-        </Style.Item>
+        </Styled.Item>
       ))}
-    </Style.List>
+    </Styled.List>
   );
 };
 

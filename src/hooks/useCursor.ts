@@ -9,7 +9,7 @@ const useCursor = (ref: React.RefObject<HTMLInputElement>, dependency: any) => {
     ref.current.selectionEnd = cursor;
   }, [cursor, dependency]);
 
-  return { cursor, setCursor };
+  return { setCursor };
 };
 
 export default useCursor;

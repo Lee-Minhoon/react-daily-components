@@ -1,8 +1,15 @@
 import { fillZero, quotient } from "../utilities/number";
 
-export enum TIME_TYPE {
+export enum TIMES_OF_DAY {
   AM = "AM",
   PM = "PM",
+}
+
+export enum UNIT {
+  TIMES_OF_DAY = "times",
+  HOUR = "hour",
+  MIN = "min",
+  SECONDS = "seconds",
 }
 
 export const HOURS = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
@@ -17,13 +24,15 @@ export interface ConstructorParams {
   seconds?: number;
 }
 
+type SetTimeAction = number | ((prev: number) => number);
+
 interface getStringParams {
   show24Hour?: boolean;
   showSeconds?: boolean;
 }
 
 export class Time {
-  private passed: number;
+  passed: number;
 
   /**
    * Constructor
@@ -43,8 +52,14 @@ export class Time {
    * @returns Time
    */
   static string(time: string) {
+    time = time.toUpperCase();
+    let timesOfDay;
+    if (time.includes(TIMES_OF_DAY.AM) || time.includes(TIMES_OF_DAY.PM)) {
+      timesOfDay = time.slice(0, 2);
+      time = time.slice(3);
+    }
     const splits = time.split(":");
-    const hour = +splits[0];
+    const hour = +splits[0] + (timesOfDay === "PM" ? 12 : 0);
     const min = +splits[1];
     const seconds = isNaN(+splits[2]) ? 0 : +splits[2];
 
@@ -66,8 +81,8 @@ export class Time {
   /**
    * @returns Get whether it is AM or PM.
    */
-  getTimeType(): TIME_TYPE {
-    return this.getHour() < 12 ? TIME_TYPE.AM : TIME_TYPE.PM;
+  getTimesOfDay(): TIMES_OF_DAY {
+    return this.getHour() < 12 ? TIMES_OF_DAY.AM : TIMES_OF_DAY.PM;
   }
 
   /**
@@ -113,35 +128,42 @@ export class Time {
   }
 
   /**
-   * @param passed total of the passed time in seconds to set
+   * @param action hour to set
    */
-  setPassed(passed: number): void {
-    this.passed = passed % DAY;
-  }
-
-  /**
-   * @param hour hour to set
-   */
-  setHour(hour: number): void {
+  setHour(action: SetTimeAction, timesOfDay?: TIMES_OF_DAY): void {
+    let hoursToAdd = 0;
+    if (timesOfDay === TIMES_OF_DAY.PM) {
+      hoursToAdd = 12;
+    }
+    const hour = getState(action, this.getHour()) + hoursToAdd;
     const passed =
       this.getSecondsPassed() - this.getHour() * HOUR + hour * HOUR;
     this.setPassed(passed);
   }
 
   /**
-   * @param min minute to set
+   * @param action minute to set
    */
-  setMin(min: number): void {
+  setMin(action: SetTimeAction): void {
+    const min = getState(action, this.getMin());
     const passed = this.getSecondsPassed() - this.getMin() * MIN + min * MIN;
     this.setPassed(passed);
   }
 
   /**
-   * @param seconds seconds to set
+   * @param action seconds to set
    */
-  setSeconds(seconds: number): void {
+  setSeconds(action: SetTimeAction): void {
+    const seconds = getState(action, this.getSeconds());
     const passed = this.getSecondsPassed() - this.getSeconds() + seconds;
     this.setPassed(passed);
+  }
+
+  /**
+   * @param passed total of the passed time in seconds to set
+   */
+  setPassed(passed: number): void {
+    this.passed = passed % DAY;
   }
 
   /**
@@ -163,7 +185,7 @@ export class Time {
    * @returns time string ex) "09:00:00"
    */
   getString({ show24Hour, showSeconds }: getStringParams): string {
-    const timeType = !show24Hour ? `${this.getTimeType()} ` : "";
+    const timeType = !show24Hour ? `${this.getTimesOfDay()} ` : "";
     const hour = fillZero(this.getHour() % (show24Hour ? 24 : 12));
     const min = fillZero(this.getMin());
     const seconds = showSeconds ? `:${fillZero(this.getSeconds())}` : "";
@@ -171,3 +193,13 @@ export class Time {
     return `${timeType}${hour}:${min}${seconds}`;
   }
 }
+
+const getState = (action: SetTimeAction, prev: number): number => {
+  let next;
+  if (typeof action === "number") {
+    next = action;
+  } else {
+    next = action(prev);
+  }
+  return next;
+};

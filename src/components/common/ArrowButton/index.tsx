@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+import { ButtonDefaultProps, ButtonForwardedRef } from "../../../types/props";
 import * as Style from "./style";
 
 const arrowDirection = {
@@ -15,33 +17,22 @@ const points = {
   Right: "6 2 14 10 6 18 14 10",
 };
 
-interface ArrowButtonProps {
-  handleOpenClick: () => void;
-  isOpen: boolean;
-  outlineColor?: string;
-  outlineWidth?: number;
+interface ArrowButtonProps extends ButtonDefaultProps {
   direction: ARROW_DIRECTION;
 }
 
-const ArrowButton = ({
-  handleOpenClick,
-  isOpen,
-  outlineColor,
-  outlineWidth,
-  direction,
-}: ArrowButtonProps) => {
-  return (
-    <Style.Button onClick={handleOpenClick}>
-      <Style.Svg
-        viewBox="0 0 20 20"
-        isOpen={isOpen}
-        outlineColor={outlineColor}
-        outlineWidth={outlineWidth}
-      >
-        <polyline points={points[direction]} />
-      </Style.Svg>
-    </Style.Button>
-  );
-};
+const ArrowButton = forwardRef(
+  (props: ArrowButtonProps, forwardedRef: ButtonForwardedRef) => {
+    const { direction } = props;
+
+    return (
+      <Style.Button ref={forwardedRef} {...props}>
+        <Style.Svg viewBox="0 0 20 20">
+          <polyline points={points[direction]} />
+        </Style.Svg>
+      </Style.Button>
+    );
+  }
+);
 
 export default ArrowButton;

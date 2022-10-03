@@ -5,3 +5,7 @@ export type ListItemDefaultProps = DetailedHTMLProps<
   HTMLLIElement
 >;
 export type ListItemForwardedRef = ForwardedRef<HTMLLIElement>;
+
+export type ListItemOnClickProperty = React.MouseEventHandler<HTMLLIElement>;
+
+export type ListItemMouseEvent = React.MouseEvent<HTMLLIElement, MouseEvent>;

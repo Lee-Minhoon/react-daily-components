@@ -5,14 +5,13 @@ import { useTheme } from "@emotion/react";
 import { ListItemDefaultProps } from "../../../types/props";
 
 export interface ItemBaseStyleProps {
+  // focus: boolean;
   active: boolean;
 }
 
 export const ItemBase = styled.li<ItemBaseStyleProps>`
   position: relative;
   cursor: pointer;
-  &:hover {
-  }
   color: ${(props) => getColorByStatus(props)};
   height: 35px;
   line-height: 35px;
@@ -20,6 +19,7 @@ export const ItemBase = styled.li<ItemBaseStyleProps>`
 `;
 
 interface EffectedItemBaseProps extends ListItemDefaultProps {
+  // focus: boolean;
   active: boolean;
 }
 
@@ -28,10 +28,13 @@ export const EffectedItemBase = forwardRef(
     const theme = useTheme();
     const { onClick = () => {} } = props;
 
-    const handleClick = useCallback((event: any) => {
-      rippleEffect(event, theme, true);
-      onClick(event);
-    }, []);
+    const handleClick = useCallback(
+      (event: any) => {
+        rippleEffect(event, theme, true);
+        onClick(event);
+      },
+      [onClick]
+    );
 
     return <ItemBase {...props} ref={forwardedRef} onClick={handleClick} />;
   }

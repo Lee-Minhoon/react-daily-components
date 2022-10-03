@@ -1,250 +1,175 @@
 import { DateTime } from "luxon";
+import { fillZero } from "../utilities/number";
 
-export const WEEK_DAY = [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
-  "SUNDAY",
-];
-
-export const WEEK_DAY_ABBR = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-
-export const WEEK_DAY_KOREAN = ["월", "화", "수", "목", "금", "토", "일"];
-
-export enum DATE_FORMAT {
-  KOREAN = "KOREAN",
-  DASH = "DASH",
-  DOT = "DOT",
+export enum UNIT {
+  YEAR = "year",
+  MONTH = "month",
+  WEEK = "week",
+  DAY = "day",
 }
 
-interface DateParams {
+export interface ConstructorParams {
+  year: number;
+  month: number;
+  day: number;
+}
+
+export interface OptionalParams {
   year?: number;
   month?: number;
   day?: number;
 }
 
-interface getFullStringParams {
-  DateFormat: DATE_FORMAT;
-  isYearTwoDigit?: boolean;
-  isMonthTwoDigit?: boolean;
-  isDayTwoDigit?: boolean;
-}
-
-interface getYearMonthParams {
-  DateFormat: DATE_FORMAT;
-  isYearTwoDigit?: boolean;
-  isMonthTwoDigit?: boolean;
-}
-
-interface getMonthDayParams {
-  DateFormat: DATE_FORMAT;
-  isMonthTwoDigit?: boolean;
-  isDayTwoDigit?: boolean;
-}
-
 export class Date {
-  private year: number;
-  private month: number;
-  private day: number;
-  private weekday: number;
-  private weekNumber: number;
+  dateTime: DateTime;
 
-  constructor(params: DateTime) {
-    this.year = params?.year ?? DateTime.now().year;
-    this.month = params?.month ?? DateTime.now().month;
-    this.day = params?.day ?? DateTime.now().day;
-    this.weekday = params?.weekday ?? DateTime.now().weekday;
-    this.weekNumber = params?.weekNumber ?? DateTime.now().weekNumber;
+  /**
+   * Constructor
+   * @param params year, month, day
+   */
+  constructor(params?: ConstructorParams) {
+    this.dateTime = params
+      ? DateTime.local(params.year, params.month, params.day)
+      : DateTime.now();
   }
 
-  static string(string: string) {
-    const split = string.split("-");
+  /**
+   * Constructor
+   * @param date time string ex) "2022-03-14"
+   * @returns Date
+   */
+  static string(date: string) {
+    const split = date.split("-");
     const year = +split[0];
-    const month = +split[1];
-    const day = +split[2];
-    return new Date(DateTime.local(year, month, day));
-  }
-
-  set({ year, month, day }: DateParams) {
-    const currentDate = this.getDateTime();
-    const result = currentDate.set({ year, month, day });
-    this.setParamsFromDateTime(result);
-  }
-
-  plus({ year, month, day }: DateParams) {
-    const currentDate = this.getDateTime();
-    const result = currentDate.plus({ year, month, day });
-    this.setParamsFromDateTime(result);
-  }
-
-  setParamsFromDateTime(dateTime: DateTime): void {
-    this.year = dateTime.year;
-    this.month = dateTime.month;
-    this.day = dateTime.day;
-    this.weekday = dateTime.weekday;
-    this.weekNumber = dateTime.weekNumber;
-  }
-
-  getDateTime(): DateTime {
-    return DateTime.local(this.getYear(), this.getMonth(), this.getDay());
-  }
-
-  getYear(): number {
-    return this.year;
-  }
-
-  getMonth(): number {
-    return this.month;
-  }
-
-  getDay(): number {
-    return this.day;
-  }
-
-  getLastDay(): number {
-    return this.getDateTime().endOf("month").day;
-  }
-
-  getWeekday(): number {
-    return this.weekday;
-  }
-
-  getWeekdayString(): string {
-    return WEEK_DAY[this.getWeekday() - 1];
-  }
-
-  getWeekdayKorean(): string {
-    return WEEK_DAY_KOREAN[this.getWeekday() - 1];
-  }
-
-  getWeekNumber(): number {
-    return this.weekNumber;
-  }
-
-  isEqualDate(Date: Date): boolean {
-    return this.getDateTime().equals(Date.getDateTime());
-  }
-
-  isEqualMonth(Date: Date): boolean {
-    return (
-      this.getYear() === Date.getYear() && this.getMonth() === Date.getMonth()
+    const month = Math.min(+split[1], 12);
+    const day = Math.min(
+      +split[2],
+      DateTime.local(year, month).endOf("month").day
     );
+    return new Date({ year, month, day });
   }
 
-  isEqaulDay(Date: Date): boolean {
-    return this.isEqualMonth(Date) && this.getDay() === Date.getDay();
+  /**
+   * @returns luxon datetime
+   */
+  getDateTime(): DateTime {
+    return this.dateTime;
   }
 
-  isDiffMonth(Date: Date): boolean {
-    return this.getMonth() !== Date.getMonth();
+  /**
+   * @returns year of date
+   */
+  getYear(): number {
+    return this.dateTime.year;
   }
 
-  getFullString({
-    DateFormat,
-    isYearTwoDigit = false,
-    isMonthTwoDigit = true,
-    isDayTwoDigit = true,
-  }: getFullStringParams): string {
-    let string;
-    switch (DateFormat) {
-      case DATE_FORMAT.KOREAN:
-        string = `${this.getYearString(isYearTwoDigit)}년 ${this.getMonthString(
-          isMonthTwoDigit
-        )}월 ${this.getDayString(isDayTwoDigit)}일`;
-        break;
-      case DATE_FORMAT.DASH:
-        string = `${this.getYearString(isYearTwoDigit)}-${this.getMonthString(
-          isMonthTwoDigit
-        )}-${this.getDayString(isDayTwoDigit)}`;
-        break;
-      case DATE_FORMAT.DOT:
-        string = `${this.getYearString(isYearTwoDigit)}.${this.getMonthString(
-          isMonthTwoDigit
-        )}.${this.getDayString(isDayTwoDigit)}`;
-        break;
-    }
-    return string;
+  /**
+   * @returns month of date
+   */
+  getMonth(): number {
+    return this.dateTime.month;
   }
 
-  getYearMonthString({
-    DateFormat,
-    isYearTwoDigit = false,
-    isMonthTwoDigit = true,
-  }: getYearMonthParams): string {
-    let string;
-    switch (DateFormat) {
-      case DATE_FORMAT.KOREAN:
-        string = `${this.getYearString(isYearTwoDigit)}년 ${this.getMonthString(
-          isMonthTwoDigit
-        )}월`;
-        break;
-      case DATE_FORMAT.DASH:
-        string = `${this.getYearString(isYearTwoDigit)}-${this.getMonthString(
-          isMonthTwoDigit
-        )}`;
-        break;
-      case DATE_FORMAT.DOT:
-        string = `${this.getYearString(isYearTwoDigit)}.${this.getMonthString(
-          isMonthTwoDigit
-        )}`;
-        break;
-    }
-    return string;
+  /**
+   * @returns weekday of date
+   */
+  getWeekday(): number {
+    return this.dateTime.weekday;
   }
 
-  getMonthDayString({
-    DateFormat,
-    isMonthTwoDigit = true,
-    isDayTwoDigit = true,
-  }: getMonthDayParams): string {
-    let string;
-    switch (DateFormat) {
-      case DATE_FORMAT.KOREAN:
-        string = `${this.getMonthString(isMonthTwoDigit)}월 ${this.getDayString(
-          isDayTwoDigit
-        )}일`;
-        break;
-      case DATE_FORMAT.DASH:
-        string = `${this.getMonthString(isMonthTwoDigit)}-${this.getDayString(
-          isDayTwoDigit
-        )}`;
-        break;
-      case DATE_FORMAT.DOT:
-        string = `${this.getMonthString(isMonthTwoDigit)}.${this.getDayString(
-          isDayTwoDigit
-        )}`;
-        break;
-    }
-    return string;
+  /**
+   * @returns weeknumber of date
+   */
+  getWeekNumber(): number {
+    return this.dateTime.weekNumber;
   }
 
-  getYearString(isTwoDigit?: boolean): string {
-    return isTwoDigit
-      ? `${this.getYear()}`
-      : this.getYear() < 10
-      ? `000${this.getYear()}`
-      : this.getYear() < 100
-      ? `00${this.getYear()}`
-      : this.getYear() < 1000
-      ? `0${this.getYear()}`
-      : `${this.getYear()}`;
+  /**
+   * @returns day of date
+   */
+  getDay(): number {
+    return this.dateTime.day;
   }
 
-  getMonthString(isTwoDigit?: boolean): string {
-    return isTwoDigit
-      ? `${this.getMonth() < 10 ? `0${this.getMonth()}` : `${this.getMonth()}`}`
-      : `${this.getMonth()}`;
+  /**
+   * @param unit year, month, week, day
+   * @returns start of the unit
+   */
+  getStart(unit: UNIT): DateTime {
+    return this.getDateTime().startOf(unit);
   }
 
-  getDayString(isTwoDigit?: boolean): string {
-    return isTwoDigit
-      ? `${this.getDay() < 10 ? `0${this.getDay()}` : `${this.getDay()}`}`
-      : `${this.getDay()}`;
+  /**
+   * @param unit year, month, week, day
+   * @returns end of the unit
+   */
+  getEnd(unit: UNIT): DateTime {
+    return this.getDateTime().endOf(unit);
+  }
+
+  /**
+   * @param year year to set
+   * @param month month to set
+   * @param day day to set
+   */
+  set({ year, month, day }: OptionalParams) {
+    this.dateTime = this.dateTime.set({ year, month, day });
+  }
+
+  /**
+   * @param year year to add
+   * @param month month to add
+   * @param day day to add
+   */
+  plus({ year, month, day }: OptionalParams) {
+    this.dateTime = this.dateTime.plus({ year, month, day });
+  }
+
+  /**
+   * @param date date to compare
+   * @returns is euqal date
+   */
+  isEqual(date: Date): boolean {
+    return this.getDateTime().equals(date.getDateTime());
+  }
+
+  /**
+   * @returns date string ex) "2022-03-14"
+   */
+  getString(): string {
+    const year = fillZero(this.getYear(), 4);
+    const month = fillZero(this.getMonth());
+    const day = fillZero(this.getDay());
+    return `${year}-${month}-${day}`;
   }
 }
+
+export interface getCalendarParams {
+  date: Date;
+  mondayFirst?: boolean;
+}
+
+export const getCalendarDate = ({
+  date,
+  mondayFirst = true,
+}: getCalendarParams): Array<Date> => {
+  const startDate = mondayFirst
+    ? getNearestPrevMonday(date.getDateTime().startOf("month"))
+    : getNearestPrevSunday(date.getDateTime().startOf("month"));
+  const endDate = mondayFirst
+    ? getNearestNextSunday(date.getDateTime().endOf("month"))
+    : getNearestNextSaturday(date.getDateTime().endOf("month"));
+
+  const calendarDate: Array<Date> = [];
+
+  for (let i = startDate; i <= endDate; i = i.plus({ days: 1 })) {
+    const { year, month, day } = i;
+
+    calendarDate.push(new Date({ year, month, day }));
+  }
+
+  return calendarDate;
+};
 
 const getNearestPrevMonday = (dateTime: DateTime): DateTime => {
   const dist = 1 - dateTime.weekday;
@@ -264,31 +189,4 @@ const getNearestPrevSunday = (dateTime: DateTime): DateTime => {
 const getNearestNextSaturday = (dateTime: DateTime): DateTime => {
   const dist = 6 - dateTime.weekday;
   return dateTime.plus({ days: dist });
-};
-
-export interface getCalendarDateParams {
-  dateTime: DateTime;
-  isMondayFirst?: boolean;
-}
-
-export const getCalendarDate = ({
-  dateTime,
-  isMondayFirst = true,
-}: getCalendarDateParams): Array<Date> => {
-  const startDate = isMondayFirst
-    ? getNearestPrevMonday(dateTime.startOf("month"))
-    : getNearestPrevSunday(dateTime.startOf("month"));
-  const endDate = isMondayFirst
-    ? getNearestNextSunday(dateTime.endOf("month"))
-    : getNearestNextSaturday(dateTime.endOf("month"));
-
-  const calendarDate: Array<Date> = [];
-
-  for (let i = startDate; i <= endDate; i = i.plus({ days: 1 })) {
-    const { year, month, day } = i;
-
-    calendarDate.push(new Date(DateTime.local(year, month, day)));
-  }
-
-  return calendarDate;
 };

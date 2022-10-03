@@ -1,10 +1,15 @@
-import * as Style from "./style";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Time, TIME_TYPE } from "../../../types/time";
+import * as Styled from "./style";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Time, TIMES_OF_DAY, UNIT } from "../../../types/time";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
-import useCursor from "../../../hooks/useCursor";
-import { SizeProps } from "../../../types/props";
+import { InputOnchangeProperty, SizeProps } from "../../../types/props";
 import TimeType from "./TimeType";
 import Hour from "./Hour";
 import Min from "./Min";
@@ -12,207 +17,213 @@ import Seconds from "./Seconds";
 import ArrowButton from "../../common/ArrowButton";
 import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
-import { quotient } from "../../../utilities/number";
+import { dispatchChange } from "../../../utilities/event";
+import {
+  InputChangeEvent,
+  InputFocusEvent,
+  InputForwardedRef,
+  InputOnFoucsProperty,
+} from "../../../types/props/tags/input";
+import { replaceAt } from "../../../utilities/string";
+import _ from "lodash";
+import { ListItemMouseEvent } from "../../../types/props/tags/listItem";
+import useCursor from "../../../hooks/useCursor";
 
 interface TimePickerProps extends SizeProps {
-  value: string;
-  onChange: (value: any) => void;
   show24Hour?: boolean;
   showSeconds?: boolean;
   showItemCount?: number;
+
+  value: string;
+  onChange: InputOnchangeProperty;
+  onFocus?: InputOnFoucsProperty;
+  onSearch?: InputOnchangeProperty;
+
   style?: React.CSSProperties;
   listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 }
 
-const TimePicker = (props: TimePickerProps) => {
-  const {
-    value,
-    onChange,
-    show24Hour = false,
-    showSeconds = false,
-    showItemCount = 8,
-    listStyle,
-    itemStyle,
-  } = props;
-  const { active, setActive, handleActive } = useActive();
-  const [time, setTime] = useState<Time>(Time.string("" + value));
-  const [timeType, setTimeType] = useState<TIME_TYPE>(time.getTimeType());
-  const [hour, setHour] = useState<number>(time.getHour() % 12);
-  const [min, setMin] = useState<number>(time.getMin());
-  const [seconds, setSeconds] = useState<number>(time.getSeconds());
+const TimePicker = forwardRef(
+  (props: TimePickerProps, forwardedRef: InputForwardedRef) => {
+    const {
+      show24Hour = false,
+      showSeconds = false,
+      showItemCount = 8,
+      value,
+      onChange,
+      onFocus = () => {},
+      onSearch = () => {},
+      listStyle,
+      itemStyle,
+    } = props;
+    const { active, setActive, handleActive } = useActive();
+    const [time, setTime] = useState<Time>(Time.string("" + value));
+    const [timesOfDay, setTimesOfDay] = useState<TIMES_OF_DAY>(
+      time.getTimesOfDay()
+    );
+    const [hour, setHour] = useState<number>(time.getHour() % 12);
+    const [min, setMin] = useState<number>(time.getMin());
+    const [seconds, setSeconds] = useState<number>(time.getSeconds());
+    const containerRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const hourRef = useRef<HTMLUListElement>(null);
+    const minRef = useRef<HTMLUListElement>(null);
+    const secondsRef = useRef<HTMLUListElement>(null);
+    const { setCursor } = useCursor(inputRef, time);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const timeTypeRef = useRef<HTMLUListElement>(null);
-  const hourRef = useRef<HTMLUListElement>(null);
-  const minRef = useRef<HTMLUListElement>(null);
-  const secondsRef = useRef<HTMLUListElement>(null);
+    const itemHeight =
+      containerRef.current?.getElementsByTagName("li")[0].clientHeight ?? 0;
 
-  useClickOutside(containerRef, setActive);
-  useSetScrollPosition(
-    hourRef,
-    show24Hour
-      ? hour * (hourRef.current?.clientHeight ?? 0)
-      : (hour % 12) * (hourRef.current?.clientHeight ?? 0),
-    active
-  );
-  useSetScrollPosition(
-    minRef,
-    min * (minRef.current?.clientHeight ?? 0),
-    active
-  );
-  useSetScrollPosition(
-    secondsRef,
-    seconds * (secondsRef.current?.clientHeight ?? 0),
-    active
-  );
+    useClickOutside(containerRef, setActive);
+    useSetScrollPosition(hourRef, hour * itemHeight, active);
+    useSetScrollPosition(minRef, min * itemHeight, active);
+    useSetScrollPosition(secondsRef, seconds * itemHeight, active);
 
-  useEffect(() => {
-    const newTime = new Time({
-      hour: hour + (timeType === TIME_TYPE.PM ? 12 : 0),
-      min,
-      seconds,
-    });
-    setTime(newTime);
-  }, [timeType, hour, min, seconds]);
+    useEffect(() => {
+      handleDispatchChange(time.getString({ show24Hour: true, showSeconds }));
+      setTimesOfDay(time.getTimesOfDay());
+      setHour(time.getHour() % 12);
+      setMin(time.getMin());
+      setSeconds(time.getSeconds());
+    }, [time]);
 
-  useEffect(() => {
-    handleDispatchChange(time.getString({ show24Hour: true, showSeconds }));
-  }, [time]);
+    /**
+     * Click handler
+     */
+    const handleClick = useCallback(
+      (e: ListItemMouseEvent, value: number, type: UNIT) => {
+        const newTime = _.cloneDeep(time);
+        switch (type) {
+          case UNIT.TIMES_OF_DAY:
+            newTime.setHour(hour, value ? TIMES_OF_DAY.PM : TIMES_OF_DAY.AM);
+            break;
+          case UNIT.HOUR:
+            newTime.setHour(value, time.getTimesOfDay());
+            break;
+          case UNIT.MIN:
+            newTime.setMin(value);
+            break;
+          case UNIT.SECONDS:
+            newTime.setSeconds(value);
+            break;
+        }
+        setTime(newTime);
+      },
+      [time, hour]
+    );
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-  }, []);
+    /**
+     * Change Handler
+     */
+    const handleChange = useCallback(
+      (e: InputChangeEvent) => {
+        const event: any = e.nativeEvent;
+        const target = e.target;
+        const cursor = target?.selectionStart;
+        if (!cursor || !event.data) return;
+        const data = event.data.toUpperCase();
+        setCursor(cursor);
+        // in show24Hour, only numbers are allowed
+        if (show24Hour && isNaN(+data)) return;
+        // in show12Hour, optionally allowed
+        if (!show24Hour) {
+          if (cursor === 1 && !(data === "A" || data === "P")) return;
+          if (cursor === 2 && data !== "M") return;
+          if (3 <= cursor && isNaN(+data)) return;
+        }
+        // cursor positioned char is colon or space, replaced
+        if (
+          target.value.charAt(cursor) === ":" ||
+          target.value.charAt(cursor) === " "
+        ) {
+          target.value = replaceAt(target.value, cursor - 1, "");
+          target.value = replaceAt(target.value, cursor, data);
+          setCursor(cursor + 1);
+        } else {
+          target.value = replaceAt(target.value, cursor, "");
+          setCursor(cursor);
+        }
+        setTime(Time.string(target.value));
+        onSearch(e);
+      },
+      [show24Hour]
+    );
 
-  const handleFocus = useCallback(
-    (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    /**
+     * Focus handler
+     */
+    const handleFocus = useCallback((e: InputFocusEvent) => {
       setActive(true);
-      // props.onFocus && props.onFocus(e);
-    },
-    []
-  );
+      onFocus(e);
+    }, []);
 
-  const handleDispatchChange = useCallback((value: string) => {
-    const input: any = containerRef.current?.getElementsByTagName("input")[0];
-    if (input) {
-      const lastValue = input.value;
-      input.value = value;
-      const event = new Event("input", { bubbles: true });
-      const tracker = input._valueTracker;
-      if (tracker) {
-        tracker.setValue(lastValue);
-      }
-      input.dispatchEvent(event);
-    }
-  }, []);
+    /**
+     * Dispatch change
+     */
+    const handleDispatchChange = useCallback((value: string) => {
+      dispatchChange(containerRef, value);
+    }, []);
 
-  const style: React.CSSProperties = {
-    ...getSizeProps(props),
-    ...props.style,
-  };
+    const style: React.CSSProperties = {
+      ...getSizeProps(props),
+      ...props.style,
+    };
 
-  return (
-    <Style.Container ref={containerRef} active={active} style={style}>
-      <Style.Input
-        ref={inputRef}
-        value={Time.string("" + value).getString({ show24Hour, showSeconds })}
-        onChange={handleChange}
-        onFocus={handleFocus}
-      />
-      <ArrowButton
-        handleOpenClick={handleActive}
-        isOpen={active}
-        direction={active ? "Up" : "Down"}
-      />
-      {active && (
-        <Style.ListContainer
+    return (
+      <Styled.Container ref={containerRef} active={active} style={style}>
+        <input
+          ref={forwardedRef}
+          value={value}
+          onChange={onChange}
+          readOnly
+          hidden
+        />
+        <Styled.Input
+          ref={inputRef}
+          value={time.getString({ show24Hour, showSeconds })}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+        <ArrowButton
+          onClick={handleActive}
+          direction={active ? "Up" : "Down"}
+        />
+        <Styled.ListContainer
+          active={active}
           itemHeight={itemStyle?.height ?? "35px"}
           showItemCount={showItemCount}
           style={listStyle}
         >
           <TimeType
-            timeTypeRef={timeTypeRef}
-            timeType={timeType}
-            setTimeType={setTimeType}
+            timeType={timesOfDay}
+            onClick={handleClick}
             itemStyle={itemStyle}
           />
           <Hour
             hourRef={hourRef}
             hour={hour}
-            setHour={setHour}
+            onClick={handleClick}
             itemStyle={itemStyle}
           />
           <Min
             minRef={minRef}
             min={min}
-            setMin={setMin}
+            onClick={handleClick}
             itemStyle={itemStyle}
           />
           {showSeconds && (
             <Seconds
               secondsRef={secondsRef}
               seconds={seconds}
-              setSeconds={setSeconds}
+              onClick={handleClick}
               itemStyle={itemStyle}
             />
           )}
-        </Style.ListContainer>
-      )}
-    </Style.Container>
-  );
-};
+        </Styled.ListContainer>
+      </Styled.Container>
+    );
+  }
+);
 
 export default TimePicker;
-
-const handleChangeHour = (
-  firstDigit: boolean,
-  data: number,
-  dispatchData: React.Dispatch<React.SetStateAction<number>>
-) => {
-  if (firstDigit) {
-    if (0 <= data && data < 2) {
-      dispatchData(data * 10);
-    } else {
-      dispatchData(data);
-    }
-  } else {
-    if (0 <= data && data < 3) {
-      dispatchData((prev) => quotient(prev, 10) * 10 + data);
-    } else {
-      dispatchData(data);
-    }
-  }
-};
-
-const handleChangeMin = (
-  firstDigit: boolean,
-  data: number,
-  dispatchData: React.Dispatch<React.SetStateAction<number>>
-) => {
-  if (firstDigit) {
-    if (0 <= data && data <= 5) {
-      dispatchData(data * 10);
-    } else {
-      dispatchData(data);
-    }
-  } else {
-    dispatchData((prev) => quotient(prev, 10) * 10 + data);
-  }
-};
-
-const handleChangeSeconds = (
-  firstDigit: boolean,
-  data: number,
-  dispatchData: React.Dispatch<React.SetStateAction<number>>
-) => {
-  if (firstDigit) {
-    if (0 <= data && data <= 5) {
-      dispatchData(data * 10);
-    } else {
-      dispatchData(data);
-    }
-  } else {
-    dispatchData((prev) => quotient(prev, 10) * 10 + data);
-  }
-};

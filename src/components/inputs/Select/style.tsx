@@ -10,7 +10,7 @@ export const Container = styled(ContainerBase)``;
 
 export const Input = styled(InputEllipsisBase)``;
 
-interface ListStyleProps {
+export interface ListStyleProps {
   itemHeight: Property.Height<string | number> | undefined;
   showItemCount: number;
 }

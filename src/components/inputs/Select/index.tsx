@@ -14,7 +14,6 @@ import {
   SizeProps,
 } from "../../../types/props";
 import ArrowButton from "../../../components/common/ArrowButton";
-import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
 import _ from "lodash";
@@ -28,20 +27,19 @@ import {
   InputOnFoucsProperty,
 } from "../../../types/props/tags/input";
 import { dispatchChange } from "../../../utilities/event";
+import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 
 type Children = ReactElement<OptionProps>;
 
 interface SelectListProps extends SizeProps {
   searchable?: boolean;
   showItemCount?: number;
-
   children?: Children | Array<Children>;
   value: InputValueProperty;
   placeholder?: InputPlaceholderProperty;
   onChange: InputOnchangeProperty;
   onFocus?: InputOnFoucsProperty;
   onSearch?: InputOnchangeProperty;
-
   style?: React.CSSProperties;
   listStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
@@ -50,14 +48,14 @@ interface SelectListProps extends SizeProps {
 const Select = forwardRef(
   (props: SelectListProps, forwardedRef: InputForwardedRef) => {
     const {
+      searchable = false,
+      showItemCount = 8,
       children,
       value,
       placeholder,
       onChange,
       onFocus = () => {},
       onSearch = () => {},
-      searchable = false,
-      showItemCount = 8,
       listStyle,
       itemStyle,
     } = props;
@@ -69,13 +67,14 @@ const Select = forwardRef(
     const listRef = useRef<HTMLUListElement>(null);
     const itemRef = useRef<HTMLLIElement>(null);
 
+    const itemIndex = result.findIndex((item) => item.props.value === value);
+    const itemHeight = itemRef.current?.clientHeight ?? 0;
+
     useClickOutside(containerRef, setActive);
+    useSetScrollPosition(listRef, itemIndex * itemHeight, active);
     useEffect(() => {
-      setResult(childrens);
-      if (listRef.current) {
-        listRef.current.scrollTop =
-          result.findIndex((item) => item.props.value === value) *
-          (itemRef.current?.clientHeight ?? 0);
+      if (active) {
+        setResult(childrens);
       }
     }, [active]);
 
@@ -107,10 +106,6 @@ const Select = forwardRef(
       onSearch(e);
     }, []);
 
-    const handleChange = useCallback((e: InputChangeEvent) => {
-      onChange(e);
-    }, []);
-
     const handleFocus = useCallback((e: InputFocusEvent) => {
       setActive(true);
       onFocus(e);
@@ -132,7 +127,7 @@ const Select = forwardRef(
         <input
           ref={forwardedRef}
           value={value}
-          onChange={handleChange}
+          onChange={onChange}
           readOnly
           hidden
         />
@@ -145,30 +140,28 @@ const Select = forwardRef(
           readOnly={searchable ? false : true}
         />
         <ArrowButton
-          handleOpenClick={handleActive}
-          isOpen={active}
+          onClick={handleActive}
           direction={active ? "Up" : "Down"}
         />
-        {active && (
-          <Styled.List
-            ref={listRef}
-            itemHeight={itemStyle?.height ?? "35px"}
-            showItemCount={Math.min(childrens.length, showItemCount)}
-            style={listStyle}
-          >
-            {result.map((item) => (
-              <Styled.Item
-                key={item.props.value}
-                ref={itemRef}
-                active={item.props.value === value}
-                onClick={() => handleDispatchChange(item.props)}
-                style={itemStyle}
-              >
-                {item.props.children}
-              </Styled.Item>
-            ))}
-          </Styled.List>
-        )}
+        <Styled.List
+          ref={listRef}
+          active={active}
+          itemHeight={itemStyle?.height ?? "35px"}
+          showItemCount={Math.min(childrens.length, showItemCount)}
+          style={listStyle}
+        >
+          {result.map((item) => (
+            <Styled.Item
+              key={item.props.value}
+              ref={itemRef}
+              active={item.props.value === value}
+              onClick={() => handleDispatchChange(item.props)}
+              style={itemStyle}
+            >
+              {item.props.children}
+            </Styled.Item>
+          ))}
+        </Styled.List>
       </Styled.Container>
     );
   }

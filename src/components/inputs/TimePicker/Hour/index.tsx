@@ -1,29 +1,30 @@
-import * as Style from "../style";
+import * as Styled from "../style";
 import React from "react";
-import { HOURS } from "../../../../types/time";
+import { HOURS, UNIT } from "../../../../types/time";
 import { fillZero } from "../../../../utilities/number";
+import { ListItemMouseEvent } from "../../../../types/props/tags/listItem";
 
 interface HourProps {
   hourRef: React.RefObject<HTMLUListElement>;
   hour: number;
-  setHour: React.Dispatch<React.SetStateAction<number>>;
+  onClick: (e: ListItemMouseEvent, value: number, unit: UNIT) => void;
   itemStyle?: React.CSSProperties;
 }
 
-const Hour = ({ hourRef, hour, setHour, itemStyle }: HourProps) => {
+const Hour = ({ hourRef, hour, onClick, itemStyle }: HourProps) => {
   return (
-    <Style.List ref={hourRef}>
+    <Styled.List ref={hourRef}>
       {HOURS.map((item, index) => (
-        <Style.Item
+        <Styled.Item
           key={index}
           active={hour === item % 12}
-          onClick={() => setHour(item % 12)}
+          onClick={(e) => onClick(e, item % 12, UNIT.HOUR)}
           style={itemStyle}
         >
           {fillZero(item)}
-        </Style.Item>
+        </Styled.Item>
       ))}
-    </Style.List>
+    </Styled.List>
   );
 };
 
