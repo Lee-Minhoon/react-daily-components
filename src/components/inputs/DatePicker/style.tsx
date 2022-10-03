@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { EffectedItemBase, ItemBase } from "../../base/ItemBase";
 import { ContainerBase } from "../../base/ContainerBase";
 import { InputBase } from "../../base/InputBase";
 import { ListBase } from "../../base/ListBase";
+import EffectedItem from "../../common/EffectedItem";
 
 export const Container = styled(ContainerBase)``;
 
@@ -45,6 +45,6 @@ export const Days = styled.ul`
   list-style-type: none;
 `;
 
-export const Day = styled(EffectedItemBase)`
+export const Day = styled(EffectedItem)`
   z-index: 1;
 `;

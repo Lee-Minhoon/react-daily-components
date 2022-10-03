@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { ContainerBase } from "../../base/ContainerBase";
-import { EffectedItemBase } from "../../base/ItemBase";
 import { InputBase } from "../../base/InputBase";
 import type { Property } from "csstype";
 import { ListContainerBase } from "../../base/ListBase";
+import EffectedItem from "../../common/EffectedItem";
 
 export const Container = styled(ContainerBase)``;
 
@@ -31,6 +31,6 @@ export const List = styled.ul`
   margin: 0;
 `;
 
-export const Item = styled(EffectedItemBase)`
+export const Item = styled(EffectedItem)`
   text-align: center;
 `;

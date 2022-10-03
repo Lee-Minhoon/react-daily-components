@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { ELLIPSIS } from "../../../constants/css";
 import { ContainerBase } from "../../base/ContainerBase";
 import { InputEllipsisBase } from "../../base/InputBase";
-import { EffectedItemBase } from "../../base/ItemBase";
 import { ListBase } from "../../../components/base/ListBase";
 import type { Property } from "csstype";
+import EffectedItem from "../../common/EffectedItem";
 
 export const Container = styled(ContainerBase)``;
 
@@ -25,6 +25,6 @@ export const List = styled(ListBase)<ListStyleProps>`
 
 export const Option = styled.option``;
 
-export const Item = styled(EffectedItemBase)`
+export const Item = styled(EffectedItem)`
   ${ELLIPSIS};
 `;
