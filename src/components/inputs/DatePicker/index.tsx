@@ -5,9 +5,8 @@ import _ from "lodash";
 import { replaceAt } from "../../../utilities/string";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useCursor from "../../../hooks/useCursor";
-import { InputOnchangeProperty, SizeProps } from "../../../types/props";
+import { InputOnchangeProperty } from "../../../types/props";
 import ArrowButton from "../../common/ArrowButton";
-import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
 import Month from "./Month";
 import Weekdays from "./Weekdays";
@@ -24,7 +23,7 @@ import {
   ListItemOnClickProperty,
 } from "../../../types/props/tags/listItem";
 
-interface DatePickerProps extends SizeProps {
+interface DatePickerProps {
   weekdays?: Array<string>;
   mondayFirst?: boolean;
   weekendColor?: boolean;
@@ -117,7 +116,6 @@ const DatePicker = forwardRef(
     }, []);
 
     const style: React.CSSProperties = {
-      ...getSizeProps(props),
       ...props.style,
     };
 

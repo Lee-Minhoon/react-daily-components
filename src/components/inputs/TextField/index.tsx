@@ -1,20 +1,16 @@
 import {
-  FontProps,
+  AllAbbrProps,
+  AllProperties,
   InputDefaultProps,
   InputForwardedRef,
-  SizeProps,
-  WhiteSpaceProps,
 } from "../../../types/props";
 import * as Styled from "./style";
 import React, { forwardRef, useCallback, useState } from "react";
-import {
-  getFontProps,
-  getSizeProps,
-  getWhiteSpaceProps,
-} from "../../../utilities/props";
-import _ from "lodash";
 
-interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
+import _ from "lodash";
+import { getStyleProps } from "../../../utilities/props";
+
+interface TextFieldProps extends InputDefaultProps, AllAbbrProps {
   type?: "email" | "number" | "password" | "tel" | "text" | "url";
   label?: string;
   regex?: RegExp;
@@ -24,10 +20,7 @@ interface TextFieldProps extends InputDefaultProps, WhiteSpaceProps {
  * TextField Component
  */
 const TextField = forwardRef(
-  (
-    props: TextFieldProps & SizeProps & FontProps,
-    forwardedRef: InputForwardedRef
-  ) => {
+  (props: TextFieldProps & AllProperties, forwardedRef: InputForwardedRef) => {
     const { label, regex } = props;
     const [active, setActive] = useState<boolean>(false);
 
@@ -55,15 +48,8 @@ const TextField = forwardRef(
       []
     );
 
-    const style: React.CSSProperties = {
-      ...getSizeProps(props),
-      ...getWhiteSpaceProps(props),
-      ...getFontProps(props),
-      ...props.style,
-    };
-
     return (
-      <Styled.Container active={active} style={style}>
+      <Styled.Container active={active} style={getStyleProps(props)}>
         <Styled.Input
           {..._.omit(props, "style")}
           ref={forwardedRef}

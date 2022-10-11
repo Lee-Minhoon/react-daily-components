@@ -9,13 +9,12 @@ import React, {
 import { Time, TIMES_OF_DAY, UNIT } from "../../../types/time";
 import useClickOutside from "../../../hooks/useClickOutside";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
-import { InputOnchangeProperty, SizeProps } from "../../../types/props";
+import { InputOnchangeProperty } from "../../../types/props";
 import TimeType from "./TimeType";
 import Hour from "./Hour";
 import Min from "./Min";
 import Seconds from "./Seconds";
 import ArrowButton from "../../common/ArrowButton";
-import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
 import { dispatchChange } from "../../../utilities/event";
 import {
@@ -29,7 +28,7 @@ import _ from "lodash";
 import { ListItemMouseEvent } from "../../../types/props/tags/listItem";
 import useCursor from "../../../hooks/useCursor";
 
-interface TimePickerProps extends SizeProps {
+interface TimePickerProps {
   show24Hour?: boolean;
   showSeconds?: boolean;
   showItemCount?: number;
@@ -166,7 +165,6 @@ const TimePicker = forwardRef(
     }, []);
 
     const style: React.CSSProperties = {
-      ...getSizeProps(props),
       ...props.style,
     };
 

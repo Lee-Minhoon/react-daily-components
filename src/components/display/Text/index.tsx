@@ -1,12 +1,9 @@
 import { ForwardedRef, forwardRef } from "react";
 import {
-  FontProps,
   ParagraphDefaultProps,
   QuoteDefaultProps,
   SpanDefaultProps,
-  WhiteSpaceProps,
 } from "../../../types/props";
-import { getFontProps, getWhiteSpaceProps } from "../../../utilities/props";
 import * as Styled from "./style";
 
 const TAGS = {
@@ -28,7 +25,7 @@ type TextTagForwardedRef = ForwardedRef<
   HTMLParagraphElement & HTMLSpanElement & HTMLQuoteElement
 >;
 
-interface TextProps extends TextTagProps, WhiteSpaceProps {
+interface TextProps extends TextTagProps {
   tag?: Tags;
 }
 
@@ -36,12 +33,10 @@ interface TextProps extends TextTagProps, WhiteSpaceProps {
  * Text Component
  */
 const Text = forwardRef(
-  (props: TextProps & FontProps, forwardedRef: TextTagForwardedRef) => {
+  (props: TextProps, forwardedRef: TextTagForwardedRef) => {
     const { tag = "span" } = props;
 
     const style: React.CSSProperties = {
-      ...getWhiteSpaceProps(props),
-      ...getFontProps(props),
       ...props.style,
     };
 

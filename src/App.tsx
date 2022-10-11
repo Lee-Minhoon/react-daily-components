@@ -38,7 +38,7 @@ function App() {
 
   return (
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
-      <Flex d="column" width={"500px"} style={{ padding: "20px" }}>
+      <Flex width={"500px"} style={{ padding: "20px" }} fd={"column"}>
         <Select
           ref={ref}
           value={value}
@@ -118,7 +118,7 @@ function App() {
         <br />
         <br />
         <br />
-        <Flex flex={""}></Flex>
+        <Flex>Hello World</Flex>
         <br />
         <TextField
           width={"200px"}
@@ -133,9 +133,7 @@ function App() {
         <br />
         <Text tag="p">df</Text>
         <Text tag="span">df</Text>
-        <Divider direction="horizontal" borderWidth="1px" label="?" />
 
-        <View w="20px" h="20px" bs="1px 1px 1px 1px black" margin="20px" />
         <Button variant="outlined" onClick={() => {}}>
           {"Button"}
         </Button>

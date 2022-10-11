@@ -39,14 +39,8 @@ export type {
   UnorderedListForwardedRef,
 } from "./tags/unorderedList";
 export type {
-  ContainerProps,
   ContainerPropsDeprecated,
-  ElementProps,
-  SizeProps,
   SizePropsDeprecated,
-  MaxSizeProps,
-  WhiteSpaceProps,
-  BackgroundProps,
-  FontProps,
-  BorderProps,
+  AllProperties,
+  AllAbbrProps,
 } from "./style";

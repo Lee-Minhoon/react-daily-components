@@ -1,12 +1,8 @@
 import { forwardRef, useRef } from "react";
 import type { StandardProperties } from "csstype";
-import {
-  DivDefaultProps,
-  DivForwardedRef,
-  WhiteSpaceProps,
-} from "../../../types/props";
-import { getWhiteSpaceProps } from "../../../utilities/props";
+import { DivDefaultProps, DivForwardedRef } from "../../../types/props";
 import * as Styled from "./style";
+import { AllProperties } from "../../../types/props/style";
 
 const DIRECTIONS = {
   horizontal: "horizontal",
@@ -14,7 +10,7 @@ const DIRECTIONS = {
 } as const;
 type Directions = keyof typeof DIRECTIONS;
 
-interface DividerProps extends DivDefaultProps, WhiteSpaceProps {
+interface DividerProps extends DivDefaultProps {
   direction?: Directions;
   label?: string;
   labelStyle?: React.CSSProperties;
@@ -42,7 +38,7 @@ interface DividerProps extends DivDefaultProps, WhiteSpaceProps {
  * Divider Component
  */
 const Divider = forwardRef(
-  (props: DividerProps, forwardedRef: DivForwardedRef) => {
+  (props: DividerProps & AllProperties, forwardedRef: DivForwardedRef) => {
     const { direction, label, labelStyle } = props;
     const labelRef = useRef<HTMLSpanElement>(null);
 
@@ -62,8 +58,8 @@ const Divider = forwardRef(
     const style: React.CSSProperties = {
       width: direction === "horizontal" ? "100%" : props.borderWidth,
       height: props.direction === "horizontal" ? "initial" : "100%",
-      ...getWhiteSpaceProps(props),
       ...border,
+      ...props,
       ...props.style,
     };
 

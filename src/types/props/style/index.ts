@@ -1,4 +1,4 @@
-import type { StandardProperties } from "csstype";
+import type { Properties } from "csstype";
 
 export interface SizePropsDeprecated {
   width?: number;
@@ -8,93 +8,111 @@ export interface SizePropsDeprecated {
 export interface ContainerPropsDeprecated extends SizePropsDeprecated {}
 
 /**
- * PropTypes of Container
+ * PropsTypes of All CSS Properties
  */
-export type ContainerProps = SizeProps &
-  MaxSizeProps &
-  WhiteSpaceProps &
-  BackgroundProps &
-  BorderProps;
+export type AllProperties = {
+  [key in keyof Properties]: Properties[key];
+};
 
 /**
- * PropTypes of Element
+ * AllPropTypes
  */
-export type ElementProps = SizeProps &
-  WhiteSpaceProps &
-  BackgroundProps &
-  BorderProps;
+export type AllAbbrProps = {
+  [key in keyOf<
+    typeof ALL_ABBR_PROPS
+  >]?: AllProperties[typeof ALL_ABBR_PROPS[key]];
+};
 
 /**
- * PropTypes of HTML width & height css
+ * Abbreviation PropTypes of HTML flex & grid
  */
-export interface SizeProps {
-  width?: StandardProperties["width"];
-  w?: StandardProperties["width"];
-  height?: StandardProperties["height"];
-  h?: StandardProperties["height"];
-}
+export const FLEX_GRID_ABBR_PROPS = {
+  fd: "flexDirection",
+  ac: "alignContent",
+  ai: "alignItems",
+  jc: "justifyContent",
+  wrap: "flexWrap",
+
+  gac: "gridAutoColumns",
+  gar: "gridAutoRows",
+  gaf: "gridAutoFlow",
+  gtc: "gridTemplateColumns",
+  gtr: "gridTemplateRows",
+  gta: "gridTemplateAreas",
+
+  rg: "rowGap",
+  cg: "columnGap",
+  gap: "gap",
+} as const;
 
 /**
- * PropTypes of HTML max_width & max_height css
+ * Abbreviation PropTypes of HTML width & height css
  */
-export interface MaxSizeProps {
-  maxWidth?: StandardProperties["maxWidth"];
-  mw?: StandardProperties["maxWidth"];
-  maxHeight?: StandardProperties["maxHeight"];
-  mh?: StandardProperties["maxHeight"];
-}
+export const SIZE_ABBR_PROPS = {
+  w: "width",
+  minW: "minWidth",
+  maxW: "maxWidth",
+  h: "height",
+  minH: "minHeight",
+  maxH: "maxHeight",
+} as const;
 
 /**
- * PropTypes of HTML margin & padding css
+ * Abbreviation PropTypes of HTML margin & padding css
  */
-export interface WhiteSpaceProps {
-  margin?: StandardProperties["margin"];
-  m?: StandardProperties["margin"];
-  padding?: StandardProperties["padding"];
-  p?: StandardProperties["padding"];
-}
+export const SPACE_ABBR_PROPS = {
+  mg: "margin",
+  mgt: "marginTop",
+  mgr: "marginRight",
+  mgb: "marginBottom",
+  mgl: "marginLeft",
+  pd: "padding",
+  pdt: "paddingTop",
+  pdr: "paddingRight",
+  pdb: "paddingBottom",
+  pdl: "paddingLeft",
+} as const;
 
 /**
- * PropTypes of HTML background css
+ * Abbreviation PropTypes of HTML background css
  */
-export interface BackgroundProps {
-  background?: StandardProperties["background"];
-  bg?: StandardProperties["background"];
-  backgroundColor?: StandardProperties["backgroundColor"];
-  bgc?: StandardProperties["backgroundColor"];
-}
+export const BACKGROUND_ABBR_PROPS = {
+  bg: "background",
+  bgc: "backgroundColor",
+} as const;
 
 /**
- * PropTypes of HTML font css
+ * Abbreviation PropTypes of HTML font css
  */
-export interface FontProps {
-  color?: StandardProperties["color"];
-  c?: StandardProperties["color"];
-  font?: StandardProperties["font"];
-  fontStyle?: StandardProperties["fontStyle"];
-  fst?: StandardProperties["fontStyle"];
-  fontWeight?: StandardProperties["fontWeight"];
-  fw?: StandardProperties["fontWeight"];
-  fontSize?: StandardProperties["fontSize"];
-  fsz?: StandardProperties["fontSize"];
-  fontFamily?: StandardProperties["fontFamily"];
-  ff?: StandardProperties["fontFamily"];
-  fontVariant?: StandardProperties["fontVariant"];
-  fv?: StandardProperties["fontVariant"];
-  lineHeight?: StandardProperties["lineHeight"];
-  lh?: StandardProperties["lineHeight"];
-  textDecoration?: StandardProperties["textDecoration"];
-  td?: StandardProperties["textDecoration"];
-}
+export const FONT_ABBR_PROPS = {
+  c: "color",
+  ft: "font",
+  ftst: "fontStyle",
+  ftw: "fontWeight",
+  fts: "fontSize",
+  ftf: "fontFamily",
+  ftv: "fontVariant",
+  lh: "lineHeight",
+  td: "textDecoration",
+} as const;
 
 /**
- * PropTypes of HTML border css
+ * Abbreviation PropTypes of HTML border css
  */
-export interface BorderProps {
-  border?: StandardProperties["border"];
-  bd?: StandardProperties["border"];
-  borderRadius?: StandardProperties["borderRadius"];
-  bdr?: StandardProperties["borderRadius"];
-  boxShadow?: StandardProperties["boxShadow"];
-  bs?: StandardProperties["boxShadow"];
-}
+export const BORDER_ABBR_PROPS = {
+  bd: "border",
+  bdr: "borderRadius",
+  bxs: "boxShadow",
+} as const;
+
+/**
+ * Merged All Prop Types
+ */
+export const ALL_ABBR_PROPS = {
+  ...FLEX_GRID_ABBR_PROPS,
+  ...SIZE_ABBR_PROPS,
+  ...SPACE_ABBR_PROPS,
+  ...BACKGROUND_ABBR_PROPS,
+  ...FONT_ABBR_PROPS,
+  ...BORDER_ABBR_PROPS,
+} as const;

@@ -3,13 +3,14 @@ import { forwardRef, MouseEvent, useCallback } from "react";
 import uesDebounce from "../../../hooks/useDebounce";
 import useThrottle from "../../../hooks/useThrottle";
 import {
+  AllAbbrProps,
+  AllProperties,
   ButtonDefaultProps,
   ButtonForwardedRef,
-  ElementProps,
 } from "../../../types/props";
-import { getElementProps } from "../../../utilities/props";
 import * as Styled from "./style";
 import { rippleEffect } from "../../../utilities/css";
+import { getStyleProps } from "../../../utilities/props";
 
 const VARIANTS = {
   text: Styled.TextButton,
@@ -18,7 +19,7 @@ const VARIANTS = {
 } as const;
 type Variants = keyof typeof VARIANTS;
 
-export interface ButtonProps extends ButtonDefaultProps, ElementProps {
+export interface ButtonProps extends ButtonDefaultProps, AllAbbrProps {
   variant?: Variants;
   debounce?: number;
   throttle?: number;
@@ -28,7 +29,7 @@ export interface ButtonProps extends ButtonDefaultProps, ElementProps {
  * Button Component
  */
 const Button = forwardRef(
-  (props: ButtonProps, forwardedRef: ButtonForwardedRef) => {
+  (props: ButtonProps & AllProperties, forwardedRef: ButtonForwardedRef) => {
     const theme = useTheme();
     const {
       onClick = () => {},
@@ -48,11 +49,6 @@ const Button = forwardRef(
       [onClick]
     );
 
-    const style: React.CSSProperties = {
-      ...getElementProps(props),
-      ...props.style,
-    };
-
     const Button = VARIANTS[variant];
 
     return (
@@ -60,7 +56,7 @@ const Button = forwardRef(
         {...props}
         ref={forwardedRef}
         onClick={handleClick}
-        style={style}
+        style={getStyleProps(props)}
       />
     );
   }

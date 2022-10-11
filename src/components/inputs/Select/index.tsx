@@ -11,10 +11,8 @@ import {
   InputOnchangeProperty,
   InputPlaceholderProperty,
   InputValueProperty,
-  SizeProps,
 } from "../../../types/props";
 import ArrowButton from "../../../components/common/ArrowButton";
-import { getSizeProps } from "../../../utilities/props";
 import useActive from "../../../hooks/useActive";
 import _ from "lodash";
 import * as Styled from "./style";
@@ -31,7 +29,7 @@ import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
 
 type Children = ReactElement<OptionProps>;
 
-interface SelectListProps extends SizeProps {
+interface SelectListProps {
   searchable?: boolean;
   showItemCount?: number;
   children?: Children | Array<Children>;
@@ -117,13 +115,12 @@ const Select = forwardRef(
       setActive(false);
     }, []);
 
-    const style: React.CSSProperties = {
-      ...getSizeProps(props),
-      ...props.style,
-    };
-
     return (
-      <Styled.Container ref={containerRef} active={active} style={style}>
+      <Styled.Container
+        ref={containerRef}
+        active={active}
+        style={{ ...props.style }}
+      >
         <input
           ref={forwardedRef}
           value={value}
