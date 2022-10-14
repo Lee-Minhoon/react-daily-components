@@ -4,19 +4,28 @@ import {
   TableSectionForwardedRef,
 } from "../../../../types/props";
 import * as Styled from "../style";
+import * as StyleProps from "../../../../types/props/style";
+import { getStyleProps } from "../../../../utilities/props";
 
-interface TableBodyProps extends TableSectionDefaultProps {}
+interface TableBodyProps
+  extends TableSectionDefaultProps,
+    StyleProps.CommonAbbrProps {}
 
 /**
  * Table Body Component
  */
 const TableBody = forwardRef(
-  (props: TableBodyProps, forwardedRef: TableSectionForwardedRef) => {
-    const style: React.CSSProperties = {
-      ...props.style,
-    };
-
-    return <Styled.TableBody {...props} ref={forwardedRef} style={style} />;
+  (
+    props: TableBodyProps & StyleProps.AllProperties,
+    forwardedRef: TableSectionForwardedRef
+  ) => {
+    return (
+      <Styled.TableBody
+        {...props}
+        ref={forwardedRef}
+        style={getStyleProps(props)}
+      />
+    );
   }
 );
 

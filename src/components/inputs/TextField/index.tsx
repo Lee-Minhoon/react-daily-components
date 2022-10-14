@@ -5,12 +5,13 @@ import {
   InputForwardedRef,
 } from "../../../types/props";
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 import React, { forwardRef, useCallback, useState } from "react";
 
 import _ from "lodash";
 import { getStyleProps } from "../../../utilities/props";
 
-interface TextFieldProps extends InputDefaultProps, AllAbbrProps {
+interface TextFieldProps extends InputDefaultProps, StyleProps.CommonAbbrProps {
   type?: "email" | "number" | "password" | "tel" | "text" | "url";
   label?: string;
   regex?: RegExp;
@@ -20,7 +21,10 @@ interface TextFieldProps extends InputDefaultProps, AllAbbrProps {
  * TextField Component
  */
 const TextField = forwardRef(
-  (props: TextFieldProps & AllProperties, forwardedRef: InputForwardedRef) => {
+  (
+    props: TextFieldProps & StyleProps.AllProperties,
+    forwardedRef: InputForwardedRef
+  ) => {
     const { label, regex } = props;
     const [active, setActive] = useState<boolean>(false);
 

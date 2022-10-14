@@ -4,7 +4,9 @@ import {
   QuoteDefaultProps,
   SpanDefaultProps,
 } from "../../../types/props";
+import { getStyleProps } from "../../../utilities/props";
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 
 const TAGS = {
   p: Styled.Paragraph,
@@ -25,7 +27,7 @@ type TextTagForwardedRef = ForwardedRef<
   HTMLParagraphElement & HTMLSpanElement & HTMLQuoteElement
 >;
 
-interface TextProps extends TextTagProps {
+interface TextProps extends TextTagProps, StyleProps.CommonAbbrProps {
   tag?: Tags;
 }
 
@@ -33,16 +35,15 @@ interface TextProps extends TextTagProps {
  * Text Component
  */
 const Text = forwardRef(
-  (props: TextProps, forwardedRef: TextTagForwardedRef) => {
+  (
+    props: TextProps & StyleProps.AllProperties,
+    forwardedRef: TextTagForwardedRef
+  ) => {
     const { tag = "span" } = props;
-
-    const style: React.CSSProperties = {
-      ...props.style,
-    };
 
     const Tag = TAGS[tag];
 
-    return <Tag {...props} ref={forwardedRef} style={style} />;
+    return <Tag {...props} ref={forwardedRef} style={getStyleProps(props)} />;
   }
 );
 

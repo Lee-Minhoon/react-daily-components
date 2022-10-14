@@ -4,19 +4,28 @@ import {
   TableRowForwardedRef,
 } from "../../../../types/props";
 import * as Styled from "../style";
+import * as StyleProps from "../../../../types/props/style";
+import { getStyleProps } from "../../../../utilities/props";
 
-interface TableRowProps extends TableRowDefaultProps {}
+interface TableRowProps
+  extends TableRowDefaultProps,
+    StyleProps.CommonAbbrProps {}
 
 /**
  * Table Row Component
  */
 const TableRow = forwardRef(
-  (props: TableRowProps, forwardedRef: TableRowForwardedRef) => {
-    const style: React.CSSProperties = {
-      ...props.style,
-    };
-
-    return <Styled.TableRow {...props} ref={forwardedRef} style={style} />;
+  (
+    props: TableRowProps & StyleProps.AllProperties,
+    forwardedRef: TableRowForwardedRef
+  ) => {
+    return (
+      <Styled.TableRow
+        {...props}
+        ref={forwardedRef}
+        style={getStyleProps(props)}
+      />
+    );
   }
 );
 

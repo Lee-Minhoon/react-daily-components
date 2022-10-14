@@ -11,12 +11,9 @@ import {
 import Button from "./components/inputs/Button";
 import TextField from "./components/inputs/TextField";
 import Modal from "./components/feedback/Modal";
-import View from "./components/display/View";
 import Text from "./components/display/Text";
-import Divider from "./components/layout/Divider";
 import Heading from "./components/display/Heading";
 import Option from "./components/inputs/Select/Option";
-import { DateTime } from "luxon";
 
 function App() {
   const [value, setValue] = useState<string>("");
@@ -134,9 +131,11 @@ function App() {
         <Text tag="p">df</Text>
         <Text tag="span">df</Text>
 
-        <Button variant="outlined" onClick={() => {}}>
-          {"Button"}
-        </Button>
+        <Flex d="column" style={{ backgroundColor: "red" }}>
+          <Button variant="contained" onClick={() => {}}>
+            {"Button"}
+          </Button>
+        </Flex>
         {isOpen && (
           <Modal
             title={"Auguries of Innocence"}

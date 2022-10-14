@@ -2,15 +2,22 @@ import { forwardRef } from "react";
 import { DivDefaultProps, DivForwardedRef } from "../../../types/props";
 import { getStyleProps } from "../../../utilities/props";
 import * as Styled from "./style";
-import { AllAbbrProps, AllProperties } from "../../../types/props/style";
+import * as StyleProps from "../../../types/props/style";
 
-export interface GridProps extends DivDefaultProps, AllAbbrProps {}
+export interface GridProps
+  extends DivDefaultProps,
+    StyleProps.CommonAbbrProps,
+    StyleProps.FlexGridAbbrProps,
+    StyleProps.GridAbbrProps {}
 
 /**
  * Grid Component
  */
 const Grid = forwardRef(
-  (props: GridProps & AllProperties, forwardedRef: DivForwardedRef) => {
+  (
+    props: GridProps & StyleProps.AllProperties,
+    forwardedRef: DivForwardedRef
+  ) => {
     return (
       <Styled.Grid {...props} ref={forwardedRef} style={getStyleProps(props)} />
     );

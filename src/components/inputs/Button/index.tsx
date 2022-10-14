@@ -2,13 +2,9 @@ import { useTheme } from "@emotion/react";
 import { forwardRef, MouseEvent, useCallback } from "react";
 import uesDebounce from "../../../hooks/useDebounce";
 import useThrottle from "../../../hooks/useThrottle";
-import {
-  AllAbbrProps,
-  AllProperties,
-  ButtonDefaultProps,
-  ButtonForwardedRef,
-} from "../../../types/props";
+import { ButtonDefaultProps, ButtonForwardedRef } from "../../../types/props";
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 import { rippleEffect } from "../../../utilities/css";
 import { getStyleProps } from "../../../utilities/props";
 
@@ -19,7 +15,9 @@ const VARIANTS = {
 } as const;
 type Variants = keyof typeof VARIANTS;
 
-export interface ButtonProps extends ButtonDefaultProps, AllAbbrProps {
+export interface ButtonProps
+  extends ButtonDefaultProps,
+    StyleProps.CommonAbbrProps {
   variant?: Variants;
   debounce?: number;
   throttle?: number;
@@ -29,7 +27,10 @@ export interface ButtonProps extends ButtonDefaultProps, AllAbbrProps {
  * Button Component
  */
 const Button = forwardRef(
-  (props: ButtonProps & AllProperties, forwardedRef: ButtonForwardedRef) => {
+  (
+    props: ButtonProps & StyleProps.AllProperties,
+    forwardedRef: ButtonForwardedRef
+  ) => {
     const theme = useTheme();
     const {
       onClick = () => {},

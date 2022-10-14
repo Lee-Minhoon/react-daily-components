@@ -1,12 +1,8 @@
 import { forwardRef } from "react";
-import {
-  HeadingDefaultProps,
-  HeadingForwardedRef,
-  AllAbbrProps,
-  AllProperties,
-} from "../../../types/props";
+import { HeadingDefaultProps, HeadingForwardedRef } from "../../../types/props";
 import { getStyleProps } from "../../../utilities/props";
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 
 const LEVEL = {
   1: Styled.H1,
@@ -18,7 +14,7 @@ const LEVEL = {
 } as const;
 type Level = keyof typeof LEVEL;
 
-interface HeadingProps extends HeadingDefaultProps, AllAbbrProps {
+interface HeadingProps extends HeadingDefaultProps, StyleProps.CommonAbbrProps {
   level?: Level;
 }
 
@@ -26,7 +22,10 @@ interface HeadingProps extends HeadingDefaultProps, AllAbbrProps {
  * Heading Component
  */
 const Heading = forwardRef(
-  (props: HeadingProps & AllProperties, forwardedRef: HeadingForwardedRef) => {
+  (
+    props: HeadingProps & StyleProps.AllProperties,
+    forwardedRef: HeadingForwardedRef
+  ) => {
     const { level = 1 } = props;
 
     const Heading = LEVEL[level];

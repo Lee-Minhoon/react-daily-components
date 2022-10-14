@@ -1,4 +1,5 @@
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 import React, { forwardRef, useCallback, useRef, useState } from "react";
 import { Date, getCalendarDate } from "../../../types/date";
 import _ from "lodash";
@@ -22,8 +23,9 @@ import {
   ListItemMouseEvent,
   ListItemOnClickProperty,
 } from "../../../types/props/tags/listItem";
+import { getStyleProps } from "../../../utilities/props";
 
-interface DatePickerProps {
+interface DatePickerProps extends StyleProps.CommonAbbrProps {
   weekdays?: Array<string>;
   mondayFirst?: boolean;
   weekendColor?: boolean;
@@ -41,7 +43,10 @@ interface DatePickerProps {
 }
 
 const DatePicker = forwardRef(
-  (props: DatePickerProps, forwardedRef: InputForwardedRef) => {
+  (
+    props: DatePickerProps & StyleProps.AllProperties,
+    forwardedRef: InputForwardedRef
+  ) => {
     const {
       weekdays,
       mondayFirst = true,
@@ -115,12 +120,12 @@ const DatePicker = forwardRef(
       dispatchChange(containerRef, value);
     }, []);
 
-    const style: React.CSSProperties = {
-      ...props.style,
-    };
-
     return (
-      <Styled.Container ref={containerRef} active={active} style={style}>
+      <Styled.Container
+        ref={containerRef}
+        active={active}
+        style={getStyleProps(props)}
+      >
         <input
           ref={forwardedRef}
           value={value}

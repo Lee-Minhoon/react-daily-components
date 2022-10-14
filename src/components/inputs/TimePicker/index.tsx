@@ -1,4 +1,5 @@
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 import React, {
   forwardRef,
   useCallback,
@@ -27,8 +28,9 @@ import { replaceAt } from "../../../utilities/string";
 import _ from "lodash";
 import { ListItemMouseEvent } from "../../../types/props/tags/listItem";
 import useCursor from "../../../hooks/useCursor";
+import { getStyleProps } from "../../../utilities/props";
 
-interface TimePickerProps {
+interface TimePickerProps extends StyleProps.CommonAbbrProps {
   show24Hour?: boolean;
   showSeconds?: boolean;
   showItemCount?: number;
@@ -44,7 +46,10 @@ interface TimePickerProps {
 }
 
 const TimePicker = forwardRef(
-  (props: TimePickerProps, forwardedRef: InputForwardedRef) => {
+  (
+    props: TimePickerProps & StyleProps.AllProperties,
+    forwardedRef: InputForwardedRef
+  ) => {
     const {
       show24Hour = false,
       showSeconds = false,
@@ -169,7 +174,11 @@ const TimePicker = forwardRef(
     };
 
     return (
-      <Styled.Container ref={containerRef} active={active} style={style}>
+      <Styled.Container
+        ref={containerRef}
+        active={active}
+        style={getStyleProps(props)}
+      >
         <input
           ref={forwardedRef}
           value={value}

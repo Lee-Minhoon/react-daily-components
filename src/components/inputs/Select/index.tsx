@@ -16,6 +16,7 @@ import ArrowButton from "../../../components/common/ArrowButton";
 import useActive from "../../../hooks/useActive";
 import _ from "lodash";
 import * as Styled from "./style";
+import * as StyleProps from "../../../types/props/style";
 import { OptionProps } from "./Option";
 import {
   InputChangeEvent,
@@ -26,10 +27,11 @@ import {
 } from "../../../types/props/tags/input";
 import { dispatchChange } from "../../../utilities/event";
 import useSetScrollPosition from "../../../hooks/useSetScrollPosition";
+import { getStyleProps } from "../../../utilities/props";
 
 type Children = ReactElement<OptionProps>;
 
-interface SelectListProps {
+interface SelectListProps extends StyleProps.CommonAbbrProps {
   searchable?: boolean;
   showItemCount?: number;
   children?: Children | Array<Children>;
@@ -44,7 +46,10 @@ interface SelectListProps {
 }
 
 const Select = forwardRef(
-  (props: SelectListProps, forwardedRef: InputForwardedRef) => {
+  (
+    props: SelectListProps & StyleProps.AllProperties,
+    forwardedRef: InputForwardedRef
+  ) => {
     const {
       searchable = false,
       showItemCount = 8,
@@ -119,7 +124,7 @@ const Select = forwardRef(
       <Styled.Container
         ref={containerRef}
         active={active}
-        style={{ ...props.style }}
+        style={getStyleProps(props)}
       >
         <input
           ref={forwardedRef}
