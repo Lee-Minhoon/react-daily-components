@@ -1,4 +1,5 @@
 import React from "react";
+import { keyOf } from "../types/common";
 import {
   AllProperties,
   AllAbbrProps,
@@ -12,7 +13,9 @@ interface GetStyleProps extends AllProperties, AllAbbrProps {
 export const getStyleProps = (props: GetStyleProps): React.CSSProperties => {
   const abbrProps: any = {};
   Object.entries(ALL_ABBR_PROPS).map(([k, v]) => {
-    abbrProps[v] = props[v] ?? props[k as keyOf<typeof ALL_ABBR_PROPS>];
+    if (props[v] || props[k as keyOf<typeof ALL_ABBR_PROPS>]) {
+      abbrProps[v] = props[v] ?? props[k as keyOf<typeof ALL_ABBR_PROPS>];
+    }
   });
   return { ...abbrProps, ...props, ...props.style };
 };

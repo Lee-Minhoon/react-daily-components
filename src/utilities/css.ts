@@ -1,23 +1,16 @@
 import { MouseEvent } from "react";
 import { Theme } from "@emotion/react";
 
-interface Props {
-  theme: Theme;
-  active?: boolean;
-}
-
-export const getColorByStatus = (props: Props) => {
-  return props.active ? getPrimaryColor(props) : getDefaultColor(props);
+export const getColorByStatus = (active: boolean, theme: Theme) => {
+  return active ? getPrimaryColor(theme) : getDefaultColor(theme);
 };
 
-export const getPrimaryColor = (props: Props | Theme) => {
-  if ("primaryColor" in props) return props.primaryColor ?? "gray";
-  return props.theme.primaryColor ?? "gray";
+export const getPrimaryColor = (theme: Theme) => {
+  return theme?.primaryColor ?? "gray";
 };
 
-export const getDefaultColor = (props: Props | Theme) => {
-  if ("defaultColor" in props) return props.defaultColor ?? "gray";
-  return props.theme.defaultColor ?? "gray";
+export const getDefaultColor = (theme: Theme) => {
+  return theme?.defaultColor ?? "gray";
 };
 
 /**
@@ -40,6 +33,10 @@ export const rippleEffect = (
   container.style.borderRadius = "inherit";
   container.classList.add("container");
 
+  console.log(event.nativeEvent.offsetY);
+  console.log(event.nativeEvent.offsetX);
+  console.log(event);
+
   // create circle
   const circle = document.createElement("span");
   const diameter = Math.max(button.clientWidth, button.clientHeight);
@@ -47,7 +44,9 @@ export const rippleEffect = (
   circle.style.width = circle.style.height = `${diameter}px`;
   circle.style.top = `${event.nativeEvent.offsetY - radius}px`;
   circle.style.left = `${event.nativeEvent.offsetX - radius}px`;
-  circle.style.backgroundColor = primary ? getPrimaryColor(theme) : "#fff";
+  circle.style.backgroundColor = primary
+    ? getPrimaryColor(theme)
+    : "rgba(255, 255, 255, 0.5)";
   circle.style.opacity = primary ? "0.3" : "1";
   circle.classList.add("ripple");
 

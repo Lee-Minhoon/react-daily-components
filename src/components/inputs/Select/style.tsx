@@ -5,6 +5,7 @@ import { InputEllipsisBase } from "../../base/InputBase";
 import { ListBase } from "../../../components/base/ListBase";
 import type { Property } from "csstype";
 import EffectedItem from "../../common/EffectedItem";
+import { getDefaultColor } from "../../../utilities/css";
 
 export const Container = styled(ContainerBase)``;
 
@@ -16,7 +17,7 @@ export interface ListStyleProps {
 }
 
 export const List = styled(ListBase)<ListStyleProps>`
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
+  color: ${({ theme }) => getDefaultColor(theme)};
   max-height: ${({ itemHeight, showItemCount }) =>
     `calc(${itemHeight} * ${showItemCount})`};
   overflow-y: auto;

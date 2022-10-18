@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { getDefaultColor } from "../../../utilities/css";
 
 interface PaginationStyleProps {
   activate?: boolean;
@@ -37,7 +38,7 @@ export const Svg = styled.svg<PaginationStyleProps>`
 export const PageItem = styled.li<PaginationStyleProps>`
   cursor: ${({ activate }) => (activate ? `pointer` : "initial")};
   width: 1em;
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
+  color: ${({ theme }) => getDefaultColor(theme)};
   font-weight: ${({ activate }) => (!activate ? "bold" : "initial")};
   opacity: ${({ activate }) => (!activate ? "initial" : 0.5)};
   &:hover {

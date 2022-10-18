@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { ELLIPSIS } from "../../../constants/css";
+import { getDefaultColor } from "../../../utilities/css";
 
 export const InputBase = styled.input`
   flex: 1;
@@ -12,7 +13,7 @@ export const InputBase = styled.input`
   border-radius: 4px;
 
   font-size: 1rem;
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
+  color: ${({ theme }) => getDefaultColor(theme)};
 
   border: none;
   outline: none;

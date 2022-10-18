@@ -14,7 +14,8 @@
     "resolveJsonModule": true, // 확장자가 json인 모듈의 import 허용 여부
     "isolatedModules": true, // 모든 파일을 모듈화하여 작성할 것인지
     "noEmit": true, // TypeScript를 단순 타입 확인용으로 쓸 것인지 여부
-    "jsx": "react-jsx" // JSX코드를 어떻게 컴파일 할 것인지
+    "jsx": "react-jsx", // JSX코드를 어떻게 컴파일 할 것인지
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src"], // 포함할 파일들
   "references": [{ "path": "./tsconfig.node.json" }]

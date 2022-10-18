@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import { useCallback, useRef, useState } from "react";
 import {
   DatePicker,
@@ -35,7 +35,14 @@ function App() {
 
   return (
     <ThemeProvider theme={{ primaryColor: "blue", outlineColor: "green" }}>
-      <Flex width={"500px"} style={{ padding: "20px" }} fd={"column"}>
+      <Flex
+        width={"500px"}
+        style={{ padding: "20px", background: "blue" }}
+        fd={"column"}
+        css={css`
+          width: 600px;
+        `}
+      >
         <Select
           ref={ref}
           value={value}
@@ -131,11 +138,15 @@ function App() {
         <Text tag="p">df</Text>
         <Text tag="span">df</Text>
 
-        <Flex d="column" style={{ backgroundColor: "red" }}>
-          <Button variant="contained" onClick={() => {}}>
-            {"Button"}
-          </Button>
-        </Flex>
+        <Button variant="contained" onClick={() => {}}>
+          {"Button"}
+        </Button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         {isOpen && (
           <Modal
             title={"Auguries of Innocence"}

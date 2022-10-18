@@ -14,7 +14,6 @@ body {
 div.container {
   position: absolute;
   overflow: hidden;
-  z-index: -1;
   top: 0;
   left: 0;
 }
@@ -23,7 +22,8 @@ span.ripple {
   position: absolute;
   border-radius: 50%;
   transform: scale(0);
-  animation: ripple 600ms linear;
+  animation: ripple 900ms linear;
+  pointer-events: none;
 }
 
 @keyframes ripple {

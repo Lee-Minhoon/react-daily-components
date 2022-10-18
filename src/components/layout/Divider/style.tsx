@@ -19,6 +19,6 @@ export const Label = styled.span`
   left: 50%;
   padding: 0 5px;
   transform: translateX(-50%);
-  color: ${(props) => getDefaultColor(props)};
+  color: ${({ theme }) => getDefaultColor(theme)};
   background-color: white;
 `;

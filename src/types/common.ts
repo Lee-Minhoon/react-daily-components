@@ -1,2 +1,2 @@
-type keyOf<T> = keyof T;
-type valueOf<T> = T[keyof T];
+export type keyOf<T> = keyof T;
+export type valueOf<T> = T[keyof T];

@@ -31,7 +31,7 @@ export const Input = styled(InputBase)`
   &:focus + label {
     font-size: 0.8rem;
     top: 0%;
-    color: ${(props) => getPrimaryColor(props)};
+    color: ${({ theme }) => getPrimaryColor(theme)};
   }
 `;
 
@@ -41,8 +41,9 @@ export const Label = styled.label`
   left: 5px;
   padding: 0 5px;
   top: 50%;
-  color: ${(props) => getDefaultColor(props)};
+  color: ${({ theme }) => getDefaultColor(theme)};
   background-color: white;
+  border-radius: 4px;
   transform: translateY(-50%);
   transition: top ${TRANSITION_FAST}s linear,
     font-size ${TRANSITION_FAST}s linear, color ${TRANSITION_FAST}s linear;

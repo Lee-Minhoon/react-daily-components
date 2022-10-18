@@ -1,6 +1,7 @@
 import * as Styled from "../style";
 import _ from "lodash";
 import { useTheme } from "@emotion/react";
+import { getDefaultColor } from "../../../../utilities/css";
 
 export const WEEKDAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
@@ -29,7 +30,7 @@ const Weekdays = (props: WeekdaysProps) => {
       {weekdays.map((item, index) => {
         const saturday = mondayFirst ? index === 5 : index === 6;
         const sunday = mondayFirst ? index === 6 : index === 0;
-        let color = theme.defaultColor ?? "gray";
+        let color = getDefaultColor(theme);
         if (saturday && weekendColor) color = "rgba(0, 0, 255, 0.5)";
         if (sunday && weekendColor) color = "rgba(255, 0, 0, 0.5)";
         return (

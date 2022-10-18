@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { getDefaultColor } from "../../../utilities/css";
 
 export const Button = styled.button`
   width: 20px;
@@ -13,6 +14,6 @@ export const Button = styled.button`
 
 export const Svg = styled.svg`
   display: block;
-  stroke: ${(props) => props.theme.defaultColor ?? "gray"};
+  stroke: ${({ theme }) => getDefaultColor(theme)};
   stroke-width: 1px;
 `;

@@ -9,7 +9,7 @@ export interface ItemBaseStyleProps {
 export const ItemBase = styled.li<ItemBaseStyleProps>`
   position: relative;
   cursor: pointer;
-  color: ${(props) => getColorByStatus(props)};
+  color: ${({ active, theme }) => getColorByStatus(active, theme)};
   height: 35px;
   line-height: 35px;
   padding: 0 10px;

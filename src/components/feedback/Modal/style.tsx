@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { ContainerPropsDeprecated } from "../../../types/props";
+import { getDefaultColor } from "../../../utilities/css";
 
 export interface ModalStyleProps extends ContainerPropsDeprecated {}
 
@@ -7,9 +8,9 @@ export const Container = styled.div<ModalStyleProps>`
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
   background-color: white;
-  outline: ${({ theme }) => theme.defaultColor ?? "gray"};
+  outline: ${({ theme }) => getDefaultColor(theme)};
   border-radius: 4px;
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
+  color: ${({ theme }) => getDefaultColor(theme)};
 `;
 
 export const Header = styled.div<ModalStyleProps>`

@@ -1,4 +1,5 @@
 import type { Properties, StandardLonghandProperties } from "csstype";
+import { keyOf } from "../../common";
 
 export interface SizePropsDeprecated {
   width?: number;
@@ -46,6 +47,8 @@ export type LayoutAbbrProps = {
  * Abbreviation Style Property Types of Flex & Grid
  */
 export const FLEX_GRID_ABBR_PROPS = {
+  ai: "alignItems",
+  jc: "justifyContent",
   rg: "rowGap",
   cg: "columnGap",
 } as const;
@@ -61,8 +64,6 @@ export type FlexGridAbbrProps = {
 export const FLEX_ABBR_PROPS = {
   fd: "flexDirection",
   ac: "alignContent",
-  ai: "alignItems",
-  jc: "justifyContent",
   fw: "flexWrap",
 } as const;
 export type FlexAbbrProps = {
@@ -181,8 +182,12 @@ export type BackgroundAbbrProps = {
  */
 export const BORDER_ABBR_PROPS = {
   b: "border",
+  bt: "borderTop",
+  br: "borderRight",
+  bb: "borderBottom",
+  bl: "borderLeft",
   o: "outline",
-  br: "borderRadius",
+  radius: "borderRadius",
 } as const;
 export type BorderAbbrProps = {
   [key in keyOf<

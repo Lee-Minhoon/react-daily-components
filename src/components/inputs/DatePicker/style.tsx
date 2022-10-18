@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { getDefaultColor } from "../../../utilities/css";
 import { ContainerBase } from "../../base/ContainerBase";
 import { InputBase } from "../../base/InputBase";
 import { ListBase } from "../../base/ListBase";
@@ -14,7 +15,7 @@ export const ListContainer = styled(ListBase)`
 `;
 
 export const Month = styled.div`
-  color: ${({ theme }) => theme.defaultColor ?? "gray"};
+  color: ${({ theme }) => getDefaultColor(theme)};
   display: flex;
   align-items: center;
   justify-content: center;
