@@ -1,6 +1,6 @@
 {
   "name": "react-daily-components",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "react-daily-components",
   "module": "./lib/esm/index.js",
   "main": "./lib/cjs/index.js",

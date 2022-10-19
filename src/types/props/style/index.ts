@@ -31,10 +31,10 @@ export type AllLonghandProperties = {
  * Abbreviation Style Property Types of Layout
  */
 export const LAYOUT_ABBR_PROPS = {
-  d: "display",
-  of: "overflow",
-  ps: "position",
-  v: "visibility",
+  dis: "display",
+  ovf: "overflow",
+  pos: "position",
+  vis: "visibility",
   z: "zIndex",
 } as const;
 export type LayoutAbbrProps = {
@@ -115,11 +115,11 @@ export type SpacingAbbrProps = {
  */
 export const SIZING_ABBR_PROPS = {
   w: "width",
-  minW: "minWidth",
-  maxW: "maxWidth",
+  minw: "minWidth",
+  maxw: "maxWidth",
   h: "height",
-  minH: "minHeight",
-  maxH: "maxHeight",
+  minh: "minHeight",
+  maxh: "maxHeight",
 } as const;
 export type SizingAbbrProps = {
   [key in keyOf<
@@ -140,7 +140,7 @@ export const FONT_ABBR_PROPS = {
   fv: "fontVariant",
   lh: "lineHeight",
   ta: "textAlign",
-  tof: "textOverflow",
+  tovf: "textOverflow",
   td: "textDecoration",
   ws: "whiteSpace",
 } as const;
@@ -186,7 +186,7 @@ export const BORDER_ABBR_PROPS = {
   br: "borderRight",
   bb: "borderBottom",
   bl: "borderLeft",
-  o: "outline",
+  otl: "outline",
   radius: "borderRadius",
 } as const;
 export type BorderAbbrProps = {
@@ -199,7 +199,7 @@ export type BorderAbbrProps = {
  * Abbreviation Style Property Types of Effects
  */
 export const EFFECT_ABBR_PROPS = {
-  bs: "boxShadow",
+  shadow: "boxShadow",
 } as const;
 export type EffectAbbrProps = {
   [key in keyOf<

@@ -22,7 +22,7 @@ span.ripple {
   position: absolute;
   border-radius: 50%;
   transform: scale(0);
-  animation: ripple 900ms linear;
+  animation: ripple 600ms linear;
   pointer-events: none;
 }
 
